@@ -1,0 +1,46 @@
+body{
+    min-height: 100vh;
+    background-color: #038498;
+
+    main{
+
+        input{
+            width: 100%;
+            height: 35px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            font-size: 16px;
+            padding-inline: 5px;
+
+            &:focus-visible{
+                outline: black solid 1px;
+            }
+        }
+
+        label{
+            margin-bottom: 2px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 27px;
+        }
+
+        .loginForm{
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            padding: 20px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            h2{
+                margin-bottom: 10px;
+                text-align: center;
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 60px;
+                letter-spacing: 2px;
+            }
+        }
+    }
+}
