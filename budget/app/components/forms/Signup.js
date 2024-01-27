@@ -19,6 +19,7 @@ const Signup = (props) => {
             <input type="text" />
             <label>Password</label>
             <input type="password" />
+            <button>Submit</button>
         </form>
         <p onClick={onClickHandler}>Back to Login</p>
         </div>
