@@ -1,0 +1,10 @@
+@keyframes login-slide {
+    from{ 
+        top: 100%;
+        transform: translate(-50%, 0);
+    }
+    to{
+        top: 50%;
+        transform: translate(-50%, 0);
+    }
+}
