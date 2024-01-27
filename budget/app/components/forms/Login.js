@@ -1,14 +1,22 @@
 
 
-const Login = ()=>{
+const Login = (props)=>{
+
+    const onClickHandler = ()=>{
+        props.signUp(true);
+    }
+
     return(
-        <form className="loginForm">
-            <h2>Login</h2>
-            <label>Username</label>
-            <input type="text"  />
-            <label>Password</label>
-            <input type="password"  />
-        </form>
+        <div className="login-form-container">
+            <form className="loginForm">
+                <h2>Login</h2>
+                <label>Username</label>
+                <input type="text"  />
+                <label>Password</label>
+                <input type="password"  />
+            </form>
+            <p onClick={onClickHandler}>Need to Sign Up?</p>
+        </div>
     )
 }
 

@@ -1,5 +1,12 @@
-const Signup = () => {
+const Signup = (props) => {
+
+    const onClickHandler = ()=>{
+        props.signUp(false);
+    }
+    
     return (
+
+        <div className="login-form-container">
         <form className="loginForm">
             <h2>Signup</h2>
             <label>First Name</label>
@@ -13,6 +20,8 @@ const Signup = () => {
             <label>Password</label>
             <input type="password" />
         </form>
+        <p onClick={onClickHandler}>Back to Login</p>
+        </div>
     )
 }
 

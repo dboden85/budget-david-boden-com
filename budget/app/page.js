@@ -10,8 +10,8 @@ export default function Home() {
   const [toSignUp, setToSignUp] = useState(false);
   return (
     <main>
-      {/* <Login /> */}
-      <Signup />
+      {!toSignUp && <Login signUp={setToSignUp}/>}
+      {toSignUp && <Signup signUp={setToSignUp}/>}
     </main>
   );
 }
