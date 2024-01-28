@@ -11,7 +11,7 @@ export default function Home() {
   const [toSignUp, setToSignUp] = useState(false);
   return (
     <>
-      <Header title="Budget Planner"/>
+      <Header title="Budget"/>
       <main>
         {!toSignUp && <Login signUp={setToSignUp}/>}
         {toSignUp && <Signup signUp={setToSignUp}/>}
