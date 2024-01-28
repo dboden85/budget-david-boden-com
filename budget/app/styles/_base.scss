@@ -2,6 +2,19 @@ body {
     min-height: 100vh;
     background-image: linear-gradient(to bottom, #038498, 70%, #fff);
 
+    .header{
+        width: 100%;
+        height: auto;
+        padding : 10px;
+
+        h1{
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 50px;
+            // letter-spacing: 2px;
+            color: #183e44;
+        }
+    }
+
     main {
 
         input {

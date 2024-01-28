@@ -5,13 +5,17 @@ import './style.scss';
 import Login from './components/login/Login';
 import React, { useState } from "react";
 import Signup from "./components/login/Signup";
+import Header from "./components/UI/Header";
 
 export default function Home() {
   const [toSignUp, setToSignUp] = useState(false);
   return (
-    <main>
-      {!toSignUp && <Login signUp={setToSignUp}/>}
-      {toSignUp && <Signup signUp={setToSignUp}/>}
-    </main>
+    <>
+      <Header title="Budget Planner"/>
+      <main>
+        {!toSignUp && <Login signUp={setToSignUp}/>}
+        {toSignUp && <Signup signUp={setToSignUp}/>}
+      </main>
+    </>
   );
 }
