@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import './style.scss';
-import Login from './components/forms/Login';
+import Login from './components/login/Login';
 import React, { useState } from "react";
-import Signup from "./components/forms/Signup";
+import Signup from "./components/login/Signup";
 
 export default function Home() {
   const [toSignUp, setToSignUp] = useState(false);
