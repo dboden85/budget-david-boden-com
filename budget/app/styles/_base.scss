@@ -2,13 +2,17 @@ body {
     min-height: 100vh;
     background-image: linear-gradient(to bottom, #038498, 70%, #fff);
 
+    h1,h2,h3,h4,h5, h6{
+        font-family: 'Bebas Neue', sans-serif;
+        color: #183e44;
+    }
+
     .header{
         width: 100%;
         height: auto;
         padding : 10px;
 
         h1{
-            font-family: 'Bebas Neue', sans-serif;
             font-size: 50px;
             // letter-spacing: 2px;
             color: #183e44;
@@ -16,6 +20,13 @@ body {
     }
 
     main {
+
+        padding: 20px;
+
+        h2{
+            font-size: 30px;
+            margin-top: 30px;
+        }
 
         input {
             width: 100%;
@@ -66,7 +77,6 @@ body {
                 h2 {
                     margin-bottom: 10px;
                     text-align: center;
-                    font-family: 'Bebas Neue', sans-serif;
                     font-size: 60px;
                     letter-spacing: 2px;
                     color: #183e44;
@@ -85,6 +95,19 @@ body {
                     font-size: 20px;
                     letter-spacing: 2px;
                 }
+            }
+        }
+
+        .card{
+            width: 100%;
+            background-color: #183e44;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+
+            p{
+                color: #fff;
+                text-align: center;
             }
         }
 

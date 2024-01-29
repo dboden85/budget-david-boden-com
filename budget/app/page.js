@@ -1,14 +1,21 @@
 "use client"; // This is a client component
 
 import Image from "next/image";
-import './style.scss';
 import Login from './components/login/Login';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Signup from "./components/login/Signup";
 import Header from "./components/UI/Header";
 
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [toSignUp, setToSignUp] = useState(false);
+
+  useEffect(()=>{
+    if(isLoggedIn){
+      location.href = '/dashboard';
+    }
+  }, [])
+
   return (
     <>
       <Header title="Budget"/>
