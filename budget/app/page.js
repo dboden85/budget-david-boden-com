@@ -7,7 +7,7 @@ import Signup from "./components/login/Signup";
 import Header from "./components/UI/Header";
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [toSignUp, setToSignUp] = useState(false);
 
   useEffect(()=>{
