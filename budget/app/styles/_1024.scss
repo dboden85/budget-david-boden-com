@@ -3,6 +3,21 @@ body{
     main{
         .budget-info{
             height: 500px;
+
+
+            .card{
+                .info{
+
+                    .infoTitle{
+                        font-size: 20px;
+                    }
+    
+                    .amnt{
+                        font-size: 30px;
+                    }
+                }
+
+            }
         }
     }
 }
