@@ -1,7 +1,7 @@
 body {
     min-height: 100vh;
     // background-image: linear-gradient(to bottom, #534741, 70%, #79a471);
-    background-color: #e7ebd4;
+    background-color: #fff;
 
     h1,h2,h3,h4,h5, h6{
         font-family: "Bebas Neue", sans-serif;
@@ -12,11 +12,7 @@ body {
         width: 100%;
         height: auto;
         padding : 10px;
-        background-color: #534741;
-
-        &.login-header{
-            background-color: #183e44;
-        }
+        background-color: #183e44;
 
         h1{
             font-size: 50px;
@@ -64,6 +60,9 @@ body {
             top: 50%;
             transform: translate(-50%, -50%);
             animation: login-slide .3s ease-out;
+            background-color: #e7ebd4;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px #333;
 
             p{
                 text-decoration: underline;
@@ -109,7 +108,7 @@ body {
             // background-color: black;
             border-radius: 10px;
             // border: 1px solid #e7ebd4;
-            // box-shadow: 1px 1px 10px #695649;
+            box-shadow: 1px 1px 10px #333;
             padding: 15px 0;
             margin-bottom: 10px;
 
@@ -123,8 +122,8 @@ body {
         .row{
             display: flex;
             flex-direction: column;
-            background-color: #183e44;
-            padding: 30px;
+            // background-color: #183e44;
+            padding: 10px;
             margin-bottom: 50px;
 
             &:last-child{
@@ -133,6 +132,16 @@ body {
 
             &.budget-info{
                 background-color: initial;
+            }
+
+            .card{
+                padding: 10px;
+                margin-right: 10px;
+                height: 100%;
+
+                &:last-child{
+                    margin: 0;
+                }
             }
 
             h2{
@@ -150,13 +159,15 @@ body {
                     align-items: center;
                     width: 100%;
                     padding: 10px 20px;
-                    background-color: #695649;
-                    // border: 1px solid #a6cc70;
-                    border-radius: 30px;
+                    // background-color: #e7ebd4;
+                    // // border: 1px solid #a6cc70;
+                    // border-radius: 30px;
+                    border-bottom: 1px solid #e7ebd4;
                     margin-bottom: 10px;
 
                     &:last-child{
                         margin: 0;
+                        border: none;
                     }
 
                     .title{
