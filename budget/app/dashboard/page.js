@@ -12,7 +12,7 @@ export default function Dashboard() {
                         <img src="../dollar.svg" />
                     </div>
                     <div className="info">
-                        <p className="infoTitle">Expected Paycheck Amount</p>
+                        <p className="infoTitle">Paycheck Amount</p>
                         <p className="amnt">$600</p>
                     </div>
                 </Card>
@@ -21,7 +21,7 @@ export default function Dashboard() {
                         <img src="../calendar-check.svg" />
                     </div>
                     <div className="info">
-                        <p className="infoTitle">Expected Monthly Take Home</p>
+                        <p className="infoTitle">Monthly Take Home</p>
                         <p className="amnt">$2400</p>
                     </div>
                 </Card>

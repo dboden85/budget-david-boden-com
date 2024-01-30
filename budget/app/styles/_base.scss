@@ -1,7 +1,7 @@
 body {
     min-height: 100vh;
     // background-image: linear-gradient(to bottom, #534741, 70%, #79a471);
-    background-color: #fff;
+    background-color: #000;
 
     h1,h2,h3,h4,h5, h6{
         font-family: "Bebas Neue", sans-serif;
@@ -124,14 +124,9 @@ body {
             flex-direction: column;
             // background-color: #183e44;
             padding: 10px;
-            margin-bottom: 50px;
 
             &:last-child{
                 margin-bottom: 0;
-            }
-
-            &.budget-info{
-                background-color: initial;
             }
 
             .card{
@@ -186,15 +181,23 @@ body {
         }
 
         .budget-info{
+            height: 500px;
+            background-color: #000;
+            background-image: url('/savings-bg.jpg');
+            background-size: cover;
+            background-position: center center;
+            justify-content: center;
 
             .card{
                 display: flex;
+                background-color: rgba(24, 62, 68, 0.92);
+                height: 80px;
 
                 .icon-container{
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 25%;
+                    width: 20%;
                     border-right: 1px solid #a6cc70;
 
                     img{
@@ -218,8 +221,7 @@ body {
                         color: #a6cc70;
                         font-family: 'Bebas Neue', sans-serif;
                         font-weight: bold;
-                        font-size: 40px;
-                        padding-top: 15px;
+                        font-size: 30px;
                         text-align: center;
                     }
                 }

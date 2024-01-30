@@ -8,11 +8,40 @@ body{
 
         .budget-info{
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 10px;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 5px;
+            height: 360px;
+            background-position: top;
+            align-items: start;
+            padding-bottom: 30px;
 
             .card{
                 margin: 0;
+                max-height: 100px;
+                padding: 5px;
+
+                .icon-container{
+                    width: 30%;
+
+                    img{
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .info{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .infoTitle{
+                        font-size: 15px;
+                    }
+
+                    .amnt{
+                        font-size: 25px;
+                    }
+                }
             }
         }
     }
