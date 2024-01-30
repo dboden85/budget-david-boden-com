@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <Header title="Budget"/>
+      <Header title="Budget" cls="login-header"/>
       <main>
         {!toSignUp && <Login signUp={setToSignUp}/>}
         {toSignUp && <Signup signUp={setToSignUp}/>}

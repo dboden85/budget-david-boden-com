@@ -1,9 +1,10 @@
 body {
     min-height: 100vh;
-    background-image: linear-gradient(to bottom, #038498, 70%, #fff);
+    // background-image: linear-gradient(to bottom, #534741, 70%, #79a471);
+    background-color: #e7ebd4;
 
     h1,h2,h3,h4,h5, h6{
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: "Bebas Neue", sans-serif;
         color: #183e44;
     }
 
@@ -11,21 +12,24 @@ body {
         width: 100%;
         height: auto;
         padding : 10px;
+        background-color: #534741;
+
+        &.login-header{
+            background-color: #183e44;
+        }
 
         h1{
             font-size: 50px;
+            color: #fff;
             // letter-spacing: 2px;
-            color: #183e44;
         }
     }
 
     main {
 
-        padding: 20px;
-
         h2{
-            font-size: 30px;
-            margin-top: 30px;
+            font-size: 33px;
+            margin-bottom: 15px;
         }
 
         input {
@@ -34,9 +38,10 @@ body {
             border-radius: 5px;
             border: none;
             margin-bottom: 10px;
-            font-size: 16px;
+            font-size: 20px;
             padding-inline: 5px;
             background-color: #fff;
+            color: #000;
 
             &:focus-visible {
                 outline: black solid 1px;
@@ -62,7 +67,7 @@ body {
 
             p{
                 text-decoration: underline;
-                color: #fff;
+                color: #183e44;
 
                 &:hover{
                     cursor: pointer;
@@ -101,13 +106,112 @@ body {
         .card{
             width: 100%;
             background-color: #183e44;
+            // background-color: black;
             border-radius: 10px;
-            padding: 15px;
+            // border: 1px solid #e7ebd4;
+            // box-shadow: 1px 1px 10px #695649;
+            padding: 15px 0;
             margin-bottom: 10px;
 
             p{
                 color: #fff;
+            }
+
+
+        }
+
+        .row{
+            display: flex;
+            flex-direction: column;
+            background-color: #183e44;
+            padding: 30px;
+            margin-bottom: 50px;
+
+            &:last-child{
+                margin-bottom: 0;
+            }
+
+            &.budget-info{
+                background-color: initial;
+            }
+
+            h2{
+                color: #fff;
                 text-align: center;
+            }
+
+
+            ul{
+                list-style-type: none;
+
+                li{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    padding: 10px 20px;
+                    background-color: #695649;
+                    // border: 1px solid #a6cc70;
+                    border-radius: 30px;
+                    margin-bottom: 10px;
+
+                    &:last-child{
+                        margin: 0;
+                    }
+
+                    .title{
+                        font-size: 25px;
+                        font-family: 'Architects Daughter', cursive;
+                    }
+
+                    .amount{
+                        color: #a6cc70;
+                        font-family: "Bebas Neue", sans-serif;
+                        font-weight: bold;
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+
+        .budget-info{
+
+            .card{
+                display: flex;
+
+                .icon-container{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 25%;
+                    border-right: 1px solid #a6cc70;
+
+                    img{
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+
+                .info{
+                    flex-grow: 1;
+
+                    .infoTitle{
+                        font-family: "Bebas Neue", sans-serif;
+                        font-weight: bold;
+                        font-size: 22px;
+                        letter-spacing: 1px;
+                        text-align: center;
+                    }
+        
+                    .amnt{
+                        color: #a6cc70;
+                        font-family: 'Bebas Neue', sans-serif;
+                        font-weight: bold;
+                        font-size: 40px;
+                        padding-top: 15px;
+                        text-align: center;
+                    }
+                }
             }
         }
 
