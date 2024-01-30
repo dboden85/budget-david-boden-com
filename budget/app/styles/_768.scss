@@ -4,7 +4,13 @@ body{
 
         .row{
             flex-direction: row;
+
+
+            h2{
+                text-align: left;
+            }
         }
+
 
         .budget-info{
             display: grid;
