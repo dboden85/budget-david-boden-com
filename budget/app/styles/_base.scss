@@ -43,14 +43,14 @@ body {
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #183e44;
+            background-color: #000;
             z-index: 3;
             animation: menu-slide .5s ease;
 
             h2{
                 font-family: "Bebas Neue", sans-serif;
                 letter-spacing: 1px;
-                font-size: 45px;
+                font-size: 50px;
                 color: #fff;
                 padding: 20px;
             }
@@ -58,12 +58,15 @@ body {
             .nav-menu{
                 list-style-type: none;
                 padding: 30px;
+                width: 100%;
+                max-width: max-content;
+                margin: auto;
 
                 .nav-item{
                     font-family: "Bebas Neue", sans-serif;
-                    font-size: 35px;
+                    font-size: 40px;
                     margin-bottom: 30px;
-                    text-align: right;
+                    // text-align: right;
                     color: #fff;
                 }
             }
