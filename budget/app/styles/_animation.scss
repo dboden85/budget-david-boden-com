@@ -11,10 +11,10 @@
 
 @keyframes menu-slide {
     from{
-        left: 100%;
+        transform: translate(100%);
     }
 
     to{
-        left: 0;
+        transform: translate(0);
     }
 }

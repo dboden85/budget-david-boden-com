@@ -7,6 +7,7 @@ export default function Dashboard() {
         <Header title="Dashboard"/>
         <main>
             <div className="row budget-info">
+                <div className="overlay"></div>
                 <Card>
                     <div className="icon-container">
                         <img src="../dollar.svg" />

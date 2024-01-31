@@ -1,7 +1,7 @@
 body {
     min-height: 100vh;
-    // background-image: linear-gradient(to bottom, #534741, 70%, #79a471);
-    background-color: #000;
+    background-image: linear-gradient(to bottom, #000, 80%, #79a471);
+    // background-color: #000;
 
     h1,h2,h3,h4,h5, h6{
         font-family: "Bebas Neue", sans-serif;
@@ -43,7 +43,7 @@ body {
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #000;
+            background-color: #183e44;
             z-index: 3;
             animation: menu-slide .5s ease;
 
@@ -176,6 +176,7 @@ body {
             flex-direction: column;
             // background-color: #183e44;
             padding: 10px;
+            margin-top: 30px;
 
             &:last-child{
                 margin-bottom: 0;
@@ -241,11 +242,23 @@ body {
             background-size: cover;
             background-position: bottom;
             justify-content: center;
+            position: relative;
+            margin: 0;
+
+            .overlay{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: linear-gradient(to bottom, transparent, 90%, #000);
+            }
 
             .card{
                 display: flex;
                 background-color: rgba(24, 62, 68, 0.92);
                 height: 80px;
+                z-index: 1;
 
                 .icon-container{
                     display: flex;

@@ -1,5 +1,18 @@
 body{
 
+    .header{
+
+        .site-nav{
+            width: 350px;
+            height: 450px;
+            top: 100px;
+            right: 0;
+            left: unset;
+            border-radius: 10px 0 0 10px;
+            box-shadow: 1px 1px 10px #000;
+        }
+    }
+
     main{
 
         .row{
