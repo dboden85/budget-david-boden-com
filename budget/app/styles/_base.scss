@@ -43,7 +43,9 @@ body {
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0,.8);
+            background-color: #183e44;
+            z-index: 3;
+            animation: menu-slide .5s ease;
 
             h2{
                 font-family: "Bebas Neue", sans-serif;
