@@ -22,9 +22,10 @@ const Header = (props)=>{
                     <h2>Menu</h2>
                     <img onClick={onMenuClose} className="close-menu-icon" src="../../close-menu.svg"/>
                     <ul className="nav-menu">
-                        <li className="nav-item">Paycheck</li>
-                        <li className="nav-item">Bills</li>
-                        <li className="nav-item">Savings</li>
+                        <li className="nav-item"><a href="/dashboard">Dashboard</a></li>
+                        <li className="nav-item"><a href="/paycheck">Paycheck</a></li>
+                        <li className="nav-item"><a href="/bills">Bills</a></li>
+                        <li className="nav-item"><a href="/savings">Savings</a></li>
                     </ul>
                 </nav>
             )}
