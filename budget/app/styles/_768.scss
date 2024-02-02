@@ -4,7 +4,7 @@ body{
 
         .site-nav{
             width: 350px;
-            height: 450px;
+            height: max-content;
             top: 100px;
             right: 0;
             left: unset;
@@ -30,7 +30,7 @@ body{
             grid-template-columns: 1fr 1fr 1fr 1fr;
             grid-gap: 5px;
             height: 360px;
-            background-position: bottom;
+            background-position: center center;
             align-items: start;
             padding-bottom: 30px;
 

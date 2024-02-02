@@ -26,6 +26,7 @@ const Header = (props)=>{
                         <li className="nav-item"><a href="/paycheck">Paycheck</a></li>
                         <li className="nav-item"><a href="/bills">Bills</a></li>
                         <li className="nav-item"><a href="/savings">Savings</a></li>
+                        <li className="nav-item"><a href="/">Logout</a></li>
                     </ul>
                 </nav>
             )}
