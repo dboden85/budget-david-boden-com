@@ -1,44 +1,53 @@
 import Card from "../UI/Card"
 
-const BudgetInfo = ()=>{
+const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocations})=>{
+
+    const unallocatedTotal = (paycheckAmount*4)-billsTotal-monthlySavings-totalAllocations;
+
+    const items = [
+        {
+            id: 0,
+            title: 'Paycheck Amount',
+            amount: paycheckAmount.toFixed(2),
+            icon: '../dollar.svg'
+        },
+        {
+            id: 1,
+            title: 'Total Bills',
+            amount: billsTotal.toFixed(2),
+            icon: '../calendar-check.svg'
+        },
+        {
+            id: 2,
+            title: 'Monthly Savings',
+            amount: monthlySavings.toFixed(2),
+            icon: '../dollar-invoice.svg'
+        },
+        {
+            id: 3,
+            title: 'Unallocated Funds',
+            amount: unallocatedTotal.toFixed(2),
+            icon: '../money.svg'
+        },
+    ]
+    
     return(
         <>
-            <Card>
-                <div className="icon-container">
-                    <img src="../dollar.svg" />
-                </div>
-                <div className="info">
-                    <p className="infoTitle">Paycheck Amount</p>
-                    <p className="amnt">$682.59</p>
-                </div>
-            </Card>
-            <Card>
-                <div className="icon-container">
-                    <img src="../calendar-check.svg" />
-                </div>
-                <div className="info">
-                    <p className="infoTitle">Monthly Take Home</p>
-                    <p className="amnt">$2400</p>
-                </div>
-            </Card>
-            <Card>
-                <div className="icon-container">
-                    <img src="../dollar-invoice.svg" />
-                </div>
-                <div className="info">
-                    <p className="infoTitle">After Bills</p>
-                    <p className="amnt">$2000</p>
-                </div>
-            </Card>
-            <Card>
-                <div className="icon-container">
-                    <img src="../money.svg" />
-                </div>
-                <div className="info">
-                    <p className="infoTitle">Unallocated Funds</p>
-                    <p className="amnt">$.83</p>
-                </div>
-            </Card>
+        {
+            items.map(item => {
+                return(
+                    <Card key={item.id}>
+                        <div className="icon-container">
+                            <img src={item.icon} />
+                        </div>
+                        <div className="info">
+                            <p className="infoTitle">{item.title}</p>
+                            <p className="amnt">{`$${item.amount}`}</p>
+                        </div>
+                    </Card>
+                )
+            })
+        }
         </>
     )
 }

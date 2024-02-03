@@ -75,6 +75,13 @@ body {
 
     main {
 
+        .hero-image{
+            height: 500px;
+            background-color: #000;
+            background-size: cover;
+            background-position: top center;
+        }
+
         h2{
             font-size: 33px;
             margin-bottom: 15px;
@@ -168,6 +175,40 @@ body {
                 color: #fff;
             }
 
+            &.form-container{
+                background-color: #e7ebd4;
+
+                .form{
+                    display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+    
+                h2 {
+                    // margin-bottom: 10px;
+                    // text-align: center;
+                    // font-size: 60px;
+                    // letter-spacing: 2px;
+                    color: #183e44;
+                    border-bottom: 2px solid #183e44;
+                }
+
+                button{
+                    width: 100%;
+                    border-radius: 5px;
+                    border: none;
+                    margin-bottom: 10px;
+                    padding: 7px;
+                    font-size: 16px;
+                    background-color: #183e44;
+                    color: #fff;
+                    font-family: 'Bebas Neue', sans-serif;
+                    font-size: 20px;
+                    letter-spacing: 2px;
+                }
+                    
+                }
+            }
+
 
         }
 
@@ -237,10 +278,7 @@ body {
 
         .budget-info{
             height: 500px;
-            background-color: #000;
-            background-image: url('/budget-bg.jpg');
-            background-size: cover;
-            background-position: top center;
+            // background-image: url('/budget-bg.jpg');
             justify-content: center;
             position: relative;
             margin: 0;
