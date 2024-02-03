@@ -15,13 +15,13 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
             id: 1,
             title: 'Total Bills',
             amount: billsTotal.toFixed(2),
-            icon: '../calendar-check.svg'
+            icon: '../dollar-invoice.svg'
         },
         {
             id: 2,
             title: 'Monthly Savings',
             amount: monthlySavings.toFixed(2),
-            icon: '../dollar-invoice.svg'
+            icon: '../calendar-check.svg'
         },
         {
             id: 3,
