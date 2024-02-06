@@ -367,6 +367,7 @@ body {
         top: 70%;
         right: 10px;
         transition: transform 1s ease;
+        opacity: .3;
 
         &:hover{
             cursor: pointer;
@@ -374,6 +375,7 @@ body {
 
         &.open{
             transform: translateY(-180px) rotate(1125deg);
+            opacity: 1;
         }
     }
     
