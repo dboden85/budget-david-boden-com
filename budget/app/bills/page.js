@@ -35,6 +35,7 @@ export default function Bills() {
         amount: 15.00
     }
 ])
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(()=>{
     let total = 0;
@@ -59,10 +60,7 @@ export default function Bills() {
   },[billsTotal])
 
   const openUpdateMenuHandler = ()=>{
-    const updateIcon = document.querySelector('.update-form-icon');
-    const updateForm = document.querySelector('.update-form');
-    updateIcon.classList.toggle('open');
-    updateForm.classList.toggle('open');
+    setIsFormOpen(prev =>(!prev));
   }
 
     const onTitleChangeHandler = (e)=>{
@@ -109,11 +107,11 @@ export default function Bills() {
             </div>
         </main>
 
-        <div className="update-form-icon">
+        <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
           <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px"/>
         </div>
 
-        <div className="update-form">
+        <div className={isFormOpen ? 'open update-form' : 'update-form'}>
           <form className="form" onSubmit={onSubmitHandler}>
             <h2>Add Bill</h2>
             <label>Bill Title</label>
