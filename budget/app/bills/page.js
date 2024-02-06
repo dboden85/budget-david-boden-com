@@ -80,6 +80,7 @@ export default function Bills() {
           amount: parseInt(billAmount)
         }
       ]))
+      setIsFormOpen(false);
     }
 
 
