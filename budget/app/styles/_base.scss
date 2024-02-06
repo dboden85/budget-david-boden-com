@@ -360,21 +360,22 @@ body {
         height: 60px;
         color: #fff;
         font-size: 50px;
-        background-color: #e7ebd4;
+        background-color: #a6cc70;;
         margin: 0;
         border-radius: 50%;
         position: fixed;
-        top: 70%;
+        bottom: 70px;
         right: 10px;
         transition: transform 1s ease;
         opacity: .8;
+        box-shadow: 1px 1px 10px #000;
 
         &:hover{
             cursor: pointer;
         }
 
         &.open{
-            transform: translateY(-180px) rotate(1125deg);
+            transform: translateY(-255px) rotate(1125deg);
             opacity: 1;
         }
     }
@@ -388,7 +389,7 @@ body {
         // transform: translate(-50%, -50%);
         background-color: #e7ebd4;
         // border-radius: 10px 0 0 10px;
-        box-shadow: 2px 2px 10px #333;
+        box-shadow: 0px -5px 5px #000;
         transition: bottom 1s ease;
 
         &.open{

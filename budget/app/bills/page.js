@@ -7,7 +7,6 @@ export default function Bills() {
   const[billTitle, setBillTitle] = useState('');
   const[billAmount, setBillAmount] = useState();
   const [billsTotal, setBillsTotal] = useState(0);
-  const [count, setCount] = useState(0);
   const [bills, setBills] = useState([
     {
         id: 0,
@@ -43,21 +42,7 @@ export default function Bills() {
       total += bill.amount;
     })
     setBillsTotal(total);
-  })
-
-  useEffect(()=>{
-    let bTotal = 0;
-
-    const counter = setInterval(()=>{
-      if(bTotal < billsTotal){
-        bTotal = bTotal + 1;
-        setCount(bTotal);
-      }else{
-        clearInterval(counter);
-      }
-    }, .001)
-
-  },[billsTotal])
+  },[bills])
 
   const openUpdateMenuHandler = ()=>{
     setIsFormOpen(prev =>(!prev));
@@ -92,7 +77,7 @@ export default function Bills() {
         <Header title="Bills"/>
         <main>
             <div className="row total-row">
-              <p>Total Bills: <span>${count.toFixed(2)}</span></p>
+              <p>Total Bills: <span>${billsTotal.toFixed(2)}</span></p>
             </div>
             <div className="row update-bills">
               <Card>
