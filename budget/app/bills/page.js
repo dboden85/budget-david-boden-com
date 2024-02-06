@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 export default function Bills() {
   const[billTitle, setBillTitle] = useState('');
   const[billAmount, setBillAmount] = useState();
+  const [billsTotal, setBillsTotal] = useState(0);
+  const [count, setCount] = useState(0);
   const [bills, setBills] = useState([
     {
         id: 0,
@@ -34,6 +36,35 @@ export default function Bills() {
     }
 ])
 
+  useEffect(()=>{
+    let total = 0;
+    bills.map(bill =>{
+      total += bill.amount;
+    })
+    setBillsTotal(total);
+  })
+
+  useEffect(()=>{
+    let bTotal = 0;
+
+    const counter = setInterval(()=>{
+      if(bTotal < billsTotal){
+        bTotal = bTotal + 1;
+        setCount(bTotal);
+      }else{
+        clearInterval(counter);
+      }
+    }, .001)
+
+  },[billsTotal])
+
+  const openUpdateMenuHandler = ()=>{
+    const updateIcon = document.querySelector('.update-form-icon');
+    const updateForm = document.querySelector('.update-form');
+    updateIcon.classList.toggle('open');
+    updateForm.classList.toggle('open');
+  }
+
     const onTitleChangeHandler = (e)=>{
       setBillTitle(e.target.value);
     }
@@ -53,11 +84,15 @@ export default function Bills() {
       ]))
     }
 
+
+
     return (
       <>
         <Header title="Bills"/>
         <main>
-            <div className="hero-image" style={{backgroundImage: "url('/bills-bg.jpg')"}}></div>
+            <div className="row total-row">
+              <p>Total Bills: <span>${count.toFixed(2)}</span></p>
+            </div>
             <div className="row update-bills">
               <Card>
                 <h2>Bills</h2>
@@ -67,18 +102,27 @@ export default function Bills() {
                     })}
                 </ul>
               </Card>
-              <Card classes='form-container'>
-                <form className="form" onSubmit={onSubmitHandler}>
-                  <h2>Add Bill</h2>
-                  <label>Bill Title</label>
-                  <input onChange={onTitleChangeHandler} type="text"  />
-                  <label>Amount</label>
-                  <input onChange={onAmountChangeHandler} type="number"  />
-                  <button>Submit</button>
-                </form>
+              <Card>
+                <h2>Graph will go here</h2>
+                
               </Card>
             </div>
         </main>
+
+        <div className="update-form-icon">
+          <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px"/>
+        </div>
+
+        <div className="update-form">
+          <form className="form" onSubmit={onSubmitHandler}>
+            <h2>Add Bill</h2>
+            <label>Bill Title</label>
+            <input onChange={onTitleChangeHandler} type="text"  />
+            <label>Amount</label>
+            <input onChange={onAmountChangeHandler} type="number"  />
+            <button>Add Bill</button>
+          </form>
+        </div>
       </>
     );
   }
