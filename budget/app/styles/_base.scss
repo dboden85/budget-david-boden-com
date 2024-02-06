@@ -364,12 +364,12 @@ body {
         margin: 0;
         border-radius: 50%;
         position: fixed;
-        top: 25%;
-        right: 30px;
+        top: 70%;
+        right: 10px;
         transition: transform 1s ease;
 
         &.open{
-            transform: rotate(1485deg);
+            transform: rotate(1125deg);
         }
     }
     
