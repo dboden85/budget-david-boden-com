@@ -80,11 +80,11 @@ export default function Bills() {
         <div className="row total-row">
           <p>Total: <span>${billsTotal.toFixed(2)}</span></p>
         </div>
-        <div className="row update-bills">
+        <div className="row">
           <Card>
             <h2>Bills</h2>
-            <ul>
-              {bills.map(bill => {
+            <ul className="list-items">
+              {bills.map((bill, i) => {
                 return (<li key={bill.id}><p className="title">{bill.item}</p><p className="amount">{'$' + bill.amount.toFixed(2)}</p></li>)
               })}
             </ul>

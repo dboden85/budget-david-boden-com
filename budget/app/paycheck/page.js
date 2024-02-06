@@ -70,15 +70,15 @@ export default function Paycheck() {
 
   return (
     <>
-      <Header title="Bills" />
+      <Header title="Paycheck" />
       <main>
         <div className="row total-row">
           <p>Total: <span>${expensesTotal.toFixed(2)}</span></p>
         </div>
-        <div className="row update-bills">
+        <div className="row">
           <Card>
-            <h2>Bills</h2>
-            <ul>
+            <h2>Paycheck Items</h2>
+            <ul className="list-items">
               {expenseItems.map(item => {
                 return (<li key={item.id}><p className="title">{item.item}</p><p className="amount">{'$' + item.amount.toFixed(2)}</p></li>)
               })}
@@ -97,12 +97,12 @@ export default function Paycheck() {
 
       <div className={isFormOpen ? 'open update-form' : 'update-form'}>
         <form className="form" onSubmit={onSubmitHandler}>
-          <h2>Add Bill</h2>
-          <label>Bill Title</label>
+          <h2>Add Item</h2>
+          <label>Item Title</label>
           <input onChange={onTitleChangeHandler} type="text" value={expenseTitle} />
           <label>Amount</label>
           <input onChange={onAmountChangeHandler} type="number" value={expenseAmount} />
-          <button>Add Bill</button>
+          <button>Add Item</button>
         </form>
       </div>
     </>
