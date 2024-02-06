@@ -81,6 +81,8 @@ export default function Bills() {
         }
       ]))
       setIsFormOpen(false);
+      setBillAmount('');
+      setBillTitle('');
     }
 
 
@@ -116,9 +118,9 @@ export default function Bills() {
           <form className="form" onSubmit={onSubmitHandler}>
             <h2>Add Bill</h2>
             <label>Bill Title</label>
-            <input onChange={onTitleChangeHandler} type="text"  />
+            <input onChange={onTitleChangeHandler} type="text" value={billTitle} />
             <label>Amount</label>
-            <input onChange={onAmountChangeHandler} type="number"  />
+            <input onChange={onAmountChangeHandler} type="number"  value={billAmount}/>
             <button>Add Bill</button>
           </form>
         </div>
