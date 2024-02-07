@@ -23,4 +23,25 @@ body{
             }
         }
     }
+
+    .update-form-icon{
+
+        &.open{
+            bottom: 700px;
+        }
+    }
+
+    .update-form{
+        width: 500px;
+        height: max-content;
+        right: -100%;
+        bottom: unset;
+        top: 240px;
+        border-radius: 10px 0 0 10px;
+        transition: right 1s ease;
+
+        &.open{
+            right: 0;
+        }
+    }
 }

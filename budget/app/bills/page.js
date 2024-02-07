@@ -85,7 +85,14 @@ export default function Bills() {
             <h2>Bills</h2>
             <ul className="list-items">
               {bills.map((bill, i) => {
-                return (<li key={bill.id}><p className="title">{bill.item}</p><p className="amount">{'$' + bill.amount.toFixed(2)}</p></li>)
+                return (
+                <li key={bill.id}>
+                  <p className="title">{bill.item}</p>
+                  <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
+                  <div className="delete-container">
+                    <img className="delete" src="../trash.svg" width="25px" height="25px"/>
+                  </div>
+                </li>)
               })}
             </ul>
           </Card>

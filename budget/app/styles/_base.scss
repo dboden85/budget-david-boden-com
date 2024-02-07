@@ -279,14 +279,51 @@ body {
                     
 
                     li{
+                        position: relative;
+                        transition: transform .5s ease-out;
 
-                        &:hover{
+                        .delete-container{
+                            position: absolute;
+                            background-color: transparent;
+                            width: 60px;
+                            height: 0;
+                            justify-content: center;
+                            align-items: center;
+                            bottom: 0;
+                            right: 0;
+                            border-radius: 10px 10px 0 0;
+                            opacity: 0;
+                            transition: opacity .5s ease;
+                        }
 
+                        .amount{
+                            transition: transform .5s ease;
+                        }
+
+                        &:hover, &:focus{
+                            padding: 10px;
                             background-color: #e7ebd4;
                             border-radius: 5px;
 
                             .title{
                                 color: #183e44;
+                            }
+
+                            .amount{
+                                transform: translate(-60px);
+                            }
+
+                            .delete-container{
+                                display: flex;
+                                opacity: 1;
+                                height: 100%;
+
+                                .delete{
+                                    
+                                    &:hover{
+                                        cursor: pointer;
+                                    }
+                                }
                             }
 
                         }
@@ -386,7 +423,7 @@ body {
         position: fixed;
         bottom: 70px;
         right: 10px;
-        transition: transform 1s ease;
+        transition: all 1s ease;
         opacity: .8;
         box-shadow: 1px 1px 10px #000;
 
@@ -395,7 +432,8 @@ body {
         }
 
         &.open{
-            transform: translateY(-255px) rotate(1125deg);
+            bottom: 320px;
+            transform: rotate(1125deg);
             opacity: 1;
         }
     }
