@@ -310,14 +310,14 @@ body {
                             }
 
                             .amount{
-                                transform: translate(-40px);
+                                transform: translate(-60px);
                             }
 
                             .delete-container{
                                 display: flex;
                                 opacity: 1;
                                 height: 100%;
-
+                                justify-content: space-between;
                                 .delete{
                                     
                                     &:hover{
@@ -426,6 +426,7 @@ body {
         transition: all 1s ease;
         opacity: .8;
         box-shadow: 1px 1px 10px #000;
+        z-index: 1;
 
         &:hover{
             cursor: pointer;
