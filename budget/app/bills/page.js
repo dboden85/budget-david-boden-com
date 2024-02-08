@@ -79,6 +79,32 @@ export default function Bills() {
     }
   }
 
+  //add chart
+  useEffect(()=>{
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
+      ]);
+
+      var options = {
+        title: 'My Daily Activities',
+        is3D: true,
+        backgroundColor: '#183e44',
+        fontSize: 14
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+      chart.draw(data, options);
+    }
+  }, []);
+
 
   return (
     <>
@@ -108,7 +134,7 @@ export default function Bills() {
           </Card>
           <Card>
             <h2>Graph will go here</h2>
-
+            <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
           </Card>
         </div>
       </main>
