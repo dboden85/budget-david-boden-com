@@ -72,7 +72,10 @@ export default function Bills() {
   }
 
   const onDeleteHandler = (e)=>{
-    confirm('Are you sure you want to delete me?');
+    let i = e.target.dataset.index;
+    if(confirm('Are you sure you want to delete me?')){
+      setBills([...bills.splice(i, 1)]);
+    }
   }
 
 
@@ -80,6 +83,9 @@ export default function Bills() {
     <>
       <Header title="Bills" />
       <main>
+        <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
+          <div className="overlay"></div>
+        </div>
         <div className="row total-row">
           <p>Total: <span>${billsTotal.toFixed(2)}</span></p>
         </div>
@@ -93,7 +99,7 @@ export default function Bills() {
                   <p className="title">{bill.item}</p>
                   <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
                   <div className="delete-container">
-                    <img onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
+                    <img data-index={i} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>
                 </li>)
               })}
