@@ -73,7 +73,7 @@ export default function Bills() {
 
   const onDeleteHandler = (e)=>{
     let index = e.target.dataset.index
-    if(confirm('Are you sure you want to delete me?')){
+    if(confirm('Remove this bill?')){
       bills.splice(index, 1);
       setBills([...bills]);
     }

@@ -1,6 +1,10 @@
 body{
 
     main{
+        width: 100%;
+        max-width: 1800px;
+        margin: auto;
+
         .hero-image{
             height: 500px;
         }
@@ -27,7 +31,7 @@ body{
     .update-form-icon{
 
         &.open{
-            bottom: 700px;
+            bottom: 500px;
         }
     }
 
@@ -35,13 +39,13 @@ body{
         width: 500px;
         height: max-content;
         right: -100%;
-        bottom: unset;
-        top: 240px;
+        bottom: 175px;
         border-radius: 10px 0 0 10px;
         transition: right 1s ease;
 
         &.open{
             right: 0;
+            bottom: 175px;
         }
     }
 }
