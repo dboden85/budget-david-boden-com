@@ -29,12 +29,12 @@ body{
             }
         }
 
-
         .budget-info{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
             grid-gap: 5px;
-            height: 360px;
+            width: 100%;
+            height: max-content;
             background-position: center center;
             align-items: start;
             padding-bottom: 30px;

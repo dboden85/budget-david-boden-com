@@ -17,9 +17,11 @@ export default function Dashboard() {
       <>
         <Header title="Dashboard"/>
         <main>
-            <div className="row budget-info hero-image" style={{backgroundImage: "url('/budgeting-bg.jpg')"}}>
+            <div className="row hero-image" style={{backgroundImage: "url('/budgeting-bg.jpg')"}}>
                 <div className="overlay"></div>
-                <BudgetInfo paycheckAmount={paycheckAmount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
+                <div className="budget-info">
+                  <BudgetInfo paycheckAmount={paycheckAmount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
+                </div>
             </div>
             <div className="bills-info row">
                 <Bills billsTotal={setBillsTotal}/>

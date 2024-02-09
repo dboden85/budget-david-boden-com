@@ -35,6 +35,19 @@ body {
         color: #183e44;
     }
 
+    .loading{
+        width: 100%;
+        padding: 0 10px;
+        z-index: 1;
+
+        p{
+            font-family: "Bebas Neue", sans-serif;
+            color: #fff;
+            font-size: 22px;
+            text-align: center;
+        }
+    }
+
     .header{
         display: flex;
         justify-content: space-between;
@@ -108,6 +121,10 @@ body {
             background-color: #000;
             background-size: cover;
             background-position: top center;
+            margin-top: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
 
             .overlay{
                 position: absolute;
@@ -238,6 +255,10 @@ body {
                 margin-bottom: 0;
             }
 
+            &.hero-image{
+                margin-top: 0;
+            }
+
             .card{
                 padding: 10px;
                 margin-right: 10px;
@@ -349,7 +370,7 @@ body {
 
         .total-row{
             padding-bottom: 0;
-
+            z-index: 1;
             p{
                 font-size: 30px;
                 font-family: "Bebas Neue", sans-serif;
@@ -364,17 +385,19 @@ body {
         }
 
         .budget-info{
-            height: 500px;
-            // background-image: url('/budget-bg.jpg');
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             position: relative;
             margin: 0;
+            height: 100%;
 
             .card{
                 display: flex;
                 background-color: rgba(24, 62, 68, 0.92);
                 height: 80px;
                 z-index: 1;
+                min-height: unset;
 
                 .icon-container{
                     display: flex;

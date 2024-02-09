@@ -2,12 +2,14 @@
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useEffect, useState } from "react";
+import Loading from "../components/UI/Loading";
 
 export default function Bills() {
   const [billTitle, setBillTitle] = useState('');
   const [billAmount, setBillAmount] = useState();
   const [billsTotal, setBillsTotal] = useState(0);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMathing, setIsMathing] = useState(true);
   const [bills, setBills] = useState([
     {
       id: 0,
@@ -38,25 +40,29 @@ export default function Bills() {
 
 
   useEffect(() => {
+    setIsMathing(true)
     let total = 0;
     bills.map(bill => {
       total += bill.amount;
     })
     setBillsTotal(total);
+    setIsMathing(false);
   }, [bills])
 
   const openUpdateMenuHandler = () => {
     setIsFormOpen(prev => (!prev));
   }
 
+
   const onTitleChangeHandler = (e) => {
     setBillTitle(e.target.value);
   }
 
+
   const onAmountChangeHandler = (e) => {
     setBillAmount(e.target.value);
   }
-
+  //add bill item form submit handler
   const onSubmitHandler = (e) => {
     e.preventDefault();
     setBills(prev => (
@@ -71,6 +77,7 @@ export default function Bills() {
     setBillTitle('');
   }
 
+  //Delete Bill item
   const onDeleteHandler = (e)=>{
     let index = e.target.dataset.index
     if(confirm('Remove this bill?')){
@@ -111,11 +118,17 @@ export default function Bills() {
       <Header title="Bills" />
       <main>
         <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
-          <div className="overlay"></div>
+        <div className="overlay"></div>
+          {isMathing ?
+          <Loading />
+          :
+          <div className="row total-row">
+            <p>Total: <span>${billsTotal.toFixed(2)}</span></p>
+          </div>
+        }
+        
         </div>
-        <div className="row total-row">
-          <p>Total: <span>${billsTotal.toFixed(2)}</span></p>
-        </div>
+        
         <div className="row">
           <Card>
             <h2>Bills</h2>
