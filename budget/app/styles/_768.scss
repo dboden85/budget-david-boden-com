@@ -18,6 +18,7 @@ body{
         .hero-image{
             height: 360px;
             background-position: center center;
+            align-items: flex-start;
         }
 
         .row{
@@ -36,7 +37,7 @@ body{
             width: 100%;
             height: max-content;
             background-position: center center;
-            align-items: start;
+            // align-items: flex-start;
             padding-bottom: 30px;
 
             .card{
