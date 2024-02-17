@@ -5,7 +5,8 @@ import BudgetInfo from "../components/Budget-Info/BudgetInfo";
 import Bills from "../components/Bills/Bills";
 import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAllocation";
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import UserContext from "../components/contexts/user-context/user-context";
 
 export default function Dashboard() {
     const [paycheckAmount, setPaycheckAmount] = useState(682.59)

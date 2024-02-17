@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../contexts/user-context/user-context";
 
 
 const Login = (props)=>{
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const userCtx = useContext(UserContext);
+
+    const { loginHandler } = userCtx;
 
     const onUserChange = (e)=>{
         setUser(e.target.value)
@@ -25,23 +29,7 @@ const Login = (props)=>{
             return;
         }
 
-        fetch('http://localhost:5001/login', {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify({user: user, pass: password})
-        })
-        .then( res => res.json())
-        .then(data => {
-            if(data.status){
-                console.log(data.message);
-                location.href = '/dashboard';
-            }
-        })
-        .catch(error =>{
-            console.log(error);
-        })
+        loginHandler(user, password);
 
     }
 

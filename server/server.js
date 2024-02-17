@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/create-user', signup);
-app.get('/login', login);
+app.post('/login', login);
 
 function signup(req, res){
     const {fname, lname, email, uname, pass} = req.body; 
@@ -37,9 +37,16 @@ function signup(req, res){
 }
 
 function login(req, res){
-  const q = 'SELECT * FROM users';
-  db.query(q, (err, results) => {
-   res.json(results); 
+  const {uname, pass} =  req.body;
+  const q = 'SELECT * FROM users WHERE uname = ? AND password = ?;';
+  db.query(q,[uname, pass], (err, results) => {
+    if(results.length > 0){
+      console.log('matched');
+      res.status(200).json({'message': 'Matched', 'results': results});
+    }else{
+      console.log('no matches');
+      res.status(200).json({'message': 'There were no matches'});
+    }
   });
 }
 

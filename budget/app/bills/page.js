@@ -14,27 +14,32 @@ export default function Bills() {
     {
       id: 0,
       item: 'Car Payment',
-      amount: 305.00
+      amount: 305.00,
+      due: 15
     },
     {
       id: 1,
       item: 'Phone',
-      amount: 111.33
+      amount: 111.33,
+      due: 21
     },
     {
       id: 2,
       item: 'Gym',
-      amount: 10.00
+      amount: 10.00,
+      due: 17
     },
     {
       id: 4,
       item: 'Google One',
-      amount: 1.99
+      amount: 1.99,
+      due: 1
     },
     {
       id: 5,
       item: 'Audible',
-      amount: 15.00
+      amount: 15.00,
+      due: 23
     }
   ])
 
@@ -138,6 +143,7 @@ export default function Bills() {
                 <li key={bill.id}>
                   <p className="title">{bill.item}</p>
                   <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
+		  <small>{`Due on the ${bill.due}.`}</small>
                   <div className="delete-container">
                     <img onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>
