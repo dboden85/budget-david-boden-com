@@ -1,13 +1,11 @@
-import { useState, useContext } from "react";
-import UserContext from "../contexts/user-context/user-context";
+import { useState, useContext, useEffect } from "react";
+import UserContext from "../contexts/user-context/UserContext";
 
 
 const Login = (props)=>{
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
-    const userCtx = useContext(UserContext);
-
-    const { loginHandler } = userCtx;
+    const {userInfo, setUserInfo} = useContext(UserContext);
 
     const onUserChange = (e)=>{
         setUser(e.target.value)
@@ -29,9 +27,34 @@ const Login = (props)=>{
             return;
         }
 
-        loginHandler(user, password);
+        fetch('http://192.168.0.121:5001/login', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            uname: user,
+            pass: password
+        })
+        })
+        .then(res =>{
+            return res.json();
+        })
+        .then(data => {
+            setUserInfo({
+                ...data.results[0]
+            })
+            console.log(data);
+        })
+        .catch(err => {
+            console.log(err + '\nFetch had an error');
+        })
 
     }
+
+    useEffect(()=>{
+        console.log(userInfo);
+    },[userInfo]);
 
     return(
         <div className="login-form-container">

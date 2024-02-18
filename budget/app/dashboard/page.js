@@ -6,13 +6,16 @@ import Bills from "../components/Bills/Bills";
 import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAllocation";
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
 import { useEffect, useState, useContext } from "react";
-import UserContext from "../components/contexts/user-context/user-context";
+import UserContext from "../components/contexts/user-context/UserContext";
 
 export default function Dashboard() {
     const [paycheckAmount, setPaycheckAmount] = useState(682.59)
     const [billsTotal, setBillsTotal] = useState(0);
     const [monthlySavings, setMonthlySavings] = useState(1244);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
+    const {userInfo} = useContext(UserContext);
+
+    console.log(userInfo);
 
     return (
       <>
