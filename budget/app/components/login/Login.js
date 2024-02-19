@@ -54,7 +54,7 @@ const Login = (props)=>{
         //     console.log(err + '\nFetch had an error');
         // })
 
-        setUserInfo({paycheck_amount: 682.00});
+        setUserInfo({uname: user, pass: password});
 
         router.push('/dashboard');
 
