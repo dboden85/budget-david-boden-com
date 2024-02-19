@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import './style.scss';
-import UserContext from "./components/contexts/user-context/UserContext";
+import UserProvider from './components/contexts/user-context/UserContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +24,9 @@ export default function RootLayout({ children }) {
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   );
 }

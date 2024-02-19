@@ -1,10 +1,12 @@
 "use client";
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Loading from "../components/UI/Loading";
+import {UserContext} from "../components/contexts/user-context/UserContext";
 
 export default function Bills() {
+  const {userInfo} = useContext(UserContext);
   const [billTitle, setBillTitle] = useState('');
   const [billAmount, setBillAmount] = useState();
   const [billsTotal, setBillsTotal] = useState(0);
@@ -67,6 +69,12 @@ export default function Bills() {
   const onAmountChangeHandler = (e) => {
     setBillAmount(e.target.value);
   }
+
+  //testing context
+  useEffect(()=>{
+    console.log(userInfo);
+  },[]);
+
   //add bill item form submit handler
   const onSubmitHandler = (e) => {
     e.preventDefault();

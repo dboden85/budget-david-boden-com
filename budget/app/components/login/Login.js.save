@@ -1,9 +1,10 @@
-import { useState, useContext, useEffect, useRouter } from "react";
+import { useState, useContext, useEffect } from "react";
+import {useRouter} from 'next/router';
 import {UserContext} from "../contexts/user-context/UserContext";
 
 
 const Login = (props)=>{
-    const router = useRouter;
+    const router = useRouter();
     const [user, setUser] = useState()
     const {userInfo, setUserInfo} = useContext(UserContext);
     const [password, setPassword] = useState('');

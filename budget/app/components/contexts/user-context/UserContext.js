@@ -1,7 +1,11 @@
-"use client"; // This is a client component
+'use client'
+import { createContext, useState } from 'react'
+ 
+export const UserContext = createContext({});
 
-import React from 'react';
+const UserProvider = ({children})=>{
+  const [userInfo, setUserInfo] = useState({name: 'David'});
+  return <UserContext.Provider value={{userInfo, setUserInfo}}>{children}</UserContext.Provider>
+}
 
-const UserContext = React.createContext();
-
-export default UserContext;
+export default UserProvider;
