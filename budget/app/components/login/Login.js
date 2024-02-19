@@ -1,9 +1,10 @@
-import { useState, useContext, useEffect, useRouter } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useRouter } from 'next/navigation'
 import {UserContext} from "../contexts/user-context/UserContext";
 
 
 const Login = (props)=>{
-    const router = useRouter;
+    const router = useRouter()
     const [user, setUser] = useState()
     const {userInfo, setUserInfo} = useContext(UserContext);
     const [password, setPassword] = useState('');
@@ -28,36 +29,36 @@ const Login = (props)=>{
             return;
         }
 
-        fetch('http://192.168.0.121:5001/login', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            uname: user,
-            pass: password
-        })
-        })
-        .then(res =>{
-            return res.json();
-        })
-        .then(data => {
-            if(data.results[0]){
-              setUserInfo({
-                ...data.results[0]
-              })
-              router.push('/bills');
-            }
-        })
-        .catch(err => {
-            console.log(err + '\nFetch had an error');
-        })
+        // fetch('http://192.168.0.121:5001/login', {
+        // method: 'POST',
+        // headers: {
+        //     'Content-type': 'application/json',
+        // },
+        // body: JSON.stringify({
+        //     uname: user,
+        //     pass: password
+        // })
+        // })
+        // .then(res =>{
+        //     return res.json();
+        // })
+        // .then(data => {
+        //     if(data.results[0]){
+        //       setUserInfo({
+        //         ...data.results[0]
+        //       })
+        //       router.push('/bills');
+        //     }
+        // })
+        // .catch(err => {
+        //     console.log(err + '\nFetch had an error');
+        // })
+
+        setUserInfo({paycheck_amount: 682.00});
+
+        router.push('/dashboard');
 
     }
-
-    useEffect(()=>{
-      console.log(userInfo);
-    },[userInfo]);
 
     return(
         <div className="login-form-container">

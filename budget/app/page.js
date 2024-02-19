@@ -11,9 +11,6 @@ export default function Home() {
   const [toSignUp, setToSignUp] = useState(false);
   const {userInfo} = useContext(UserContext);
 
-  useEffect(()=>{
-    console.log(userInfo);
-  },[]);
 
   return (
     <>

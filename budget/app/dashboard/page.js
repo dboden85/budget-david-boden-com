@@ -6,7 +6,7 @@ import Bills from "../components/Bills/Bills";
 import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAllocation";
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
 import { useEffect, useState, useContext } from "react";
-import UserContext from "../components/contexts/user-context/UserContext";
+import {UserContext} from "../components/contexts/user-context/UserContext";
 
 export default function Dashboard() {
     const [paycheckAmount, setPaycheckAmount] = useState(682.59)
@@ -24,7 +24,7 @@ export default function Dashboard() {
             <div className="row hero-image" style={{backgroundImage: "url('/budgeting-bg.jpg')"}}>
                 <div className="overlay"></div>
                 <div className="budget-info">
-                  <BudgetInfo paycheckAmount={paycheckAmount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
+                  <BudgetInfo paycheckAmount={userInfo.paycheck_amount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
                 </div>
             </div>
             <div className="bills-info row">
