@@ -29,34 +29,32 @@ const Login = (props)=>{
             return;
         }
 
-        // fetch('http://192.168.0.121:5001/login', {
-        // method: 'POST',
-        // headers: {
-        //     'Content-type': 'application/json',
-        // },
-        // body: JSON.stringify({
-        //     uname: user,
-        //     pass: password
-        // })
-        // })
-        // .then(res =>{
-        //     return res.json();
-        // })
-        // .then(data => {
-        //     if(data.results[0]){
-        //       setUserInfo({
-        //         ...data.results[0]
-        //       })
-        //       router.push('/bills');
-        //     }
-        // })
-        // .catch(err => {
-        //     console.log(err + '\nFetch had an error');
-        // })
+        fetch('http://192.168.0.121:5001/login', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            uname: user,
+            pass: password
+        })
+        })
+        .then(res =>{
+            return res.json();
+        })
+        .then(data => {
+            if(data.results[0]){
+              setUserInfo({
+                ...data.results[0]
+              })
+              router.push('/dashboard');
+            }
+        })
+        .catch(err => {
+            console.log(err + '\nFetch had an error');
+        })
 
-        setUserInfo({uname: user, pass: password});
-
-        router.push('/dashboard');
+        // setUserInfo({uname: user, pass: password});
 
     }
 
