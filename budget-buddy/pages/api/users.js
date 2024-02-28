@@ -1,4 +1,4 @@
-import DB from "@/app/database";
+import DB from "@/database";
 
 const handler = (req, res)=>{
     const {uname, pass} =  req.body;
