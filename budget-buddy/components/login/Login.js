@@ -1,21 +1,13 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useRef } from "react";
 import { useRouter } from 'next/navigation'
-import {UserContext} from "../contexts/user-context/UserContext";
+// import {UserContext} from "../contexts/user-context/UserContext";
 
 
 const Login = (props)=>{
     const router = useRouter()
-    const [user, setUser] = useState()
-    const {userInfo, setUserInfo} = useContext(UserContext);
-    const [password, setPassword] = useState('');
+    const user = useRef('');
+    const password = useRef('');
 
-    const onUserChange = (e)=>{
-        setUser(e.target.value)
-    }
-
-    const onPassChange = (e)=>{
-        setPassword(e.target.value);
-    }
 
     const onClickHandler = ()=>{
         props.signUp(true);
@@ -35,8 +27,8 @@ const Login = (props)=>{
             'Content-type': 'application/json',
         },
         body: JSON.stringify({
-            uname: user,
-            pass: password
+            uname: user.current.value,
+            pass: password.current.value
         })
         })
         .then(res =>{
@@ -45,18 +37,13 @@ const Login = (props)=>{
         .then(data => {
             console.log('fetch ran 1')
             if(data.results[0]){
-            //   setUserInfo({
-            //     ...data.results[0]
-            //   })
-            //   router.push('/dashboard');
             console.log(data.results[0]);
+            sessionStorage.setItem('isLoggedIn', true);
             }
         })
         .catch(err => {
             console.log(err + '\nFetch had an error');
         })
-
-        // setUserInfo({uname: user, pass: password});
 
     }
 
@@ -65,9 +52,9 @@ const Login = (props)=>{
             <form className="loginForm" onSubmit={onSubmitHandler}>
                 <h2>Login</h2>
                 <label>Username</label>
-                <input onChange={onUserChange} type="text"  />
+                <input ref={user} type="text"  />
                 <label>Password</label>
-                <input onChange={onPassChange} type="password"  />
+                <input ref={password} type="password"  />
                 <button>Submit</button>
             </form>
             <p onClick={onClickHandler}>Need to Sign Up?</p>
