@@ -45,10 +45,11 @@ const Login = (props)=>{
         .then(data => {
             console.log('fetch ran 1')
             if(data.results[0]){
-              setUserInfo({
-                ...data.results[0]
-              })
-              router.push('/dashboard');
+            //   setUserInfo({
+            //     ...data.results[0]
+            //   })
+            //   router.push('/dashboard');
+            console.log(data.results[0]);
             }
         })
         .catch(err => {
