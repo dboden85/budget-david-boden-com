@@ -1,0 +1,11 @@
+@import "styles/animation.scss";
+
+@import "styles/_base.scss";
+
+@media(min-width: 768px){
+    @import "styles/_768.scss";
+}
+
+@media(min-width: 1024px){
+    @import "styles/_1024.scss";
+}

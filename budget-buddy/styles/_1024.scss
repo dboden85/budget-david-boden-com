@@ -1,0 +1,50 @@
+body{
+
+    main{
+        width: 100%;
+        margin: auto;
+
+        .hero-image{
+            height: 500px;
+        }
+        .budget-info{
+            height: max-content;
+
+
+            .card{
+                .info{
+
+                    .infoTitle{
+                        font-size: 20px;
+                    }
+    
+                    .amnt{
+                        font-size: 30px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .update-form-icon{
+
+        &.open{
+            bottom: 500px;
+        }
+    }
+
+    .update-form{
+        width: 500px;
+        height: max-content;
+        right: -100%;
+        bottom: 175px;
+        border-radius: 10px 0 0 10px;
+        transition: right 1s ease;
+
+        &.open{
+            right: 0;
+            bottom: 175px;
+        }
+    }
+}

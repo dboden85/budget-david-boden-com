@@ -1,0 +1,73 @@
+body{
+
+    .header{
+
+        .site-nav{
+            width: 350px;
+            height: max-content;
+            top: 100px;
+            right: 0;
+            left: unset;
+            border-radius: 10px 0 0 10px;
+            box-shadow: 1px 1px 10px #000;
+        }
+    }
+
+    main{
+
+        .hero-image{
+            height: 360px;
+            background-position: center center;
+            align-items: flex-start;
+        }
+
+        .row{
+            flex-direction: row;
+
+
+            h2{
+                text-align: left;
+            }
+        }
+
+        .budget-info{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 5px;
+            width: 100%;
+            height: max-content;
+            background-position: center center;
+            // align-items: flex-start;
+            padding-bottom: 30px;
+
+            .card{
+                margin: 0;
+                max-height: 100px;
+                padding: 5px;
+
+                .icon-container{
+                    width: 30%;
+
+                    img{
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .info{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .infoTitle{
+                        font-size: 15px;
+                    }
+
+                    .amnt{
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+    }
+}
