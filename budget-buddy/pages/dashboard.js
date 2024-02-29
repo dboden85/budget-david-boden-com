@@ -1,4 +1,3 @@
-"use client"; // This is a client component
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import BudgetInfo from "../components/Budget-Info/BudgetInfo";
@@ -13,11 +12,6 @@ export default function Dashboard() {
     const [billsTotal, setBillsTotal] = useState(0);
     const [monthlySavings, setMonthlySavings] = useState(1244);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
-    const {userInfo} = useContext(UserContext);
-
-    console.log(userInfo);
-
-    const {paycheck_amount} = userInfo;
 
     return (
       <>
@@ -26,7 +20,7 @@ export default function Dashboard() {
             <div className="row hero-image" style={{backgroundImage: "url('/budgeting-bg.jpg')"}}>
                 <div className="overlay"></div>
                 <div className="budget-info">
-                  <BudgetInfo paycheckAmount={paycheck_amount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
+                  <BudgetInfo paycheckAmount={paycheckAmount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
                 </div>
             </div>
             <div className="bills-info row">

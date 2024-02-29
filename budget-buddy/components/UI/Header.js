@@ -1,9 +1,11 @@
 "use client"; // This is a client component
 import { useState } from "react";
+import {useRouter} from "next/navigation";
 
 
 const Header = (props)=>{
     const [menuOpen, setMenuOpen] = useState(false);
+    const router = useRouter();
 
     const onMenuOpen = ()=>{
         setMenuOpen(true);
@@ -11,6 +13,11 @@ const Header = (props)=>{
 
     const onMenuClose = ()=>{
         setMenuOpen(false);
+    }
+
+    const logoutHandler = ()=>{
+        sessionStorage.removeItem('isLoggedIn');
+        router.push('/');
     }
 
     return(
@@ -26,7 +33,7 @@ const Header = (props)=>{
                         <li className="nav-item"><a href="/paycheck">Paycheck</a></li>
                         <li className="nav-item"><a href="/bills">Bills</a></li>
                         <li className="nav-item"><a href="/savings">Savings</a></li>
-                        <li className="nav-item"><a href="/">Logout</a></li>
+                        <li className="nav-item"><a onClick={logoutHandler}>Logout</a></li>
                     </ul>
                 </nav>
             )}
