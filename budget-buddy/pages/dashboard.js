@@ -4,9 +4,10 @@ import BudgetInfo from "../components/Budget-Info/BudgetInfo";
 import Bills from "../components/Bills/Bills";
 import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAllocation";
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
+import Auth from '../components/UX/Auth';
 import { useEffect, useState, useContext } from "react";
 
-export default function Dashboard() {
+function Dashboard() {
     const [userInfo, setUserInfo] = useState({});
     const [paycheckAmount, setPaycheckAmount] = useState(682.59)
     const [billsTotal, setBillsTotal] = useState(0);
@@ -42,3 +43,6 @@ export default function Dashboard() {
       </>
     );
   }
+<Auth>
+  export default Dashboard;
+</Auth>
