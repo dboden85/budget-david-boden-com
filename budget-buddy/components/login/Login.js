@@ -1,6 +1,5 @@
 import { useState, useContext, useRef } from "react";
 import { useRouter } from 'next/navigation'
-// import {UserContext} from "../contexts/user-context/UserContext";
 
 
 const Login = (props)=>{
@@ -35,11 +34,10 @@ const Login = (props)=>{
             return res.json();
         })
         .then(data => {
-            console.log('fetch ran 1')
-            if(data.results[0]){
-            console.log(data.results[0]);
+            if(data.results){
+            console.log(data.uid)
             sessionStorage.setItem('isLoggedIn', true);
-            sessionStorage.setItem('userInfo', JSON.stringify(data.results[0]));
+            sessionStorage.setItem('userInfo', JSON.stringify(data.results));
             }
             router.push('/dashboard');
         })

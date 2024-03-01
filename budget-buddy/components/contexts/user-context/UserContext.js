@@ -1,9 +1,5 @@
-'use client'
-import { createContext, useState } from 'react'
+import { createContext,  } from 'react'
  
-export const UserContext = createContext({});
+const UserContext = createContext();
 
-export const UserProvider = ({children})=>{
-  const [userInfo, setUserInfo] = useState({paycheck_amount: 200.00});
-  return <UserContext.Provider value={{userInfo, setUserInfo}}>{children}</UserContext.Provider>
-}
+export default UserContext;

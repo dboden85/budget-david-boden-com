@@ -33,7 +33,6 @@ const PaycheckAllocations = ( {billsTotal, savings, totalAllocations} )=>{
         items.map(item =>{
             total += item.amount;
         })
-        console.log(total*4)
         totalAllocations(total*4);
     },[items]);
     

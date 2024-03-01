@@ -3,7 +3,6 @@ import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useEffect, useState, useContext } from "react";
 import Loading from "../components/UI/Loading";
-import {UserContext} from "../components/contexts/user-context/UserContext";
 
 export default function Bills() {
   const {userInfo} = useContext(UserContext);
