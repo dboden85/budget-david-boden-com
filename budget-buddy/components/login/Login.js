@@ -52,9 +52,9 @@ const Login = (props)=>{
             <form className="loginForm" onSubmit={onSubmitHandler}>
                 <h2>Login</h2>
                 <label>Username</label>
-                <input ref={user} type="text"  />
+                <input ref={user} type="text" defaultValue="dboden"/>
                 <label>Password</label>
-                <input ref={password} type="password"  />
+                <input ref={password} type="password" defaultValue="pass"/>
                 <button>Submit</button>
             </form>
             <p onClick={onClickHandler}>Need to Sign Up?</p>

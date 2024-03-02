@@ -10,6 +10,7 @@ import { useEffect, useState, useContext } from "react";
 function Dashboard() {
     const [userInfo, setUserInfo] = useState({});
     const [paycheckAmount, setPaycheckAmount] = useState(682.59)
+    const [bills, setBills] = useState([]);
     const [billsTotal, setBillsTotal] = useState(0);
     const [monthlySavings, setMonthlySavings] = useState(1244);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
@@ -19,8 +20,31 @@ function Dashboard() {
     },[])
 
     useEffect(()=>{
-      console.log(userInfo);
-    },[userInfo])
+      fetch('api/getbills/', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            user: userInfo.uid
+        })
+      })
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.results){
+          console.log(data.message);
+          // console.log(data.results)
+          setBills([...data.results]);
+        }else{
+          console.log('something is wrong')
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },[userInfo.uid])
 
     return (
       <>
@@ -33,7 +57,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className="bills-info row">
-                <Bills billsTotal={setBillsTotal}/>
+                <Bills billsTotal={setBillsTotal} billsList={bills} />
                 <PaycheckAllocations billsTotal={billsTotal} savings={monthlySavings} totalAllocations={setTotalPaycheckAllocations}/>
             </div>
             <div className="row">
@@ -43,6 +67,4 @@ function Dashboard() {
       </>
     );
   }
-<Auth>
-  export default Dashboard;
-</Auth>
+export default Dashboard;

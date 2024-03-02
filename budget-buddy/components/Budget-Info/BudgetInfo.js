@@ -8,7 +8,7 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
         {
             id: 0,
             title: 'Paycheck Amount',
-            amount: paycheckAmount.toFixed(2),
+            amount: parseInt(paycheckAmount).toFixed(2),
             icon: '../dollar.svg'
         },
         {
