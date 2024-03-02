@@ -1,40 +1,18 @@
 import { useState, useEffect } from "react";
 import Card from "../UI/Card";
 
-const PaycheckAllocations = ( {billsTotal, savings, totalAllocations} )=>{
-    const [items, setItems] = useState(
-        [
-            {
-                id: 1,
-                item: 'Guilt Free Spending',
-                amount: 100.00
-            },
-            {
-                id: 2,
-                item: 'Gas',
-                amount: 90.00
-            },
-            {
-                id: 3,
-                item: 'Groceries',
-                amount: 50.00
-            },
-            {
-                id: 4,
-                item: 'Kid\'s Allowance',
-                amount: 20.00
-            }
-        ]
-    )
+const PaycheckAllocations = ( {paycheckItems, billsTotal, savings, totalAllocations} )=>{
+
+
 
     useEffect(()=>{
         let total = 0;
 
-        items.map(item =>{
+        paycheckItems.map(item =>{
             total += item.amount;
         })
         totalAllocations(total*4);
-    },[items]);
+    },[paycheckItems]);
     
     const allocatedBills = billsTotal/4;
     const allocatedSavings = savings/4;
@@ -45,7 +23,7 @@ const PaycheckAllocations = ( {billsTotal, savings, totalAllocations} )=>{
             <ul>
                 <li><p className="title">Savings</p><p className="amount">{`$${allocatedSavings.toFixed(2)}`}</p></li>
                 <li><p className="title">Bills</p><p className="amount">{`$${allocatedBills.toFixed(2)}`}</p></li>
-                {items.map(item => {
+                {paycheckItems.map(item => {
                     return(
                         <li key={item.id}><p className="title">{item.item}</p><p className="amount">{'$' + item.amount}</p></li>
                     )

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 function Dashboard() {
     const [userInfo, setUserInfo] = useState({});
     const [bills, setBills] = useState([]);
+    const [paycheckItems, setPaycheckItems] = useState([]);
     const [billsTotal, setBillsTotal] = useState(0);
     const [monthlySavings, setMonthlySavings] = useState(0);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
@@ -21,7 +22,7 @@ function Dashboard() {
     // Set Monthly Savings
     useEffect(()=>{
       setMonthlySavings(userInfo.savings_per_paycheck * 4);
-    }, [userInfo])
+    }, [userInfo.savings_per_paycheck])
 
     // retrieve bills from db
     useEffect(()=>{
@@ -42,6 +43,34 @@ function Dashboard() {
           console.log(data.message);
           setBills([...data.results]);
           sessionStorage.setItem('bills', JSON.stringify(data.results))
+        }else{
+          console.log('something is wrong')
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },[userInfo.uid])
+
+    // retrieve paycheck items from db
+    useEffect(()=>{
+      fetch('api/getpaycheckitems', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            user: userInfo.uid
+        })
+      })
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.results){
+          console.log(data.message);
+          setPaycheckItems([...data.results]);
+          sessionStorage.setItem('paycheckItems', JSON.stringify(data.results))
         }else{
           console.log('something is wrong')
         }
@@ -72,6 +101,7 @@ function Dashboard() {
                   billsList={bills} 
                 />
                 <PaycheckAllocations 
+                  paycheckItems={paycheckItems}
                   billsTotal={billsTotal} 
                   savings={monthlySavings} 
                   totalAllocations={setTotalPaycheckAllocations}
