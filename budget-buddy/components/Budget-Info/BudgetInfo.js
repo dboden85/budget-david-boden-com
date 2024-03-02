@@ -20,7 +20,7 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
         {
             id: 2,
             title: 'Monthly Savings',
-            amount: monthlySavings.toFixed(2),
+            amount: parseInt(monthlySavings).toFixed(2),
             icon: '../calendar-check.svg'
         },
         {

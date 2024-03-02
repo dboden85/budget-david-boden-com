@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import Card from "../UI/Card";
 
-const Bills = ( props )=>{
+const Bills = ( {billsTotal, billsList} )=>{
 
     useEffect(()=>{
         let total = 0;
-        props.billsList.map(bill => {
+        billsList.map(bill => {
             total += bill.amount;
         })
-        props.billsTotal(total);
-    },[props.billsList])
-
-    useEffect(()=>{
-        console.log(props.billsList);
-    },[props.billsList])
+        billsTotal(total);
+    },[billsList])
 
     return(
         <Card>
             <h2>Bills</h2>
-            <ul>
-                {props.billsList.map(bill => {
-                    return(<li key={bill.id}><p className="title">{bill.item}</p><p className="amount">{'$' + bill.amount}</p></li>)
-                })}
-            </ul>
+            {billsList.length > 0 ?
+                <ul>
+                    {billsList.map(bill => {
+                        return(<li key={bill.id}><p className="title">{bill.item}</p><p className="amount">{'$' + bill.amount}</p></li>)
+                    })}
+                </ul> 
+                : 
+                <p>There are no bills to list</p>
+            }
         </Card>
     )
 }

@@ -5,46 +5,20 @@ import { useEffect, useState, useContext } from "react";
 import Loading from "../components/UI/Loading";
 
 export default function Bills() {
-  const {userInfo} = useContext(UserContext);
   const [billTitle, setBillTitle] = useState('');
   const [billAmount, setBillAmount] = useState();
   const [billsTotal, setBillsTotal] = useState(0);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isMathing, setIsMathing] = useState(true);
-  const [bills, setBills] = useState([
-    {
-      id: 0,
-      item: 'Car Payment',
-      amount: 305.00,
-      due: 15
-    },
-    {
-      id: 1,
-      item: 'Phone',
-      amount: 111.33,
-      due: 21
-    },
-    {
-      id: 2,
-      item: 'Gym',
-      amount: 10.00,
-      due: 17
-    },
-    {
-      id: 4,
-      item: 'Google One',
-      amount: 1.99,
-      due: 1
-    },
-    {
-      id: 5,
-      item: 'Audible',
-      amount: 15.00,
-      due: 23
-    }
-  ])
+  const [bills, setBills] = useState([]);
+
+  // Pull bills down from the session variable
+  useEffect(()=>{
+    setBills(JSON.parse(sessionStorage.getItem('bills')));
+  },[])
 
 
+  // Total up the bill amounts
   useEffect(() => {
     setIsMathing(true)
     let total = 0;
@@ -68,11 +42,6 @@ export default function Bills() {
   const onAmountChangeHandler = (e) => {
     setBillAmount(e.target.value);
   }
-
-  //testing context
-  useEffect(()=>{
-    console.log(userInfo);
-  },[]);
 
   //add bill item form submit handler
   const onSubmitHandler = (e) => {
@@ -103,17 +72,17 @@ export default function Bills() {
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
+      let billsArr = [];
+      bills.map(bill => {
+        billsArr.push([bill.item, bill.amount])
+      })
       var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work',     11],
-        ['Eat',      2],
-        ['Commute',  2],
-        ['Watch TV', 2],
-        ['Sleep',    7]
+        ['Bills', 'Amount'],
+        ...billsArr
       ]);
 
       var options = {
-        title: 'My Daily Activities',
+        title: 'My Bills',
         is3D: true,
         backgroundColor: '#183e44',
         fontSize: 14
@@ -122,7 +91,7 @@ export default function Bills() {
       var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
       chart.draw(data, options);
     }
-  }, []);
+  },[bills]);
 
 
   return (

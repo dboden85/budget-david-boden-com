@@ -1,24 +1,29 @@
 import Header from "../components/UI/Header";
-import Card from "../components/UI/Card";
 import BudgetInfo from "../components/Budget-Info/BudgetInfo";
 import Bills from "../components/Bills/Bills";
 import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAllocation";
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
 import Auth from '../components/UX/Auth';
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
     const [userInfo, setUserInfo] = useState({});
-    const [paycheckAmount, setPaycheckAmount] = useState(682.59)
     const [bills, setBills] = useState([]);
     const [billsTotal, setBillsTotal] = useState(0);
-    const [monthlySavings, setMonthlySavings] = useState(1244);
+    const [monthlySavings, setMonthlySavings] = useState(0);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
 
+    // Pull the user info from the session variable
     useEffect(()=>{
       setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
     },[])
 
+    // Set Monthly Savings
+    useEffect(()=>{
+      setMonthlySavings(userInfo.savings_per_paycheck * 4);
+    }, [userInfo])
+
+    // retrieve bills from db
     useEffect(()=>{
       fetch('api/getbills/', {
         method: 'POST',
@@ -35,8 +40,8 @@ function Dashboard() {
       .then(data =>{
         if(data.results){
           console.log(data.message);
-          // console.log(data.results)
           setBills([...data.results]);
+          sessionStorage.setItem('bills', JSON.stringify(data.results))
         }else{
           console.log('something is wrong')
         }
@@ -53,12 +58,24 @@ function Dashboard() {
             <div className="row hero-image" style={{backgroundImage: "url('/budgeting-bg.jpg')"}}>
                 <div className="overlay"></div>
                 <div className="budget-info">
-                  <BudgetInfo paycheckAmount={userInfo.paycheck_amount} billsTotal={billsTotal} monthlySavings={monthlySavings} totalAllocations={totalPaycheckAllocations}/>
+                  <BudgetInfo 
+                    paycheckAmount={userInfo.paycheck_amount} 
+                    billsTotal={billsTotal} 
+                    monthlySavings={monthlySavings} 
+                    totalAllocations={totalPaycheckAllocations}
+                  />
                 </div>
             </div>
             <div className="bills-info row">
-                <Bills billsTotal={setBillsTotal} billsList={bills} />
-                <PaycheckAllocations billsTotal={billsTotal} savings={monthlySavings} totalAllocations={setTotalPaycheckAllocations}/>
+                <Bills 
+                  billsTotal={setBillsTotal} 
+                  billsList={bills} 
+                />
+                <PaycheckAllocations 
+                  billsTotal={billsTotal} 
+                  savings={monthlySavings} 
+                  totalAllocations={setTotalPaycheckAllocations}
+                />
             </div>
             <div className="row">
                 <MonthlyAllocations />
