@@ -14,7 +14,11 @@ export default function Bills() {
 
   // Pull bills down from the session variable
   useEffect(()=>{
-    setBills(JSON.parse(sessionStorage.getItem('bills')));
+    const billsData = JSON.parse(sessionStorage.getItem('bills'))
+    
+    if(billsData){
+      setBills(billsData);
+    }
   },[])
 
 
@@ -69,27 +73,29 @@ export default function Bills() {
 
   //add chart
   useEffect(()=>{
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      let billsArr = [];
-      bills.map(bill => {
-        billsArr.push([bill.item, bill.amount])
-      })
-      var data = google.visualization.arrayToDataTable([
-        ['Bills', 'Amount'],
-        ...billsArr
-      ]);
+    if(bills.length > 0){
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        let billsArr = [];
+        bills.map(bill => {
+          billsArr.push([bill.item, bill.amount])
+        })
+        var data = google.visualization.arrayToDataTable([
+          ['Bills', 'Amount'],
+          ...billsArr
+        ]);
 
-      var options = {
-        title: 'My Bills',
-        is3D: true,
-        backgroundColor: '#183e44',
-        fontSize: 14
-      };
+        var options = {
+          title: 'My Bills',
+          is3D: true,
+          backgroundColor: '#183e44',
+          fontSize: 14
+        };
 
-      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-      chart.draw(data, options);
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
     }
   },[bills]);
 
@@ -114,7 +120,8 @@ export default function Bills() {
           <Card>
             <h2>Bills</h2>
             <ul className="list-items">
-              {bills.map((bill, i) => {
+              {bills.length > 0 ?
+              bills.map((bill, i) => {
                 return (
                 <li key={bill.id}>
                   <p className="title">{bill.item}</p>
@@ -124,12 +131,21 @@ export default function Bills() {
                     <img onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>
                 </li>)
-              })}
+              })
+              :
+              <p>There are no bills to show</p>
+            }
             </ul>
           </Card>
           <Card>
             <h2>Graph will go here</h2>
-            <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
+            {bills.length > 0 ? 
+              <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
+              :
+              <p>No data to show</p>
+            }
+
+            
           </Card>
         </div>
       </main>

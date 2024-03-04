@@ -3,6 +3,7 @@ import DB from "@/database";
 const handler = (req, res)=>{
     const {uname, pass} =  req.body;
     const q = 'SELECT * FROM users WHERE uname = ? AND password = ?;';
+    
     DB.query(q,[uname, pass], (err, results) => {
         try{
             if(results.length > 0){

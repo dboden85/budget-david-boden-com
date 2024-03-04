@@ -38,8 +38,9 @@ const Login = (props)=>{
             console.log(data.uid)
             sessionStorage.setItem('isLoggedIn', true);
             sessionStorage.setItem('userInfo', JSON.stringify(data.results));
-            }
             router.push('/dashboard');
+            }
+            
         })
         .catch(err => {
             console.log(err + '\nFetch had an error');

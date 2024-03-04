@@ -17,7 +17,9 @@ function Dashboard() {
     useEffect(()=>{
       const userInfoData = JSON.parse(sessionStorage.getItem('userInfo'));
 
-      setUserInfo(userInfoData[0]);
+      if(userInfoData){
+        setUserInfo(userInfoData[0]);
+      }
     }, [])
 
 
@@ -95,7 +97,9 @@ function Dashboard() {
 
     // Set Monthly Savings
     useEffect(()=>{
-      setMonthlySavings(userInfo.savings_per_paycheck * 4);
+      if(userInfo.savings_per_paycheck){
+        setMonthlySavings(userInfo.savings_per_paycheck * 4);
+      }
     }, [userInfo])
 
     return (

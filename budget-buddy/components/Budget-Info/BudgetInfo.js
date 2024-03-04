@@ -2,13 +2,16 @@ import Card from "../UI/Card"
 
 const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocations})=>{
 
+    paycheckAmount = paycheckAmount ? parseInt(paycheckAmount) : 0;
+    monthlySavings = monthlySavings ? parseInt(monthlySavings) : 0;
+
     const unallocatedTotal = (paycheckAmount*4)-billsTotal-monthlySavings-totalAllocations;
 
     const items = [
         {
             id: 0,
             title: 'Paycheck Amount',
-            amount: parseInt(paycheckAmount).toFixed(2),
+            amount: paycheckAmount.toFixed(2),
             icon: '../dollar.svg'
         },
         {
@@ -20,7 +23,7 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
         {
             id: 2,
             title: 'Monthly Savings',
-            amount: parseInt(monthlySavings).toFixed(2),
+            amount: monthlySavings.toFixed(2),
             icon: '../calendar-check.svg'
         },
         {
