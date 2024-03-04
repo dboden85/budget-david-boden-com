@@ -14,71 +14,89 @@ function Dashboard() {
     const [monthlySavings, setMonthlySavings] = useState(0);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
 
+    useEffect(()=>{
+      const userInfoData = JSON.parse(sessionStorage.getItem('userInfo'));
+
+      setUserInfo(userInfoData[0]);
+    }, [])
+
+
     // Pull the user info from the session variable
     useEffect(()=>{
-      setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
+      const billsData = JSON.parse(sessionStorage.getItem('bills'));
+      const paycheckItemsData = JSON.parse(sessionStorage.getItem('paycheckItems'));
+    
+      if (billsData) {
+        setBills(billsData);
+      } else {
+        // Fetch bills data from the database
+        fetch('api/getbills/', {
+          method: 'POST',
+          headers: {
+              'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+              user: userInfo.uid
+          })
+        })
+        .then(res => {
+          return res.json();
+        })
+        .then(data =>{
+          if(data.results){
+            // console.log(data.message);
+            setBills([...data.results]);
+            sessionStorage.setItem('bills', JSON.stringify(data.results))
+          }else{
+            console.log('Something is wrong: \n' + data.message)
+          }
+        })
+        .catch(err => {
+          console.log("There is an issue retrieving bills info: \n" + err);
+        })
+      }
+    
+      if (paycheckItemsData) {
+        setPaycheckItems(paycheckItemsData);
+      } else {
+        // Fetch paycheck items data from the database
+        fetch('api/getpaycheckitems', {
+          method: 'POST',
+          headers: {
+              'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+              user: userInfo.uid
+          })
+        })
+        .then(res => {
+          return res.json();
+        })
+        .then(data =>{
+          if(data.results){
+            // console.log(data.message);
+            setPaycheckItems([...data.results]);
+            sessionStorage.setItem('paycheckItems', JSON.stringify(data.results))
+          }else{
+            console.log('something is wrong: \n' + data.message)
+          }
+        })
+        .catch(err => {
+          console.log("There was an issue retrieving the paycheck items" + err);
+        })
+    }
+    },[userInfo])
+
+    useEffect(()=>{
+      console.log("User Info: " + userInfo);
+      console.log("bills: " + bills);
+      console.log("paycheck items: " + paycheckItems);
     },[])
 
     // Set Monthly Savings
     useEffect(()=>{
       setMonthlySavings(userInfo.savings_per_paycheck * 4);
-    }, [userInfo.savings_per_paycheck])
-
-    // retrieve bills from db
-    useEffect(()=>{
-      fetch('api/getbills/', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            user: userInfo.uid
-        })
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(data =>{
-        if(data.results){
-          console.log(data.message);
-          setBills([...data.results]);
-          sessionStorage.setItem('bills', JSON.stringify(data.results))
-        }else{
-          console.log('something is wrong')
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    },[userInfo.uid])
-
-    // retrieve paycheck items from db
-    useEffect(()=>{
-      fetch('api/getpaycheckitems', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            user: userInfo.uid
-        })
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(data =>{
-        if(data.results){
-          console.log(data.message);
-          setPaycheckItems([...data.results]);
-          sessionStorage.setItem('paycheckItems', JSON.stringify(data.results))
-        }else{
-          console.log('something is wrong')
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    },[userInfo.uid])
+    }, [userInfo])
 
     return (
       <>
@@ -103,12 +121,16 @@ function Dashboard() {
                 <PaycheckAllocations 
                   paycheckItems={paycheckItems}
                   billsTotal={billsTotal} 
-                  savings={monthlySavings} 
+                  savings={userInfo.savings_per_paycheck} 
                   totalAllocations={setTotalPaycheckAllocations}
                 />
             </div>
             <div className="row">
-                <MonthlyAllocations />
+                <MonthlyAllocations 
+                  paycheckItems={paycheckItems}
+                  billsTotal={billsTotal}
+                  monthlySavings={monthlySavings}
+                />
             </div>
         </main>
       </>

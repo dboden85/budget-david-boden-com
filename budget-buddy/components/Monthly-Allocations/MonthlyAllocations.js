@@ -1,16 +1,17 @@
 import Card from "../UI/Card";
 
-const MonthlyAllocations = ()=>{
+const MonthlyAllocations = ({monthlySavings, billsTotal, paycheckItems})=>{
     return(
         <Card>
             <h2>Monthly Allocations</h2>
             <ul>
-                <li><p className="title">Savings</p><p className="amount">$1200.00</p></li>
-                <li><p className="title">Guild Free Spending</p><p className="amount">$800.00</p></li>
-                <li><p className="title">Gas</p><p className="amount">$360.00</p></li>
-                <li><p className="title">Groceries</p><p className="amount">$200.00</p></li>
-                <li><p className="title">Child Allowance</p><p className="amount">$80.00</p></li>
-                <li><p className="title">Bills</p><p className="amount">$400.00</p></li>
+                <li><p className="title">Savings</p><p className="amount">{`$${monthlySavings.toFixed(2)}`}</p></li>
+                <li><p className="title">Bills</p><p className="amount">{`$${billsTotal.toFixed(2)}`}</p></li>
+                {paycheckItems.map(item =>{
+                    return(
+                    <li key={item.id}><p className="title">{item.title}</p><p className="amount">{'$' + (item.amount * 4).toFixed(2)}</p></li>
+                    )
+                })}
             </ul>
         </Card>
     )

@@ -17,6 +17,9 @@ const Header = (props)=>{
 
     const logoutHandler = ()=>{
         sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('userInfo');
+        sessionStorage.removeItem('bills');
+        sessionStorage.removeItem('paycheckItems');
         router.push('/');
     }
 
