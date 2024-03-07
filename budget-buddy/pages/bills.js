@@ -1,12 +1,14 @@
 "use client";
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useRef } from "react";
 import Loading from "../components/UI/Loading";
 
 export default function Bills() {
-  const [billTitle, setBillTitle] = useState('');
-  const [billAmount, setBillAmount] = useState();
+  const billTitle = useRef('');
+  const billAmount = useRef('');
+  const dueDate = useRef('');
+  const [userid, setUserid] = useState({});
   const [billsTotal, setBillsTotal] = useState(0);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isMathing, setIsMathing] = useState(true);
@@ -14,10 +16,15 @@ export default function Bills() {
 
   // Pull bills down from the session variable
   useEffect(()=>{
-    const billsData = JSON.parse(sessionStorage.getItem('bills'))
+    const billsData = JSON.parse(sessionStorage.getItem('bills'));
+    const userData = JSON.parse(sessionStorage.getItem('userInfo'));
     
     if(billsData){
       setBills(billsData);
+    }
+
+    if(userData){
+      setUserid(userData[0].uid);
     }
   },[])
 
@@ -27,10 +34,12 @@ export default function Bills() {
     setIsMathing(true)
     let total = 0;
     bills.map(bill => {
-      total += bill.amount;
+      total += bill.bill_amount;
     })
     setBillsTotal(total);
     setIsMathing(false);
+    billTitle.current.value = '';
+    billAmount.current.value = '';
   }, [bills])
 
   const openUpdateMenuHandler = () => {
@@ -38,28 +47,40 @@ export default function Bills() {
   }
 
 
-  const onTitleChangeHandler = (e) => {
-    setBillTitle(e.target.value);
-  }
-
-
-  const onAmountChangeHandler = (e) => {
-    setBillAmount(e.target.value);
-  }
-
   //add bill item form submit handler
   const onSubmitHandler = (e) => {
     e.preventDefault();
     setBills(prev => (
       [...prev, {
-        id: bills.length + 1,
-        item: billTitle.trim(),
-        amount: parseInt(billAmount)
+        bid: bills.length + 1,
+        bill_title: billTitle.current.value,
+        bill_amount: parseInt(billAmount.current.value),
+        due_date: dueDate.current.value
       }
       ]))
+
+      console.log(`${userid}\n${billTitle.current.value}\n${parseInt(billAmount.current.value)}\n ${parseInt(dueDate.current.value)}`) 
+
+      fetch('/api/addbill', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          uid: userid,
+          title: billTitle.current.value,
+          amount: parseInt(billAmount.current.value),
+          due: parseInt(dueDate.current.value)
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.message){
+          console.log(data.message);
+        }
+      })
+
     setIsFormOpen(false);
-    setBillAmount('');
-    setBillTitle('');
   }
 
   //Delete Bill item
@@ -79,7 +100,7 @@ export default function Bills() {
       function drawChart() {
         let billsArr = [];
         bills.map(bill => {
-          billsArr.push([bill.item, bill.amount])
+          billsArr.push([bill.bill_title, bill.bill_amount])
         })
         var data = google.visualization.arrayToDataTable([
           ['Bills', 'Amount'],
@@ -123,12 +144,11 @@ export default function Bills() {
               {bills.length > 0 ?
               bills.map((bill, i) => {
                 return (
-                <li key={bill.id}>
-                  <p className="title">{bill.item}</p>
-                  <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
-		  <small>{`Due on the ${bill.due}.`}</small>
+                <li key={bill.bid}>
+                  <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}.`}</small></p>
+                  <p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p>
                   <div className="delete-container">
-                    <img onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
+                    <img data-index={i} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>
                 </li>)
               })
@@ -158,9 +178,11 @@ export default function Bills() {
         <form className="form" onSubmit={onSubmitHandler}>
           <h2>Add Bill</h2>
           <label>Bill Title</label>
-          <input onChange={onTitleChangeHandler} type="text" value={billTitle} />
+          <input ref={billTitle} type="text" />
           <label>Amount</label>
-          <input onChange={onAmountChangeHandler} type="number" value={billAmount} />
+          <input ref={billAmount} type="number" />
+          <label>Due</label>
+          <input ref={dueDate} type="number" />
           <button>Add Bill</button>
         </form>
       </div>
