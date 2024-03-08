@@ -20,7 +20,7 @@ const Login = (props)=>{
             return;
         }
 
-        fetch('/api/users', {
+        fetch('/api/getuser', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -34,16 +34,21 @@ const Login = (props)=>{
             return res.json();
         })
         .then(data => {
+
             if(data.results){
-            console.log(data.uid)
-            sessionStorage.setItem('isLoggedIn', true);
-            sessionStorage.setItem('userInfo', JSON.stringify(data.results));
-            router.push('/dashboard');
+                console.log(data.uid)
+                sessionStorage.setItem('isLoggedIn', true);
+                sessionStorage.setItem('userInfo', JSON.stringify(data.results));
+                router.push('/dashboard');
+            }else{
+                throw(data.message)
             }
+
+
             
         })
         .catch(err => {
-            console.log(err + '\nFetch had an error');
+            console.error(err);
         })
 
     }

@@ -46,15 +46,14 @@ function Dashboard() {
         })
         .then(data =>{
           if(data.results){
-            // console.log(data.message);
             setBills([...data.results]);
             sessionStorage.setItem('bills', JSON.stringify(data.results))
           }else{
-            console.log('Something is wrong: \n' + data.message)
+            throw(data.message)
           }
         })
         .catch(err => {
-          console.log("There is an issue retrieving bills info: \n" + err);
+          console.log(err);
         })
       }
     

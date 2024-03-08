@@ -4,15 +4,20 @@ const handler = (req, res)=>{
     const {user} =  req.body;
     const q = 'SELECT * FROM bills WHERE user_id = ?;';
     DB.query(q,[user], (err, results) => {
-        try{
-            if(results.length > 0){
-            res.status(200).json({'message': 'Found Bills for user', 'results': results});
-            }else{
-            res.status(200).json({'message': 'No bills were found for user'});
-            }
-        }catch{
-            res.status(400).json({'message': 'There was an error'});
+
+        if(err){
+            res.status(404).json({'message': 'Could not connect to the server!\n' + err});
+            return;
         }
+        
+        if(results.length > 0){
+            console.log('matched');
+            res.status(200).json({'message': 'Found Bills for user', 'results': results});
+        }else{
+            console.log('no matches');
+            res.status(200).json({'message': 'No bills were found for user'});
+        }
+        
     })
     // const DUMMYDB = {
     //     uid: 1,

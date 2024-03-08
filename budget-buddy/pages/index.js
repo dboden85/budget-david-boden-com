@@ -14,8 +14,7 @@ export default function Home() {
     <>
       <Header title="Budget" cls="login-header"/>
       <main>
-          {!toSignUp && <Login signUp={setToSignUp}/>}
-          {toSignUp && <Signup signUp={setToSignUp}/>}
+          {!toSignUp ? <Login signUp={setToSignUp} /> : <Signup signUp={setToSignUp}/>}
       </main>
     </>
   );
