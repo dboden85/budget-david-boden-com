@@ -2,8 +2,8 @@ import Card from "../UI/Card"
 
 const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocations})=>{
 
-    paycheckAmount = paycheckAmount ? parseInt(paycheckAmount) : 0;
-    monthlySavings = monthlySavings ? parseInt(monthlySavings) : 0;
+    paycheckAmount = paycheckAmount ? parseFloat(paycheckAmount) : 0;
+    monthlySavings = monthlySavings ? parseFloat(monthlySavings) : 0;
 
     const unallocatedTotal = (paycheckAmount*4)-billsTotal-monthlySavings-totalAllocations;
 

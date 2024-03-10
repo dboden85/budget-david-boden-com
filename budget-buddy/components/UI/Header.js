@@ -1,11 +1,20 @@
 "use client"; // This is a client component
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {useRouter} from "next/navigation";
 
 
 const Header = (props)=>{
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isOnline, setIsOnline] = useState(false);
     const router = useRouter();
+
+    useEffect(()=>{
+      const oData = sessionStorage.getItem('isLoggedIn');
+
+      if(oData){
+        setIsOnline(oData);
+      }
+    })
 
     const onMenuOpen = ()=>{
         setMenuOpen(true);
@@ -26,7 +35,7 @@ const Header = (props)=>{
     return(
         <header className={`header ${props.cls}`}>
             <h1>{props.title}</h1>
-            <img onClick={onMenuOpen} className="menu-icon" src="../../menu.svg"/>
+            {isOnline && <img onClick={onMenuOpen} className="menu-icon" src="../../menu.svg"/>}
             {menuOpen && (
                 <nav className="site-nav">
                     <h2>Menu</h2>

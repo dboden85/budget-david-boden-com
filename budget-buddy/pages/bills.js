@@ -54,12 +54,12 @@ export default function Bills() {
       [...prev, {
         bid: bills.length + 1,
         bill_title: billTitle.current.value,
-        bill_amount: parseInt(billAmount.current.value),
+        bill_amount: parseFloat(billAmount.current.value),
         due_date: dueDate.current.value
       }
       ]))
 
-      console.log(`${userid}\n${billTitle.current.value}\n${parseInt(billAmount.current.value)}\n ${parseInt(dueDate.current.value)}`) 
+      console.log(`${userid}\n${billTitle.current.value}\n${parseFloat(billAmount.current.value)}\n ${parseFloat(dueDate.current.value)}`) 
 
       fetch('/api/addbill', {
         method: 'POST',
@@ -69,8 +69,8 @@ export default function Bills() {
         body: JSON.stringify({
           uid: userid,
           title: billTitle.current.value,
-          amount: parseInt(billAmount.current.value),
-          due: parseInt(dueDate.current.value)
+          amount: parseFloat(billAmount.current.value),
+          due: parseFloat(dueDate.current.value)
         })
       })
       .then(res => res.json())
@@ -180,7 +180,7 @@ export default function Bills() {
           <label>Bill Title</label>
           <input ref={billTitle} type="text" />
           <label>Amount</label>
-          <input ref={billAmount} type="number" />
+          <input ref={billAmount} type="float" />
           <label>Due</label>
           <input ref={dueDate} type="number" />
           <button>Add Bill</button>
