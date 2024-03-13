@@ -167,9 +167,15 @@ export default function Bills() {
             <ul className="list-items">
               {bills.length > 0 ?
               bills.map((bill, i) => {
+                const ordSuffix = (day)=>{
+                  return day > 0 ? ['th', 'st', 'nd', 'rd'][
+                    (day > 3 && day < 21 || day % 10 > 3 ? 0 : day % 10 )
+                  ]
+                  : '';
+                }
                 return (
                 <li key={bill.bid}>
-                  <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}.`}</small></p>
+                  <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}${ordSuffix(bill.due_date)}.`}</small></p>
                   <p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p>
                   <div className="delete-container">
                     <img data-index={i} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>

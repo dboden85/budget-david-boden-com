@@ -40,11 +40,11 @@ const handler = (req, res)=>{
     //     ]
     // } 
 
-    const {uid} = DUMMYDB;
+    // const {uid} = DUMMYDB;
 
-    if( uid === user ){
-        res.status(200).json({'message': 'Paycheck Items Retrieved', results: DUMMYDB.info});
-    }
+    // if( uid === user ){
+    //     res.status(200).json({'message': 'Paycheck Items Retrieved', results: DUMMYDB.info});
+    // }
 
 }
 
