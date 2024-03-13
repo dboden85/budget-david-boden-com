@@ -47,7 +47,6 @@ function Dashboard() {
         .then(data =>{
           if(data.results){
             setBills([...data.results]);
-            sessionStorage.setItem('bills', JSON.stringify(data.results))
           }else{
             throw(data.message)
           }

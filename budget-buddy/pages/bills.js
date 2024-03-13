@@ -16,17 +16,44 @@ export default function Bills() {
 
   // Pull bills down from the session variable
   useEffect(()=>{
-    const billsData = JSON.parse(sessionStorage.getItem('bills'));
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
-    
-    if(billsData){
-      setBills(billsData);
-    }
+
+    // console.log('bitches: ' + userData[0].uid)
 
     if(userData){
       setUserid(userData[0].uid);
     }
+
   },[])
+
+  useEffect(()=>{
+
+    // console.log('user id: ' + userid)
+
+    fetch('api/getbills/', {
+      method: 'POST',
+      headers: {
+          'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+          user: userid
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(data =>{
+      if(data.results){
+        setBills([...data.results]);
+      }else{
+        throw(data.message)
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+  }, [userid])
 
 
   // Total up the bill amounts
@@ -39,7 +66,32 @@ export default function Bills() {
     setBillsTotal(total);
     setIsMathing(false);
     billTitle.current.value = '';
-    billAmount.current.value = '';
+    billAmount.current.value = '';if(bills.length > 0){
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        let billsArr = [];
+        bills.map(bill => {
+          billsArr.push([bill.bill_title, bill.bill_amount])
+        })
+        var data = google.visualization.arrayToDataTable([
+          ['Bills', 'Amount'],
+          ...billsArr
+        ]);
+
+        var options = {
+          title: 'My Bills',
+          is3D: true,
+          backgroundColor: '#183e44',
+          fontSize: 14
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    }
+
+
   }, [bills])
 
   const openUpdateMenuHandler = () => {
@@ -59,7 +111,7 @@ export default function Bills() {
       }
       ]))
 
-      console.log(`${userid}\n${billTitle.current.value}\n${parseFloat(billAmount.current.value)}\n ${parseFloat(dueDate.current.value)}`) 
+      // console.log(`${userid}\n${billTitle.current.value}\n${parseFloat(billAmount.current.value)}\n ${parseFloat(dueDate.current.value)}`) 
 
       fetch('/api/addbill', {
         method: 'POST',
@@ -91,34 +143,6 @@ export default function Bills() {
       setBills([...bills]);
     }
   }
-
-  //add chart
-  useEffect(()=>{
-    if(bills.length > 0){
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        let billsArr = [];
-        bills.map(bill => {
-          billsArr.push([bill.bill_title, bill.bill_amount])
-        })
-        var data = google.visualization.arrayToDataTable([
-          ['Bills', 'Amount'],
-          ...billsArr
-        ]);
-
-        var options = {
-          title: 'My Bills',
-          is3D: true,
-          backgroundColor: '#183e44',
-          fontSize: 14
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
-    }
-  },[bills]);
 
 
   return (
