@@ -14,11 +14,9 @@ export default function Bills() {
   const [isMathing, setIsMathing] = useState(true);
   const [bills, setBills] = useState([]);
 
-  // Pull bills down from the session variable
+  // Pull user info from session var
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
-
-    // console.log('bitches: ' + userData[0].uid)
 
     if(userData){
       setUserid(userData[0].uid);
@@ -26,6 +24,7 @@ export default function Bills() {
 
   },[])
 
+  // pull bills data from db
   useEffect(()=>{
 
     // console.log('user id: ' + userid)
@@ -94,10 +93,10 @@ export default function Bills() {
 
   }, [bills])
 
+  // toggle add bill menu
   const openUpdateMenuHandler = () => {
     setIsFormOpen(prev => (!prev));
   }
-
 
   //add bill item form submit handler
   const onSubmitHandler = (e) => {
@@ -109,9 +108,7 @@ export default function Bills() {
         bill_amount: parseFloat(billAmount.current.value),
         due_date: dueDate.current.value
       }
-      ]))
-
-      // console.log(`${userid}\n${billTitle.current.value}\n${parseFloat(billAmount.current.value)}\n ${parseFloat(dueDate.current.value)}`) 
+      ])) 
 
       fetch('/api/addbill', {
         method: 'POST',
@@ -144,6 +141,14 @@ export default function Bills() {
     }
   }
 
+  // adding ordinal suffix to the due date.
+  const ordSuffix = (day)=>{
+    return day > 0 ? ['th', 'st', 'nd', 'rd'][
+      (day > 3 && day < 21 || day % 10 > 3 ? 0 : day % 10 )
+    ]
+    : 'th (How can this be 0?)';
+  }
+
 
   return (
     <>
@@ -167,12 +172,7 @@ export default function Bills() {
             <ul className="list-items">
               {bills.length > 0 ?
               bills.map((bill, i) => {
-                const ordSuffix = (day)=>{
-                  return day > 0 ? ['th', 'st', 'nd', 'rd'][
-                    (day > 3 && day < 21 || day % 10 > 3 ? 0 : day % 10 )
-                  ]
-                  : '';
-                }
+
                 return (
                 <li key={bill.bid}>
                   <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}${ordSuffix(bill.due_date)}.`}</small></p>
