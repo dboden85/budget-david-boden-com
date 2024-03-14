@@ -101,12 +101,29 @@ export default function Bills() {
   //add bill item form submit handler
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    const capitalizeFirstLetter = (words)=>{
+      const wArray = words.split(' ');
+      wArray.map((word, i) =>{
+        word = word.charAt(0).toUpperCase() + word.slice(1);
+        wArray.splice(i, 1, word);
+      })
+
+      words = wArray.join(' ');
+      console.log(words)
+      return words;
+    }
+
+    const title = capitalizeFirstLetter(billTitle.current.value);
+    const amount = parseFloat(billAmount.current.value);
+    const due = parseInt(dueDate.current.value);
+
     setBills(prev => (
       [...prev, {
         bid: bills.length + 1,
-        bill_title: billTitle.current.value,
-        bill_amount: parseFloat(billAmount.current.value),
-        due_date: dueDate.current.value
+        bill_title: title,
+        bill_amount: amount,
+        due_date: due
       }
       ])) 
 
@@ -117,9 +134,9 @@ export default function Bills() {
         },
         body: JSON.stringify({
           uid: userid,
-          title: billTitle.current.value,
+          title: title,
           amount: parseFloat(billAmount.current.value),
-          due: parseFloat(dueDate.current.value)
+          due: due
         })
       })
       .then(res => res.json())
@@ -134,12 +151,12 @@ export default function Bills() {
 
   //Delete Bill item
   const onDeleteHandler = (e)=>{
-    let info = e.target.dataset.info;
+    let {index, id, title } = JSON.parse(e.target.dataset.info);
 
-    console.log(e.target.dataset.info);
+    console.log(id);
 
-    if(confirm('Remove this bill?')){
-      bills.splice(info[0], 1);
+    if(confirm(`Remove ${title} from your bills?`)){
+      bills.splice(index, 1);
       setBills([...bills]);
     }
 
@@ -149,7 +166,7 @@ export default function Bills() {
           'Content-type': 'application/json',
       },
       body: JSON.stringify({
-          id: info[1]
+          id: id
       })
     })
     .then(res => {
@@ -199,12 +216,14 @@ export default function Bills() {
               {bills.length > 0 ?
               bills.map((bill, i) => {
 
+                const data = JSON.stringify({index: i, id: bill.bid, title: bill.bill_title});
+
                 return (
                 <li key={bill.bid}>
                   <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}${ordSuffix(bill.due_date)}.`}</small></p>
                   <p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p>
                   <div className="delete-container">
-                    <img data-info={[i, bill.bid]} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
+                    <img data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>
                 </li>)
               })
@@ -236,9 +255,9 @@ export default function Bills() {
           <label>Bill Title</label>
           <input ref={billTitle} type="text" />
           <label>Amount</label>
-          <input ref={billAmount} type="float" />
+          <input ref={billAmount} type="number" step=".01" />
           <label>Due</label>
-          <input ref={dueDate} type="number" />
+          <input ref={dueDate} type="number" step="1" min="1" max="31"/>
           <button>Add Bill</button>
         </form>
       </div>
