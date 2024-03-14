@@ -1,6 +1,7 @@
 import DB from "@/database";
 
 const handler = (req, res)=>{
+    console.log(req.method)
     const {user} =  req.body;
     const q = 'SELECT * FROM bills WHERE user_id = ?;';
     DB.query(q,[user], (err, results) => {

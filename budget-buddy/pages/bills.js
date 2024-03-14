@@ -30,7 +30,7 @@ export default function Bills() {
 
     // console.log('user id: ' + userid)
 
-    fetch('api/getbills/', {
+    fetch('/api/getbills/', {
       method: 'POST',
       headers: {
           'Content-type': 'application/json',
@@ -137,11 +137,37 @@ export default function Bills() {
 
   //Delete Bill item
   const onDeleteHandler = (e)=>{
-    let index = e.target.dataset.index
+    let info = e.target.dataset.info;
+
+    console.log(e.target.dataset.info);
+
     if(confirm('Remove this bill?')){
-      bills.splice(index, 1);
+      bills.splice(info[0], 1);
       setBills([...bills]);
     }
+
+    fetch('/api/addbill', {
+      method: 'DELETE',
+      headers: {
+          'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+          id: info[1]
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(data =>{
+      if(data.success){
+        console.log(data.message);
+      }else{
+        throw(data.message);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
 
@@ -178,7 +204,7 @@ export default function Bills() {
                   <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}${ordSuffix(bill.due_date)}.`}</small></p>
                   <p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p>
                   <div className="delete-container">
-                    <img data-index={i} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
+                    <img data-info={[i, bill.bid]} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>
                 </li>)
               })
