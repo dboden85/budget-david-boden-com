@@ -27,8 +27,6 @@ export default function Bills() {
   // pull bills data from db
   useEffect(()=>{
 
-    // console.log('user id: ' + userid)
-
     fetch('/api/getbills/', {
       method: 'POST',
       headers: {
@@ -110,7 +108,6 @@ export default function Bills() {
       })
 
       words = wArray.join(' ');
-      console.log(words)
       return words;
     }
 
@@ -152,8 +149,6 @@ export default function Bills() {
   //Delete Bill item
   const onDeleteHandler = (e)=>{
     let {index, id, title } = JSON.parse(e.target.dataset.info);
-
-    console.log(id);
 
     if(confirm(`Remove ${title} from your bills?`)){
       bills.splice(index, 1);
