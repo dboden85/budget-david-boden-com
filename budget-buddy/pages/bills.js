@@ -27,7 +27,7 @@ export default function Bills() {
   // pull bills data from db
   useEffect(()=>{
 
-    fetch('/api/getbills/', {
+    fetch('/api/managebills/', {
       method: 'POST',
       headers: {
           'Content-type': 'application/json',
@@ -124,7 +124,7 @@ export default function Bills() {
       }
       ])) 
 
-      fetch('/api/addbill', {
+      fetch('/api/managebills', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -155,7 +155,7 @@ export default function Bills() {
       setBills([...bills]);
     }
 
-    fetch('/api/addbill', {
+    fetch('/api/managebills', {
       method: 'DELETE',
       headers: {
           'Content-type': 'application/json',

@@ -32,8 +32,8 @@ function Dashboard() {
         setBills(billsData);
       } else {
         // Fetch bills data from the database
-        fetch('api/getbills/', {
-          method: 'POST',
+        fetch('api/managebills/', {
+          method: 'GET',
           headers: {
               'Content-type': 'application/json',
           },
