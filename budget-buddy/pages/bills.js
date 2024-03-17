@@ -27,15 +27,7 @@ export default function Bills() {
   // pull bills data from db
   useEffect(()=>{
 
-    fetch('/api/managebills/', {
-      method: 'POST',
-      headers: {
-          'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-          user: userid
-      })
-    })
+    fetch('/api/managebills?uid=' + userid)
     .then(res => {
       return res.json();
     })
@@ -148,6 +140,8 @@ export default function Bills() {
 
   //Delete Bill item
   const onDeleteHandler = (e)=>{
+    e.preventDefault();
+
     let {index, id, title } = JSON.parse(e.target.dataset.info);
 
     if(confirm(`Remove ${title} from your bills?`)){
@@ -155,7 +149,7 @@ export default function Bills() {
       setBills([...bills]);
     }
 
-    fetch('/api/managebills', {
+    fetch('/api/managebills/', {
       method: 'DELETE',
       headers: {
           'Content-type': 'application/json',
