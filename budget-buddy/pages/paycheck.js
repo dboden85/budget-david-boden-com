@@ -8,12 +8,13 @@ export default function Paycheck() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [userid, setUserid] = useState();
   const [paycheckAmount, setPaycheckAmount] = useState(0);
+  const [whichForm, setWhichForm] = useState('none');
 
   // refs
   const paycheckItemTitle = useRef();
   const paycheckItemAmount = useRef();
 
-  // function to retrieve paycheck items.
+    // function to retrieve paycheck items.
   const fetchPaycheck = (uid)=>{
     fetch('/api/managepaycheckitems?uid=' + uid)
     .then(res => {
@@ -31,6 +32,7 @@ export default function Paycheck() {
     })
   }
 
+  // pull user session variable
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
@@ -44,7 +46,17 @@ export default function Paycheck() {
 
   // toggle add paycheck menu
   const openUpdateMenuHandler = () => {
+    isFormOpen && setWhichForm('none'); 
     setIsFormOpen(prev => (!prev));
+  }
+
+  // choose which handler.
+  const payCheckItemsForm = ()=>{
+    setWhichForm('items');
+  }
+
+  const payCheckAmountForm = ()=>{
+    setWhichForm('amount');
   }
 
   //add paycheck item form submit handler
@@ -95,7 +107,7 @@ export default function Paycheck() {
     setIsFormOpen(false);
   }
 
-
+  // Delete paycheck item handler
   const onDeleteHandler = (e)=>{
     let {index, id, title } = JSON.parse(e.target.dataset.info);
 
@@ -121,6 +133,34 @@ export default function Paycheck() {
       console.log(err);
     })
   }
+
+  // Forms
+  const changeItemsForm =
+    (
+      <form className="form" onSubmit={onSubmitHandler}>
+        <label>Item Title</label>
+        <input ref={paycheckItemTitle} type="text"/>
+        <label>Amount</label>
+        <input ref={paycheckItemAmount} type="number" step=".01" />
+        <button>Add Item</button>
+      </form>
+    )
+
+  const changeAmountForm = 
+    (
+      <form className="form" onSubmit={onSubmitHandler}>
+        <label>Paycheck Amount</label>
+        <input type="text" step="0.1"/>
+      </form>
+    )
+
+  const whichFormButtons = 
+    (
+      <div className="formButtons">
+          <button onClick={payCheckItemsForm}>Add Paycheck Item</button>
+          <button onClick={payCheckAmountForm}>Update Paycheck Amount</button>
+      </div>
+    )
 
 
   return (
@@ -175,14 +215,14 @@ export default function Paycheck() {
       </div>
 
       <div className={isFormOpen ? 'open update-form' : 'update-form'}>
-        <form className="form" onSubmit={onSubmitHandler}>
-          <h2>Add Item</h2>
-          <label>Item Title</label>
-          <input ref={paycheckItemTitle} type="text"/>
-          <label>Amount</label>
-          <input ref={paycheckItemAmount} type="number" step=".01" />
-          <button>Add Item</button>
-        </form>
+        <h2>Update Paycheck</h2>
+
+        {whichForm === 'items' &&  changeItemsForm}
+
+        {whichForm === 'amount' &&  changeAmountForm}
+
+        {whichForm === 'none' &&  whichFormButtons}
+        
       </div>
     </>
   );
