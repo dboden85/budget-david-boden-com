@@ -9,7 +9,7 @@ const MonthlyAllocations = ({monthlySavings, billsTotal, paycheckItems})=>{
                 <li key="bills"><p className="title">Bills</p><p className="amount">{`$${billsTotal.toFixed(2)}`}</p></li>
                 {paycheckItems.map(item =>{
                     return(
-                    <li key={item.id}><p className="title">{item.title}</p><p className="amount">{'$' + (item.amount * 4).toFixed(2)}</p></li>
+                    <li key={item.pid}><p className="title">{item.title}</p><p className="amount">{'$' + (item.amount * 4).toFixed(2)}</p></li>
                     )
                 })}
             </ul>
