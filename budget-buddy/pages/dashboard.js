@@ -15,25 +15,13 @@ function Dashboard() {
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
 
     useEffect(()=>{
-      const userInfoData = JSON.parse(sessionStorage.getItem('userInfo'));
+      const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
-      if(userInfoData){
-        setUserInfo(userInfoData[0]);
-      }
+      if(userData){
+        setUserInfo(userData[0]);
 
-    }, [])
-
-
-    // Pull the user info from the session variable
-    useEffect(()=>{
-      const billsData = JSON.parse(sessionStorage.getItem('bills'));
-      const paycheckItemsData = JSON.parse(sessionStorage.getItem('paycheckItems'));
-    
-      if (billsData) {
-        setBills(billsData);
-      } else {
         // Fetch bills data from the database
-        fetch('api/managebills?uid=' + userInfo.uid)
+        fetch('api/managebills?uid=' + userData[0].uid)
         .then(res => {
           return res.json();
         })
@@ -48,6 +36,13 @@ function Dashboard() {
           console.log(err);
         })
       }
+
+    }, [])
+
+
+    // Pull the user info from the session variable
+    useEffect(()=>{
+      const paycheckItemsData = JSON.parse(sessionStorage.getItem('paycheckItems'));
     
       if (paycheckItemsData) {
         setPaycheckItems(paycheckItemsData);
