@@ -21,8 +21,8 @@ const PaycheckAllocations = ( {paycheckItems, billsTotal, savings, totalAllocati
         <Card>
             <h2>Paycheck Allocations</h2>
             <ul>
-                <li><p className="title">Savings</p><p className="amount">{`$${savings.toFixed(2)}`}</p></li>
-                <li><p className="title">Bills</p><p className="amount">{`$${allocatedBills.toFixed(2)}`}</p></li>
+                <li key="savings"><p className="title">Savings</p><p className="amount">{`$${savings.toFixed(2)}`}</p></li>
+                <li key="bills"><p className="title">Bills</p><p className="amount">{`$${allocatedBills.toFixed(2)}`}</p></li>
                 {paycheckItems.map(item => {
                     return(
                         <li key={item.id}><p className="title">{item.title}</p><p className="amount">{'$' + item.amount.toFixed(2)}</p></li>
