@@ -12,26 +12,31 @@ export default function Paycheck() {
   const paycheckItemTitle = useRef();
   const paycheckItemAmount = useRef();
 
+  // function to retrieve paycheck items.
+  const fetchPaycheck = (uid)=>{
+    fetch('/api/managepaycheckitems?pid=' + uid)
+    .then(res => {
+      return res.json();
+    })
+    .then(data =>{
+      if(data.results){
+        setPaycheckItems([...data.results]);
+      }else{
+        throw(data.message)
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
     if(userData){
       setUserid(userData[0].uid);
 
-      fetch('/api/managepaycheckitems?pid=' + userData[0].uid)
-      .then(res => {
-        return res.json();
-      })
-      .then(data =>{
-        if(data.results){
-          setPaycheckItems([...data.results]);
-        }else{
-          throw(data.message)
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+      fetchPaycheck(userData[0].uid);
     }
 
   },[])
@@ -59,13 +64,13 @@ export default function Paycheck() {
     const title = capitalizeFirstLetter(paycheckItemTitle.current.value);
     const amount = parseFloat(paycheckItemAmount.current.value);
 
-    setPaycheckItems(prev => (
-      [...prev, {
-        pid: paycheckItems.length + 1,
-        title: title,
-        amount: amount
-      }
-      ])) 
+    // setPaycheckItems(prev => (
+    //   [...prev, {
+    //     pid: paycheckItems.length + 1,
+    //     title: title,
+    //     amount: amount
+    //   }
+    //   ])) 
 
       fetch('/api/managepaycheckitems', {
         method: 'POST',
@@ -82,6 +87,7 @@ export default function Paycheck() {
       .then(data => {
         if(data.message){
           console.log(data.message);
+          fetchPaycheck(userid);
         }
       })
 
