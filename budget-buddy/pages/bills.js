@@ -39,13 +39,6 @@ export default function Bills() {
 
   },[])
 
-  // pull bills data from db
-  useEffect(()=>{
-
-    
-
-  }, [userid])
-
 
   // Total up the bill amounts
   useEffect(() => {
