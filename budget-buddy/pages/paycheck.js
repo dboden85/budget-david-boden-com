@@ -7,6 +7,7 @@ export default function Paycheck() {
   const [paycheckItems, setPaycheckItems] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [userid, setUserid] = useState();
+  const [paycheckAmount, setPaycheckAmount] = useState(0);
 
   // refs
   const paycheckItemTitle = useRef();
@@ -128,14 +129,10 @@ export default function Paycheck() {
       <main>
         <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
           <div className="overlay"></div>
-            {/* {isMathing ?
-            <Loading />
-            :
+           
             <div className="row total-row">
-              <p>Total: <span>${billsTotal.toFixed(2)}</span></p>
+            <p>Paycheck Amount: <span>${paycheckAmount.toFixed(2)}</span></p>
             </div>
-          } */}
-          
         </div>
           
         <div className="row">
