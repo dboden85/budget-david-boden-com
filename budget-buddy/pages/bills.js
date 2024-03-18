@@ -144,7 +144,7 @@ export default function Bills() {
       setBills([...bills]);
     }
 
-    fetch('/api/managebills?uid=' + id, {
+    fetch('/api/managebills?bid=' + id, {
       method: 'DELETE'
     })
     .then(res => {

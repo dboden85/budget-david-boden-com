@@ -14,7 +14,7 @@ const handler = (req, res)=>{
             console.log('Req Method: ' + req.method)
 
             q = 'SELECT * FROM bills WHERE user_id = ?;';
-            DB.query(q,[params.uid], (err, results) => {
+            DB.query(q,[params.bid], (err, results) => {
 
                 if(err){
                     res.status(404).json({'message': 'Could not connect to the server!\n' + err});
@@ -57,7 +57,7 @@ const handler = (req, res)=>{
             
             q = 'DELETE FROM bills WHERE bid = ?;';
 
-            DB.query(q, [params.uid], (err, results) => {
+            DB.query(q, [params.bid], (err, results) => {
                 if(err){
                     res.status(200).json({'message': err, success: 0})
                     return;

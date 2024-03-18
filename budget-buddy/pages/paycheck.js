@@ -18,7 +18,7 @@ export default function Paycheck() {
     if(userData){
       setUserid(userData[0].uid);
 
-      fetch('/api/managepaycheckitems?uid=' + userData[0].uid)
+      fetch('/api/managepaycheckitems?pid=' + userData[0].uid)
       .then(res => {
         return res.json();
       })
@@ -90,7 +90,29 @@ export default function Paycheck() {
 
 
   const onDeleteHandler = (e)=>{
-    let boop = prompt('Boop?')
+    let {index, id, title } = JSON.parse(e.target.dataset.info);
+
+    if(confirm(`Remove ${title} from your bills?`)){
+      paycheckItems.splice(index, 1);
+      setPaycheckItems([...paycheckItems]);
+    }
+
+    fetch('/api/managepaycheckitems?pid=' + id, {
+      method: 'DELETE'
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(data =>{
+      if(data.success){
+        console.log(data.message);
+      }else{
+        throw(data.message);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
 

@@ -13,7 +13,7 @@ const handler = (req, res)=>{
             console.log('Req Method: ' + req.method)
 
             q = 'SELECT * FROM paycheck_items WHERE user_id = ?;';
-            DB.query(q,[params.uid], (err, results) => {
+            DB.query(q,[params.pid], (err, results) => {
 
                 if(err){
                     res.status(404).json({'message': 'Could not connect to the server!\n' + err});
@@ -50,6 +50,27 @@ const handler = (req, res)=>{
                 }catch{
                     res.status(400).json({'message': 'There was an error'});
                 }
+            })
+
+            break;
+        
+        case 'DELETE':
+
+            console.log(req.query)
+
+            console.log('Req Method: ' + req.method);
+            
+            q = 'DELETE FROM paycheck_items WHERE bid = ?;';
+
+            DB.query(q, [params.pid], (err, results) => {
+                if(err){
+                    res.status(200).json({'message': err, success: 0})
+                    return;
+                }
+
+                res.status(200).json({'message': 'The paycheck item is deleted.', success: 1})
+
+
             })
 
             break;
