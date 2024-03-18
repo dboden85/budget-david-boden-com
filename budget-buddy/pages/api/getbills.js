@@ -10,6 +10,8 @@ const handler = (req, res)=>{
 
         if(results){
             res.status(200).json({"bills": results});
+        }else{
+            res.status(200).json('No bills to show');
         }
 
 
