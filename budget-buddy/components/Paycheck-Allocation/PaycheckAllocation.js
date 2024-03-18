@@ -4,7 +4,7 @@ import Card from "../UI/Card";
 const PaycheckAllocations = ( {paycheckItems, billsTotal, savings, totalAllocations} )=>{
 
 
-    savings = parseFloat(savings);
+    savings = savings ? parseFloat(savings) : 0;
 
     useEffect(()=>{
         let total = 0;

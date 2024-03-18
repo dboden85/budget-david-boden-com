@@ -149,14 +149,8 @@ export default function Bills() {
       setBills([...bills]);
     }
 
-    fetch('/api/managebills/', {
-      method: 'DELETE',
-      headers: {
-          'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-          id: id
-      })
+    fetch('/api/managebills?uid=' + id, {
+      method: 'DELETE'
     })
     .then(res => {
       return res.json();

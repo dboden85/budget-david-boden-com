@@ -20,6 +20,7 @@ function Dashboard() {
       if(userInfoData){
         setUserInfo(userInfoData[0]);
       }
+
     }, [])
 
 
@@ -76,21 +77,13 @@ function Dashboard() {
         .catch(err => {
           console.log("There was an issue retrieving the paycheck items" + err);
         })
-    }
-    },[userInfo])
+      }
 
-    useEffect(()=>{
-      console.log("User Info: " + userInfo);
-      console.log("bills: " + bills);
-      console.log("paycheck items: " + paycheckItems);
-    },[])
-
-    // Set Monthly Savings
-    useEffect(()=>{
       if(userInfo.savings_per_paycheck){
         setMonthlySavings(userInfo.savings_per_paycheck * 4);
       }
-    }, [userInfo])
+
+    },[userInfo])
 
     return (
       <>

@@ -3,21 +3,18 @@ import { useRouter } from 'next/router'
 
 const handler = (req, res)=>{
 
-    let q = ''; //query based on request
+    let q = ''; //query based on request method
+
+    const rBody = req.body;
+    const params = req.query;
 
     switch(req.method){
         case 'GET':
 
             console.log('Req Method: ' + req.method)
 
-            const url = req.url;
-            let params = url.split('?')[1];
-            let user = params.split('=')[1];
-
-            console.log("User: " + user)
-
             q = 'SELECT * FROM bills WHERE user_id = ?;';
-            DB.query(q,[user], (err, results) => {
+            DB.query(q,[params.uid], (err, results) => {
 
                 if(err){
                     res.status(404).json({'message': 'Could not connect to the server!\n' + err});
@@ -40,7 +37,7 @@ const handler = (req, res)=>{
 
             console.log('Req Method: ' + req.method)
 
-            const {uid, title, amount, due} =  req.body;
+            let {uid, title, amount, due} =  rBody;
             q = 'INSERT INTO bills(user_id, bill_title, bill_amount, due_date) values(?, ?, ?, ?);';
             DB.query(q,[uid, title, amount, due], (err, results) => {
                 try{
@@ -54,17 +51,16 @@ const handler = (req, res)=>{
 
         case 'DELETE':
 
-            console.log('Req Method: ' + req.method)
+            console.log(req.method)
+            console.log(req.query)
 
-            const {id} = req.body;
-
-            console.log(id);
+            console.log('Req Method: ' + req.method);
             
             q = 'DELETE FROM bills WHERE bid = ?;';
 
             console.log('Delete request ran')
 
-            DB.query(q, [id], (err, results) => {
+            DB.query(q, [params.uid], (err, results) => {
                 if(err){
                     res.status(200).json({'message': err, success: 0})
                     return;
