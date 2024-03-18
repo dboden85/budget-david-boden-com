@@ -20,6 +20,21 @@ export default function Bills() {
 
     if(userData){
       setUserid(userData[0].uid);
+
+      fetch('/api/managebills?uid=' + userData[0].uid)
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.results){
+          setBills([...data.results]);
+        }else{
+          throw(data.message)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
 
   },[])
@@ -27,20 +42,7 @@ export default function Bills() {
   // pull bills data from db
   useEffect(()=>{
 
-    fetch('/api/managebills?uid=' + userid)
-    .then(res => {
-      return res.json();
-    })
-    .then(data =>{
-      if(data.results){
-        setBills([...data.results]);
-      }else{
-        throw(data.message)
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    
 
   }, [userid])
 

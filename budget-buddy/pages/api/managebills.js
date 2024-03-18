@@ -51,14 +51,11 @@ const handler = (req, res)=>{
 
         case 'DELETE':
 
-            console.log(req.method)
             console.log(req.query)
 
             console.log('Req Method: ' + req.method);
             
             q = 'DELETE FROM bills WHERE bid = ?;';
-
-            console.log('Delete request ran')
 
             DB.query(q, [params.uid], (err, results) => {
                 if(err){
