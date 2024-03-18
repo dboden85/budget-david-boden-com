@@ -31,6 +31,29 @@ const handler = (req, res)=>{
 
             break;
 
+        case 'POST':
+
+            console.log('Req Method: ' + req.method)
+
+            const {uid, title, amount} = rBody;
+
+            q = 'INSERT INTO paycheck_items(title, amount, user_id) VALUES(?, ?, ?);';
+            DB.query(q,[title, amount, uid], (err, results) => {
+
+                if(err){
+                    res.status(404).json({'message': 'Could not connect to the server!\n' + err});
+                    return;
+                }
+
+                try{
+                    res.status(200).json({'message': 'A new paycheck item is added'});
+                }catch{
+                    res.status(400).json({'message': 'There was an error'});
+                }
+            })
+
+            break;
+
         default:
             //do nothing
             break;
