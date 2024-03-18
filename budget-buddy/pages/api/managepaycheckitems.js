@@ -60,7 +60,7 @@ const handler = (req, res)=>{
 
             console.log('Req Method: ' + req.method);
             
-            q = 'DELETE FROM paycheck_items WHERE bid = ?;';
+            q = 'DELETE FROM paycheck_items WHERE pid = ?;';
 
             DB.query(q, [params.pid], (err, results) => {
                 if(err){
