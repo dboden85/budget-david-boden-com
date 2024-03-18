@@ -19,6 +19,7 @@ function Dashboard() {
 
       if(userData){
         setUserInfo(userData[0]);
+        setMonthlySavings(userData[0].savings_per_paycheck * 4);
 
         // Fetch bills data from the database
         fetch('api/managebills?uid=' + userData[0].uid)
@@ -35,28 +36,9 @@ function Dashboard() {
         .catch(err => {
           console.log(err);
         })
-      }
 
-    }, [])
-
-
-    // Pull the user info from the session variable
-    useEffect(()=>{
-      const paycheckItemsData = JSON.parse(sessionStorage.getItem('paycheckItems'));
-    
-      if (paycheckItemsData) {
-        setPaycheckItems(paycheckItemsData);
-      } else {
-        // Fetch paycheck items data from the database
-        fetch('api/getpaycheckitems', {
-          method: 'POST',
-          headers: {
-              'Content-type': 'application/json',
-          },
-          body: JSON.stringify({
-              user: userInfo.uid
-          })
-        })
+         // Fetch paycheck items data from the database
+        fetch('api/managepaycheckitems?uid=' + userData[0].uid)
         .then(res => {
           return res.json();
         })
@@ -64,21 +46,17 @@ function Dashboard() {
           if(data.results){
             // console.log(data.message);
             setPaycheckItems([...data.results]);
-            sessionStorage.setItem('paycheckItems', JSON.stringify(data.results))
           }else{
-            console.log('something is wrong: \n' + data.message)
+            throw('something is wrong: \n' + data.message);
           }
         })
         .catch(err => {
-          console.log("There was an issue retrieving the paycheck items" + err);
+          console.log(err);
         })
+
       }
 
-      if(userInfo.savings_per_paycheck){
-        setMonthlySavings(userInfo.savings_per_paycheck * 4);
-      }
-
-    },[userInfo])
+    }, [])
 
     return (
       <>
