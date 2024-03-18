@@ -14,14 +14,8 @@ export default function Bills() {
   const [isMathing, setIsMathing] = useState(true);
   const [bills, setBills] = useState([]);
 
-  // Pull user info from session var
-  useEffect(()=>{
-    const userData = JSON.parse(sessionStorage.getItem('userInfo'));
-
-    if(userData){
-      setUserid(userData[0].uid);
-
-      fetch('/api/managebills?uid=' + userData[0].uid)
+  const fetchBills = (uid)=>{
+    fetch('/api/managebills?uid=' + uid)
       .then(res => {
         return res.json();
       })
@@ -33,8 +27,18 @@ export default function Bills() {
         }
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       })
+  }
+
+  // Pull user info from session var
+  useEffect(()=>{
+    const userData = JSON.parse(sessionStorage.getItem('userInfo'));
+
+    if(userData){
+      setUserid(userData[0].uid);
+
+      fetchBills(userData[0].uid);
     }
 
   },[])
@@ -102,14 +106,14 @@ export default function Bills() {
     const amount = parseFloat(billAmount.current.value);
     const due = parseInt(dueDate.current.value);
 
-    setBills(prev => (
-      [...prev, {
-        bid: bills.length + 1,
-        bill_title: title,
-        bill_amount: amount,
-        due_date: due
-      }
-      ])) 
+    // setBills(prev => (
+    //   [...prev, {
+    //     bid: bills.length + 1,
+    //     bill_title: title,
+    //     bill_amount: amount,
+    //     due_date: due
+    //   }
+    //   ])) 
 
       fetch('/api/managebills', {
         method: 'POST',
@@ -127,6 +131,8 @@ export default function Bills() {
       .then(data => {
         if(data.message){
           console.log(data.message);
+
+          fetchBills(userid);
         }
       })
 
