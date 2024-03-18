@@ -36,7 +36,7 @@ export default function Paycheck() {
 
     if(userData){
       setUserid(userData[0].uid);
-
+      setPaycheckAmount(userData[0].paycheck_amount);
       fetchPaycheck(userData[0].uid);
     }
 
@@ -129,9 +129,8 @@ export default function Paycheck() {
       <main>
         <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
           <div className="overlay"></div>
-           
             <div className="row total-row">
-            <p>Paycheck Amount: <span>${paycheckAmount.toFixed(2)}</span></p>
+              <p>Paycheck Amount: <span>${paycheckAmount.toFixed(2)}</span></p>
             </div>
         </div>
           
