@@ -13,7 +13,7 @@ const handler = (req, res)=>{
             console.log('Req Method: ' + req.method)
 
             q = 'SELECT * FROM paycheck_items WHERE user_id = ?;';
-            DB.query(q,[params.pid], (err, results) => {
+            DB.query(q,[params.uid], (err, results) => {
 
                 if(err){
                     res.status(404).json({'message': 'Could not connect to the server!\n' + err});

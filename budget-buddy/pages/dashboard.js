@@ -22,7 +22,7 @@ function Dashboard() {
         setMonthlySavings(userData[0].savings_per_paycheck * 4);
 
         // Fetch bills data from the database
-        fetch('api/managebills?bid=' + userData[0].uid)
+        fetch('api/managebills?uid=' + userData[0].uid)
         .then(res => {
           return res.json();
         })
@@ -38,7 +38,7 @@ function Dashboard() {
         })
 
          // Fetch paycheck items data from the database
-        fetch('api/managepaycheckitems?pid=' + userData[0].uid)
+        fetch('api/managepaycheckitems?uid=' + userData[0].uid)
         .then(res => {
           return res.json();
         })

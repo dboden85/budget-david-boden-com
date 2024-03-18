@@ -14,7 +14,7 @@ export default function Paycheck() {
 
   // function to retrieve paycheck items.
   const fetchPaycheck = (uid)=>{
-    fetch('/api/managepaycheckitems?pid=' + uid)
+    fetch('/api/managepaycheckitems?uid=' + uid)
     .then(res => {
       return res.json();
     })
