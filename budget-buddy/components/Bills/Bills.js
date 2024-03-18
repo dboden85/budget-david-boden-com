@@ -17,7 +17,7 @@ const Bills = ( {billsTotal, billsList} )=>{
             {billsList.length > 0 ?
                 <ul>
                     {billsList.map(bill => {
-                        return(<li key={bill.id}><p className="title">{bill.bill_title}</p><p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p></li>)
+                        return(<li key={bill.bid}><p className="title">{bill.bill_title}</p><p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p></li>)
                     })}
                 </ul> 
                 : 
