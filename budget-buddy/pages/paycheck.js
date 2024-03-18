@@ -1,11 +1,16 @@
 "use client";
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Paycheck() {
   const [paycheckItems, setPaycheckItems] = useState([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [userid, setUserid] = useState();
+
+  // refs
+  const paycheckItemTitle = useRef();
+  const paycheckItemAmount = useRef();
 
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
@@ -31,9 +36,61 @@ export default function Paycheck() {
 
   },[])
 
+  // toggle add paycheck menu
+  const openUpdateMenuHandler = () => {
+    setIsFormOpen(prev => (!prev));
+  }
+
+  //add paycheck item form submit handler
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+
+    const capitalizeFirstLetter = (words)=>{
+      const wArray = words.split(' ');
+      wArray.map((word, i) =>{
+        word = word.charAt(0).toUpperCase() + word.slice(1);
+        wArray.splice(i, 1, word);
+      })
+
+      words = wArray.join(' ');
+      return words;
+    }
+
+    const title = capitalizeFirstLetter(paycheckItemTitle.current.value);
+    const amount = parseFloat(paycheckItemAmount.current.value);
+
+    setPaycheckItems(prev => (
+      [...prev, {
+        pid: paycheckItems.length + 1,
+        title: title,
+        amount: amount
+      }
+      ])) 
+
+      fetch('/api/managepaycheckitems', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          uid: userid,
+          title: title,
+          amount: amount
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.message){
+          console.log(data.message);
+        }
+      })
+
+    setIsFormOpen(false);
+  }
+
 
   const onDeleteHandler = (e)=>{
-    alert('boop')
+    let boop = prompt('Boop?')
   }
 
 
@@ -89,7 +146,7 @@ export default function Paycheck() {
         </div>
       </main>
 
-      {/* <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
+      <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
         <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px" />
       </div>
 
@@ -97,12 +154,12 @@ export default function Paycheck() {
         <form className="form" onSubmit={onSubmitHandler}>
           <h2>Add Item</h2>
           <label>Item Title</label>
-          <input onChange={onTitleChangeHandler} type="text" value={expenseTitle} />
+          <input ref={paycheckItemTitle} type="text"/>
           <label>Amount</label>
-          <input onChange={onAmountChangeHandler} type="number" value={expenseAmount} />
+          <input ref={paycheckItemAmount} type="number" step=".01" />
           <button>Add Item</button>
         </form>
-      </div> */}
+      </div>
     </>
   );
 }
