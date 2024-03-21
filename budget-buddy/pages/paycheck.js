@@ -166,8 +166,8 @@ export default function Paycheck() {
   }
 
   // Forms
-  const changeItemsForm =
-    (
+  const ChangeItemsForm = ()=>{
+    return (
       <form className="form" onSubmit={itemChangeHandler}>
         <label>Item Title</label>
         <input ref={paycheckItemTitle} type="text"/>
@@ -176,23 +176,26 @@ export default function Paycheck() {
         <button>Add Item</button>
       </form>
     )
+  }
 
-  const changeAmountForm = 
-    (
+  const ChangeAmountForm = ()=>{
+    return (
       <form className="form" onSubmit={amountChangeHandler}>
         <label>Paycheck Amount</label>
         <input ref={checkAmount} type="text" step="0.1"/>
         <button type="submit">Update Amount</button>
       </form>
     )
+  }
 
-  const whichFormButtons = 
-    (
+  const WhichFormButtons = ()=>{
+    return (
       <div className="formButtons">
           <button onClick={payCheckItemsForm}>Add Paycheck Item</button>
           <button onClick={payCheckAmountForm}>Update Paycheck Amount</button>
       </div>
     )
+  }
 
 
   return (
@@ -249,11 +252,11 @@ export default function Paycheck() {
       <div className={isFormOpen ? 'open update-form' : 'update-form'}>
         <h2>Update Paycheck</h2>
 
-        {whichForm === 'items' &&  changeItemsForm}
+        {whichForm === 'items' &&  <ChangeItemsForm />}
 
-        {whichForm === 'amount' &&  changeAmountForm}
+        {whichForm === 'amount' &&  <ChangeAmountForm />}
 
-        {whichForm === 'none' &&  whichFormButtons}
+        {whichForm === 'none' &&  <WhichFormButtons />}
         
       </div>
     </>

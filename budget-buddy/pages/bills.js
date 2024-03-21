@@ -176,6 +176,22 @@ export default function Bills() {
     : 'th (How can this be 0?)';
   }
 
+  //form
+  const AddBillItemsForm = ()=>{
+    return (
+      <form className="form" onSubmit={onSubmitHandler}>
+          <h2>Add Bill</h2>
+          <label>Bill Title</label>
+          <input ref={billTitle} type="text" />
+          <label>Amount</label>
+          <input ref={billAmount} type="number" step=".01" />
+          <label>Due</label>
+          <input ref={dueDate} type="number" step="1" min="1" max="31"/>
+          <button>Add Bill</button>
+        </form>
+    )
+  }
+
 
   return (
     <>
@@ -234,16 +250,7 @@ export default function Bills() {
       </div>
 
       <div className={isFormOpen ? 'open update-form' : 'update-form'}>
-        <form className="form" onSubmit={onSubmitHandler}>
-          <h2>Add Bill</h2>
-          <label>Bill Title</label>
-          <input ref={billTitle} type="text" />
-          <label>Amount</label>
-          <input ref={billAmount} type="number" step=".01" />
-          <label>Due</label>
-          <input ref={dueDate} type="number" step="1" min="1" max="31"/>
-          <button>Add Bill</button>
-        </form>
+        <AddBillItemsForm/>
       </div>
     </>
   );
