@@ -3,17 +3,18 @@ import DB from "@/database";
 const handler = (req, res)=>{
 
     let q = ''; //query based on request method
+    const { method, body, query } = req;
 
-    const rBody = req.body;
+    console.log('Req Method: ' + req.method)
     const params = req.query;
 
-    switch(req.method){
+    switch(method){
         case 'GET':
 
-            console.log('Req Method: ' + req.method)
+            
 
             q = 'SELECT * FROM paycheck_items WHERE user_id = ?;';
-            DB.query(q,[params.uid], (err, results) => {
+            DB.query(q,[query.uid], (err, results) => {
 
                 if(err){
                     res.status(404).json({'message': 'Could not connect to the server!\n' + err});
@@ -33,9 +34,7 @@ const handler = (req, res)=>{
 
         case 'POST':
 
-            console.log('Req Method: ' + req.method)
-
-            const {uid, title, amount} = rBody;
+            const {uid, title, amount} = body;
 
             q = 'INSERT INTO paycheck_items(title, amount, user_id) VALUES(?, ?, ?);';
             DB.query(q,[title, amount, uid], (err, results) => {
@@ -57,12 +56,10 @@ const handler = (req, res)=>{
         case 'DELETE':
 
             console.log(req.query)
-
-            console.log('Req Method: ' + req.method);
             
             q = 'DELETE FROM paycheck_items WHERE pid = ?;';
 
-            DB.query(q, [params.pid], (err, results) => {
+            DB.query(q, [query.pid], (err, results) => {
                 if(err){
                     res.status(200).json({'message': err, success: 0})
                     return;
@@ -74,6 +71,19 @@ const handler = (req, res)=>{
             })
 
             break;
+
+        case 'PUT':
+
+            q = 'UPDATE users SET paycheck_amount = ? WHERE uid = ?;'
+
+            DB.query(q, [body.amount, body.uid], (err)=>{
+                if(err){
+                    console.log(err);
+                    return;
+                }
+
+                res.status(200).json({'message': 'Paycheck Amount is updated!', 'success': 1});
+            })
 
         default:
             //do nothing

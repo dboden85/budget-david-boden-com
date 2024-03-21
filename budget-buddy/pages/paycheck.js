@@ -8,6 +8,7 @@ export default function Paycheck() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [userid, setUserid] = useState();
   const [paycheckAmount, setPaycheckAmount] = useState(0);
+  const checkAmount = useRef();
   const [whichForm, setWhichForm] = useState('none');
 
   // refs
@@ -60,7 +61,7 @@ export default function Paycheck() {
   }
 
   //add paycheck item form submit handler
-  const onSubmitHandler = (e) => {
+  const itemChangeHandler = (e) => {
     e.preventDefault();
 
     const capitalizeFirstLetter = (words)=>{
@@ -107,6 +108,36 @@ export default function Paycheck() {
     setIsFormOpen(false);
   }
 
+  const amountChangeHandler = (e)=>{
+    e.preventDefault();
+
+    const amount = parseFloat(checkAmount.current.value).toFixed(2);
+
+    fetch('/api/managepaycheckitems', {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        uid: userid,
+        amount: amount
+      })
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.success){
+        console.log(data.message);
+        setPaycheckAmount(amount)
+      }else{
+        throw(data.message);
+      }
+    })
+    .catch(err =>{
+      console.error(err);
+    })
+
+  }
+
   // Delete paycheck item handler
   const onDeleteHandler = (e)=>{
     let {index, id, title } = JSON.parse(e.target.dataset.info);
@@ -137,7 +168,7 @@ export default function Paycheck() {
   // Forms
   const changeItemsForm =
     (
-      <form className="form" onSubmit={onSubmitHandler}>
+      <form className="form" onSubmit={itemChangeHandler}>
         <label>Item Title</label>
         <input ref={paycheckItemTitle} type="text"/>
         <label>Amount</label>
@@ -148,9 +179,10 @@ export default function Paycheck() {
 
   const changeAmountForm = 
     (
-      <form className="form" onSubmit={onSubmitHandler}>
+      <form className="form" onSubmit={amountChangeHandler}>
         <label>Paycheck Amount</label>
-        <input type="text" step="0.1"/>
+        <input ref={checkAmount} type="text" step="0.1"/>
+        <button type="submit">Update Amount</button>
       </form>
     )
 
@@ -170,7 +202,7 @@ export default function Paycheck() {
         <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
           <div className="overlay"></div>
             <div className="row total-row">
-              <p>Paycheck Amount: <span>${paycheckAmount.toFixed(2)}</span></p>
+              <p>Paycheck Amount: <span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
             </div>
         </div>
           
