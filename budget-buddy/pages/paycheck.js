@@ -202,8 +202,7 @@ export default function Paycheck() {
     <>
       <Header title="Paycheck" />
       <main>
-        <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
-          <div className="overlay"></div>
+        <div>
             <div className="row total-row">
               <p>Paycheck Amount: <span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
             </div>

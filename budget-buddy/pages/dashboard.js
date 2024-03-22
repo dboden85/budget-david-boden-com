@@ -62,7 +62,7 @@ function Dashboard() {
       <>
         <Header title="Dashboard"/>
         <main>
-            <div className="row hero-image" style={{backgroundImage: "url('/budgeting-bg.jpg')"}}>
+            <div className="row hero-image">
                 <div className="overlay"></div>
                 <div className="budget-info">
                   <BudgetInfo 

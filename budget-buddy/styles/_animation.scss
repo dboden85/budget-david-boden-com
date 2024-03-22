@@ -8,13 +8,3 @@
         transform: translate(-50%, 0);
     }
 }
-
-@keyframes menu-slide {
-    from{
-        transform: translate(100%);
-    }
-
-    to{
-        transform: translate(0);
-    }
-}
