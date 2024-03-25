@@ -25,7 +25,7 @@ const Signup = (props) => {
         console.log(`${fname}\n${lname}\n${email}\n${uname}\n${pass}`)
 
 
-        fetch('/api/adduser', {
+        fetch('/api/users', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

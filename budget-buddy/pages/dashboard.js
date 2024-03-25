@@ -17,12 +17,13 @@ function Dashboard() {
     useEffect(()=>{
       const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
+      console.log(userData)
+
       if(userData){
-        setUserInfo(userData[0]);
-        setMonthlySavings(userData[0].savings_per_paycheck * 4);
+        setUserInfo(userData);
 
         // Fetch bills data from the database
-        fetch('api/managebills?uid=' + userData[0].uid)
+        fetch('api/managebills?uid=' + userData)
         .then(res => {
           return res.json();
         })
@@ -38,7 +39,7 @@ function Dashboard() {
         })
 
          // Fetch paycheck items data from the database
-        fetch('api/managepaycheckitems?uid=' + userData[0].uid)
+        fetch('api/managepaycheckitems?uid=' + userData)
         .then(res => {
           return res.json();
         })

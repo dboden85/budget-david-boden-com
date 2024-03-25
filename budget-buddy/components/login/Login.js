@@ -39,6 +39,7 @@ const Login = (props)=>{
                 console.log(data.uid)
                 sessionStorage.setItem('isLoggedIn', true);
                 sessionStorage.setItem('userInfo', JSON.stringify(data.results));
+                console.log(data.results)
                 router.push('/dashboard');
             }else{
                 throw(data.message)

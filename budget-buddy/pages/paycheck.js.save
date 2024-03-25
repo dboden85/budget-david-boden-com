@@ -45,10 +45,6 @@ export default function Paycheck() {
 
   },[])
 
-  useEffect(()=>{
-    console.log(paycheckItems);
-  },[paycheckItems])
-
   // toggle add paycheck menu
   const openUpdateMenuHandler = () => {
     isFormOpen && setWhichForm('none'); 
@@ -86,7 +82,8 @@ export default function Paycheck() {
     //   [...prev, {
     //     pid: paycheckItems.length + 1,
     //     title: title,
-    //     amount: amount
+    //     am
+ount: amount
     //   }
     //   ])) 
 
@@ -219,14 +216,12 @@ export default function Paycheck() {
               {paycheckItems.length > 0 ?
               paycheckItems.map((item, i) => {
 
-
                 const data = JSON.stringify({index: i, id: item.pid, title: item.title});
 
                 return (
-
                 <li key={item.pid}>
                   <p className="title">{item.title}</p>
-                  <p className="amount">{'$' + parseFloat(item.amount).toFixed(2)}</p>
+                  <p className="amount">{'$' + item.amount.toFixed(2)}</p>
                   <div className="delete-container">
                     <img data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>

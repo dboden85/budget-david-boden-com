@@ -13,24 +13,13 @@ const handler = (req, res)=>{
         
         if(results.length > 0){
             console.log('matched');
-            res.status(200).json({'message': 'Matched', 'results': results});
+            res.status(200).json({'message': 'Matched', 'results': results[0].uid});
         }else{
             console.log('no matches');
             res.status(200).json({'message': 'There were no matches'});
         }
         
     })
-    // const DUMMYDB = {
-    //     username: 'dboden',
-    //     password: 'pass'
-    // }
-
-    // const {username, password} = DUMMYDB;
-
-    // if(username === uname && password === pass){
-    //     res.status(200).json({'message': 'Matched', results: {uid: 1, fname: 'David', lname: 'Boden', paycheck_amount: 2000.00, savings_goal: 20000, savings_per_paycheck: 311}});
-    // }
-
 }
 
 export default handler;
