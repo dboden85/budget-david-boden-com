@@ -6,10 +6,14 @@ body{
             width: 350px;
             height: max-content;
             top: 100px;
-            right: 0;
+            right: -100%;
             left: unset;
             border-radius: 10px 0 0 10px;
             box-shadow: 1px 1px 10px #000;
+
+            &.open{
+                right: 0;
+            }
         }
     }
 
