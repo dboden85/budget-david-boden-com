@@ -35,12 +35,11 @@ export default function Paycheck() {
 
   // pull user session variable
   useEffect(()=>{
-    const userData = JSON.parse(sessionStorage.getItem('userInfo'));
+    const userData = sessionStorage.getItem('userInfo');
 
     if(userData){
-      setUserid(userData[0].uid);
-      setPaycheckAmount(userData[0].paycheck_amount);
-      fetchPaycheck(userData[0].uid);
+      setUserid(userData);
+      fetchPaycheck(userData);
     }
 
   },[])

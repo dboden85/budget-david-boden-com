@@ -8,7 +8,7 @@ export default function Bills() {
   const billTitle = useRef('');
   const billAmount = useRef('');
   const dueDate = useRef('');
-  const [userid, setUserid] = useState({});
+  const [userid, setUserid] = useState();
   const [billsTotal, setBillsTotal] = useState(0);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isMathing, setIsMathing] = useState(true);
@@ -33,12 +33,12 @@ export default function Bills() {
 
   // Pull user info from session var
   useEffect(()=>{
-    const userData = JSON.parse(sessionStorage.getItem('userInfo'));
+    const userData = sessionStorage.getItem('userInfo');
 
     if(userData){
-      setUserid(userData[0].uid);
+      setUserid(userData);
 
-      fetchBills(userData[0].uid);
+      fetchBills(userData);
     }
 
   },[])
@@ -106,35 +106,25 @@ export default function Bills() {
     const amount = parseFloat(billAmount.current.value);
     const due = parseInt(dueDate.current.value);
 
-    // setBills(prev => (
-    //   [...prev, {
-    //     bid: bills.length + 1,
-    //     bill_title: title,
-    //     bill_amount: amount,
-    //     due_date: due
-    //   }
-    //   ])) 
-
-      fetch('/api/managebills', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          uid: userid,
-          title: title,
-          amount: parseFloat(billAmount.current.value),
-          due: due
-        })
+    fetch('/api/managebills', {
+      method: 'POST',
+      headers: {
+          'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        uid: userid,
+        title: title,
+        amount: amount,
+        due: due
       })
-      .then(res => res.json())
-      .then(data => {
-        if(data.message){
-          console.log(data.message);
-
-          fetchBills(userid);
-        }
-      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status){
+        console.log(data.status);
+        fetchBills(userid);
+      }
+    })
 
     setIsFormOpen(false);
   }
@@ -216,12 +206,12 @@ export default function Bills() {
               {bills.length > 0 ?
               bills.map((bill, i) => {
 
-                const data = JSON.stringify({index: i, id: bill.bid, title: bill.bill_title});
+                const data = JSON.stringify({index: i, id: bill.bid, title: bill.title});
 
                 return (
                 <li key={bill.bid}>
-                  <p className="title">{bill.bill_title}<br /><small>{`Due on the ${bill.due_date}${ordSuffix(bill.due_date)}.`}</small></p>
-                  <p className="amount">{'$' + bill.bill_amount.toFixed(2)}</p>
+                  <p className="title">{bill.title}<br /><small>{`Due on the ${bill.due}${ordSuffix(bill.due)}.`}</small></p>
+                  <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
                   <div className="delete-container">
                     <img data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
                   </div>

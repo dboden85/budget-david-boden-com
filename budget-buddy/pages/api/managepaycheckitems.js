@@ -11,9 +11,7 @@ const handler = (req, res)=>{
     switch(method){
         case 'GET':
 
-            
-
-            q = 'SELECT * FROM paycheck_items WHERE user_id = ?;';
+            q = 'SELECT * FROM paycheck_items WHERE userid = ?;';
             DB.query(q,[query.uid], (err, results) => {
 
                 if(err){
@@ -36,7 +34,7 @@ const handler = (req, res)=>{
 
             const {uid, title, amount} = body;
 
-            q = 'INSERT INTO paycheck_items(title, amount, user_id) VALUES(?, ?, ?);';
+            q = 'INSERT INTO paycheck_items(title, amount, userid) VALUES(?, ?, ?);';
             DB.query(q,[title, amount, uid], (err, results) => {
 
                 if(err){

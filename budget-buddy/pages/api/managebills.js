@@ -7,7 +7,7 @@ const handler = (req, res) => {
     switch (method) {
         case 'GET':
             console.log('Req Method: ' + method);
-            q = 'SELECT * FROM bills WHERE user_id = ?;';
+            q = 'SELECT * FROM bills WHERE userid = ?;';
             DB.query(q, [query.uid], (err, results) => {
                 if (err) {
                     return res.status(404).json({ 'message': 'Could not connect to the server!\n' + err });
@@ -26,14 +26,14 @@ const handler = (req, res) => {
         case 'POST':
             console.log('Req Method: ' + method);
             const { uid, title, amount, due } = body;
-            q = 'INSERT INTO bills(user_id, bill_title, bill_amount, due_date) values(?, ?, ?, ?);';
+            q = 'INSERT INTO bills(userid, title, amount, due) values(?, ?, ?, ?);';
             DB.query(q, [uid, title, amount, due], (err, results) => {
                 if (err) {
                     console.log(err);
                     return;
                 }
                     
-                return res.status(200).json({ 'message': 'A new bill is added' });
+                return res.status(200).json({ 'message': 'A new bill is added', 'status': 1 });
                 
             });
             break;
