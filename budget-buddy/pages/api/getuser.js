@@ -7,7 +7,7 @@ const handler = (req, res)=>{
     DB.query(q,[uname, pass], (err, results) => {
 
         if(err){
-            res.status(404).json({'message': 'Could not connect to the server!\n' + err});
+            res.status(404).json({'message': 'Could not connect to the server!'});
             return;
         }
         
@@ -16,7 +16,7 @@ const handler = (req, res)=>{
             res.status(200).json({'message': 'Matched', 'results': results[0].uid});
         }else{
             console.log('no matches');
-            res.status(200).json({'message': 'There were no matches'});
+            res.status(200).json({'message': 'Username or password is incorrect'});
         }
         
     })

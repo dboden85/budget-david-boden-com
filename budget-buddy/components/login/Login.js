@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { useRouter } from 'next/navigation'
 
 
@@ -6,6 +6,9 @@ const Login = (props)=>{
     const router = useRouter()
     const user = useRef('');
     const password = useRef('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isErr, setIsErr] = useState(false);
+    const [errMessage, setErrMessage] = useState('Nothing to see here.  Move along!');
 
 
     const onClickHandler = ()=>{
@@ -20,39 +23,53 @@ const Login = (props)=>{
             return;
         }
 
-        fetch('/api/getuser', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            uname: user.current.value,
-            pass: password.current.value
-        })
-        })
-        .then(res =>{
-            return res.json();
-        })
-        .then(data => {
+        setIsLoading(true);
 
-            if(data.results){
-                console.log(data.uid)
-                sessionStorage.setItem('isLoggedIn', true);
-                sessionStorage.setItem('userInfo', JSON.stringify(data.results));
-                console.log(data.results)
-                router.push('/dashboard');
-            }else{
-                throw(data.message)
-            }
+        try{
 
+            fetch('/api/getuser', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    uname: user.current.value,
+                    pass: password.current.value
+                })
+                })
+                .then(res =>{
+                    return res.json();
+                })
+                .then(data => {
+        
+                    if(data.results){
+                        console.log(data.uid)
+                        sessionStorage.setItem('isLoggedIn', true);
+                        sessionStorage.setItem('userInfo', JSON.stringify(data.results));
+                        console.log(data.results)
+                        router.push('/dashboard');
+                    }else{
+                        throw(data.message)
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    setIsLoading(false);
+                    setIsErr(true);
+                    setErrMessage(err)
+                })
+        }
+        catch(err){
+            console.error('Can\'t connect to the server!');
+            setIsLoading(false);
+            setIsErr(true);
+            setErrMessage('Can\'t connect to the server!')
+        }
 
-            
-        })
-        .catch(err => {
-            console.error(err);
-        })
+        
 
     }
+
 
     return(
         <div className="login-form-container">
@@ -63,7 +80,21 @@ const Login = (props)=>{
                 <label>Password</label>
                 <input ref={password} type="password" defaultValue="example"/>
                 <button>Submit</button>
+
+                {isLoading && (
+                    <div className='form-notification'>
+                        {isLoading && <p>Loading...</p>}
+                    </div>
+                    )
+                }
+
+                {isErr && (
+                    <div className='formErr'>
+                        {isErr && <p>{errMessage}</p>}
+                    </div>
+                )}
             </form>
+            
             <p onClick={onClickHandler}>Need to Sign Up?</p>
         </div>
     )
