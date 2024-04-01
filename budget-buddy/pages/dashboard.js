@@ -7,7 +7,9 @@ import Auth from '../components/UX/Auth';
 import { useEffect, useState } from "react";
 
 function Dashboard() {
-    const [userInfo, setUserInfo] = useState({});
+
+    const [userId, setUserId] = useState({});
+    const [userInfo, setInfo] = useState();
     const [bills, setBills] = useState([]);
     const [paycheckItems, setPaycheckItems] = useState([]);
     const [billsTotal, setBillsTotal] = useState(0);
@@ -17,12 +19,21 @@ function Dashboard() {
     useEffect(()=>{
       const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
-      console.log(userData)
-
       if(userData){
-        setUserInfo(userData);
+        setUserId(userData);
+      }
 
-        // Fetch bills data from the database
+    }, [])
+
+    useEffect(()=>{
+
+      //fetch user information
+      try{
+        fetch
+      }
+
+      // Fetch bills data from the database
+      try{
         fetch('api/managebills?uid=' + userData)
         .then(res => {
           return res.json();
@@ -37,8 +48,13 @@ function Dashboard() {
         .catch(err => {
           console.log(err);
         })
+      }
+      catch(err){
+        console.log(err)
+      }
 
-         // Fetch paycheck items data from the database
+      try{
+        // Fetch paycheck items data from the database
         fetch('api/managepaycheckitems?uid=' + userData)
         .then(res => {
           return res.json();
@@ -54,10 +70,13 @@ function Dashboard() {
         .catch(err => {
           console.log(err);
         })
-
+      }
+      catch(err){
+        console.log(err);
       }
 
-    }, [])
+
+    },[userId])
 
     return (
       <>
