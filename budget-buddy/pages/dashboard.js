@@ -29,7 +29,7 @@ function Dashboard() {
 
       //fetch user information
       try{
-        fetch('api/getuser?uid=' + userData)
+        fetch('api/getuser?uid=' + userId)
         .then(res => {
           return res.json();
         })
@@ -50,7 +50,7 @@ function Dashboard() {
 
       // Fetch bills data from the database
       try{
-        fetch('api/managebills?uid=' + userData)
+        fetch('api/managebills?uid=' + userId)
         .then(res => {
           return res.json();
         })
@@ -71,7 +71,7 @@ function Dashboard() {
 
       // Fetch paycheck items data from the database
       try{
-        fetch('api/managepaycheckitems?uid=' + userData)
+        fetch('api/managepaycheckitems?uid=' + userId)
         .then(res => {
           return res.json();
         })
