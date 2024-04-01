@@ -22,11 +22,12 @@ const Login = (props)=>{
             console.log('fields cant be empty');
             return;
         }
-
+        setIsErr(false);
         setIsLoading(true);
 
         try{
 
+            //Send credentials to server and compare.
             fetch('/api/getuser', {
                 method: 'POST',
                 headers: {
@@ -60,7 +61,6 @@ const Login = (props)=>{
                 })
         }
         catch(err){
-            console.error('Can\'t connect to the server!');
             setIsLoading(false);
             setIsErr(true);
             setErrMessage('Can\'t connect to the server!')

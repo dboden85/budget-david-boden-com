@@ -29,7 +29,23 @@ function Dashboard() {
 
       //fetch user information
       try{
-        fetch
+        fetch('api/getuser?uid=' + userData)
+        .then(res => {
+          return res.json();
+        })
+        .then(data =>{
+          if(data.results){
+            setInfo([...data.results]);
+          }else{
+            throw(data.message)
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+      catch(err){
+        console.log(err)
       }
 
       // Fetch bills data from the database
