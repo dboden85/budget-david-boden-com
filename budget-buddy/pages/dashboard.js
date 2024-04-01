@@ -69,8 +69,8 @@ function Dashboard() {
         console.log(err)
       }
 
+      // Fetch paycheck items data from the database
       try{
-        // Fetch paycheck items data from the database
         fetch('api/managepaycheckitems?uid=' + userData)
         .then(res => {
           return res.json();
