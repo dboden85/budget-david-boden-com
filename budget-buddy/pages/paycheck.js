@@ -4,9 +4,18 @@ import Card from "../components/UI/Card";
 import { useState, useEffect, useRef } from 'react';
 
 export default function Paycheck() {
+  const [userId, setUserId] = useState();
+  const [userInfo, setInfo] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    paycheck_amount: 0,
+    savings_goal: 0,
+    savings_per_paycheck: 0
+  });
   const [paycheckItems, setPaycheckItems] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [userid, setUserid] = useState();
+  
   const [paycheckAmount, setPaycheckAmount] = useState(0);
   const checkAmount = useRef();
   const [whichForm, setWhichForm] = useState('none');
@@ -15,38 +24,58 @@ export default function Paycheck() {
   const paycheckItemTitle = useRef();
   const paycheckItemAmount = useRef();
 
-    // function to retrieve paycheck items.
-  const fetchPaycheck = (uid)=>{
-    fetch('/api/managepaycheckitems?uid=' + uid)
-    .then(res => {
-      return res.json();
-    })
-    .then(data =>{
-      if(data.results){
-        setPaycheckItems([...data.results]);
-      }else{
-        throw(data.message)
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
   // pull user session variable
   useEffect(()=>{
     const userData = sessionStorage.getItem('userInfo');
 
     if(userData){
-      setUserid(userData);
-      fetchPaycheck(userData);
+      setUserId(userData);
+      // fetchPaycheck(userData);
+
+      try{
+        fetch('api/getuser?uid=' + userData)
+        .then(res => {
+          return res.json();
+        })
+        .then(data =>{
+          if(data.results){
+            setInfo(data.results);
+          }else{
+            throw(data.message)
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+      catch(err){
+        console.error(err)
+      }
     }
 
   },[])
 
   useEffect(()=>{
-    console.log(paycheckItems);
-  },[paycheckItems])
+
+    if(userId){
+      // function to retrieve paycheck items.
+      fetch('/api/managepaycheckitems?uid=' + userid)
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.results){
+          setPaycheckItems([...data.results]);
+        }else{
+          throw(data.message)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+
+  },[userId])
 
   // toggle add paycheck menu
   const openUpdateMenuHandler = () => {
@@ -104,7 +133,7 @@ export default function Paycheck() {
       .then(data => {
         if(data.message){
           console.log(data.message);
-          fetchPaycheck(userid);
+          setPaycheckItems(prev => [...prev, {pid: title, title: title, amount: amount}])
         }
       })
 
@@ -207,7 +236,7 @@ export default function Paycheck() {
       <main>
         <div>
             <div className="row total-row">
-              <p>Paycheck Amount: <span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
+              <p>Paycheck Amount: <span>${parseFloat(userInfo.paycheckAmount).toFixed(2)}</span></p>
             </div>
         </div>
           

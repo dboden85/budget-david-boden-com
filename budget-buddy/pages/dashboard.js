@@ -39,7 +39,6 @@ function Dashboard() {
               setInfo(data.results);
             }else{
               throw(data.message)
-              return;
             }
           })
           .catch(err => {
@@ -100,10 +99,6 @@ function Dashboard() {
         }
       }
     },[userId])
-
-    useEffect(()=>{
-      console.log('email: ' + userInfo.email)
-    },[userInfo]);
 
 
     
