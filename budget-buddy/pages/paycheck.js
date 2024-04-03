@@ -59,7 +59,7 @@ export default function Paycheck() {
 
     if(userId){
       // function to retrieve paycheck items.
-      fetch('/api/managepaycheckitems?uid=' + userid)
+      fetch('/api/managepaycheckitems?uid=' + userId)
       .then(res => {
         return res.json();
       })
