@@ -24,11 +24,13 @@ function Dashboard() {
 
         //fetch user information
       try{
+        console.log("user fetch runs")
         fetch('api/getuser?uid=' + userData)
         .then(res => {
           return res.json();
         })
         .then(data =>{
+          console.log(data);
           if(data.results){
             setInfo([...data.results]);
             console.log('message: ' + data.message);
