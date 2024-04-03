@@ -110,14 +110,6 @@ export default function Paycheck() {
     const title = capitalizeFirstLetter(paycheckItemTitle.current.value);
     const amount = parseFloat(paycheckItemAmount.current.value);
 
-    // setPaycheckItems(prev => (
-    //   [...prev, {
-    //     pid: paycheckItems.length + 1,
-    //     title: title,
-    //     amount: amount
-    //   }
-    //   ])) 
-
       fetch('/api/managepaycheckitems', {
         method: 'POST',
         headers: {
@@ -267,11 +259,11 @@ export default function Paycheck() {
           </Card>
           <Card>
             <h2>Graph will go here</h2>
-            {/* {bills.length > 0 ? 
+            {bills.length > 0 ? 
               <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
               :
               <p>No data to show</p>
-            } */}
+            }
 
             
           </Card>
