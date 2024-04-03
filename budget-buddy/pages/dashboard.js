@@ -9,7 +9,14 @@ import { useEffect, useState } from "react";
 function Dashboard() {
 
     const [userId, setUserId] = useState({});
-    const [userInfo, setInfo] = useState();
+    const [userInfo, setInfo] = useState({
+      fname: '',
+      lname: '',
+      email: '',
+      paycheck_amount: 0,
+      savings_goal: 0,
+      savings_per_paycheck: 0
+    });
     const [bills, setBills] = useState([]);
     const [paycheckItems, setPaycheckItems] = useState([]);
     const [billsTotal, setBillsTotal] = useState(0);
@@ -22,15 +29,19 @@ function Dashboard() {
       if(userData){
         setUserId(userData);
 
-        //fetch user information
+      }
+
+    }, [])
+
+    useEffect(()=>{
+
+      //fetch user information
       try{
-        console.log("user fetch runs")
-        fetch('api/getuser?uid=' + userData)
+        fetch('api/getuser?uid=' + userId)
         .then(res => {
           return res.json();
         })
         .then(data =>{
-          console.log(data);
           if(data.results){
             setInfo([...data.results]);
             console.log('message: ' + data.message);
@@ -47,35 +58,6 @@ function Dashboard() {
       catch(err){
         console.error(err)
       }
-      }
-
-    }, [])
-
-    useEffect(()=>{
-
-      //fetch user information
-      // try{
-      //   fetch('api/getuser?uid=' + userId)
-      //   .then(res => {
-      //     return res.json();
-      //   })
-      //   .then(data =>{
-      //     if(data.results){
-      //       setInfo([...data.results]);
-      //       console.log('message: ' + data.message);
-      //       console.log('results: ' + data.results);
-      //     }else{
-      //       throw(data.message)
-      //       return;
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.error(err);
-      //   })
-      // }
-      // catch(err){
-      //   console.error(err)
-      // }
 
       // Fetch bills data from the database
       try{

@@ -8,7 +8,7 @@ const handler = (req, res)=>{
 
         case 'GET':
 
-            q = 'SELECT * FROM user_info WHERE userid = ?;';
+            q = 'SELECT fname, lname, email, paycheck_amount, savings_goal, savings_per_paycheck FROM user_info WHERE userid = ?;';
             DB.query(q, [query.uid], (err, results) => {
                 if (err) {
                     return res.status(404).json({ 'message': 'Could not connect to the server!\n' + err });
