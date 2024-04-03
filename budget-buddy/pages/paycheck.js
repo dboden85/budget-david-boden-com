@@ -259,11 +259,11 @@ export default function Paycheck() {
           </Card>
           <Card>
             <h2>Graph will go here</h2>
-            {bills.length > 0 ? 
+            {/* {bills.length > 0 ? 
               <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
               :
               <p>No data to show</p>
-            }
+            } */}
 
             
           </Card>
