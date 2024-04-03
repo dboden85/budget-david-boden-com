@@ -15,7 +15,8 @@ const handler = (req, res)=>{
                 }
                 
                 if (results.length > 0) {
-                    console.log('matched');
+                    console.log('matched user');
+                    console.log('results: ' + results)
                     return res.status(200).json({ 'message': 'User found', 'results': results });
                 } else {
                     console.log('no matches');
