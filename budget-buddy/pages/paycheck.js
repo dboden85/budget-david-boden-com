@@ -124,7 +124,7 @@ export default function Paycheck() {
             'Content-type': 'application/json',
         },
         body: JSON.stringify({
-          uid: userid,
+          uid: userId,
           title: title,
           amount: amount
         })
