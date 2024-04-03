@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 function Dashboard() {
 
-    const [userId, setUserId] = useState({});
+    const [userId, setUserId] = useState(0);
     const [userInfo, setInfo] = useState({
       fname: '',
       lname: '',
@@ -36,9 +36,9 @@ function Dashboard() {
           })
           .then(data =>{
             if(data.results){
-              setInfo([...data.results]);
+              setInfo([...data.results[0]]);
               console.log('message: ' + data.message);
-              console.log('results: ' + data.results);
+              console.log('results: ' + data.results[0]);
             }else{
               throw(data.message)
               return;
@@ -57,49 +57,50 @@ function Dashboard() {
     }, [])
 
     useEffect(()=>{
-      // Fetch bills data from the database
-      try{
-        fetch('api/managebills?uid=' + userId)
-        .then(res => {
-          return res.json();
-        })
-        .then(data =>{
-          if(data.results){
-            setBills([...data.results]);
-          }else{
-            throw(data.message)
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        })
-      }
-      catch(err){
-        console.error(err)
-      }
+      if(userid){
+        // Fetch bills data from the database
+        try{
+          fetch('api/managebills?uid=' + userId)
+          .then(res => {
+            return res.json();
+          })
+          .then(data =>{
+            if(data.results){
+              setBills([...data.results]);
+            }else{
+              throw(data.message)
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          })
+        }
+        catch(err){
+          console.error(err)
+        }
 
-      // Fetch paycheck items data from the database
-      try{
-        fetch('api/managepaycheckitems?uid=' + userId)
-        .then(res => {
-          return res.json();
-        })
-        .then(data =>{
-          if(data.results){
-            // console.log(data.message);
-            setPaycheckItems([...data.results]);
-          }else{
-            throw('something is wrong: \n' + data.message);
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        })
+        // Fetch paycheck items data from the database
+        try{
+          fetch('api/managepaycheckitems?uid=' + userId)
+          .then(res => {
+            return res.json();
+          })
+          .then(data =>{
+            if(data.results){
+              // console.log(data.message);
+              setPaycheckItems([...data.results]);
+            }else{
+              throw('something is wrong: \n' + data.message);
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          })
+        }
+        catch(err){
+          console.log(err);
+        }
       }
-      catch(err){
-        console.log(err);
-      }
-
     },[userId])
 
 
