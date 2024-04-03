@@ -127,7 +127,7 @@ function Dashboard() {
       <>
         <Header title="Dashboard"/>
         <main>
-            <div className="row hero-image">
+            {/* <div className="row hero-image">
                 <div className="overlay"></div>
                 <div className="budget-info">
                   <BudgetInfo 
@@ -137,7 +137,7 @@ function Dashboard() {
                     totalAllocations={totalPaycheckAllocations}
                   />
                 </div>
-            </div>
+            </div> */}
             <div className="bills-info row">
                 <Bills 
                   billsTotal={setBillsTotal} 
