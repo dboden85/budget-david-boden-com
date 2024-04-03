@@ -36,9 +36,9 @@ function Dashboard() {
           })
           .then(data =>{
             if(data.results){
-              setInfo([...data.results[0]]);
+              // setInfo({...data.results});
               console.log('message: ' + data.message);
-              console.log('results: ' + data.results[0]);
+              console.log('results: ' + data.results);
             }else{
               throw(data.message)
               return;
