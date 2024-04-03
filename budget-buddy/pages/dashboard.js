@@ -28,37 +28,35 @@ function Dashboard() {
 
       if(userData){
         setUserId(userData);
+        //fetch user information
+        try{
+          fetch('api/getuser?uid=' + userData)
+          .then(res => {
+            return res.json();
+          })
+          .then(data =>{
+            if(data.results){
+              setInfo([...data.results]);
+              console.log('message: ' + data.message);
+              console.log('results: ' + data.results);
+            }else{
+              throw(data.message)
+              return;
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          })
+        }
+        catch(err){
+          console.error(err)
+        }
 
       }
 
     }, [])
 
     useEffect(()=>{
-
-      //fetch user information
-      try{
-        fetch('api/getuser?uid=' + userId)
-        .then(res => {
-          return res.json();
-        })
-        .then(data =>{
-          if(data.results){
-            setInfo([...data.results]);
-            console.log('message: ' + data.message);
-            console.log('results: ' + data.results);
-          }else{
-            throw(data.message)
-            return;
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        })
-      }
-      catch(err){
-        console.error(err)
-      }
-
       // Fetch bills data from the database
       try{
         fetch('api/managebills?uid=' + userId)
@@ -111,7 +109,7 @@ function Dashboard() {
       <>
         <Header title="Dashboard"/>
         <main>
-            {/* <div className="row hero-image">
+            <div className="row hero-image">
                 <div className="overlay"></div>
                 <div className="budget-info">
                   <BudgetInfo 
@@ -121,7 +119,7 @@ function Dashboard() {
                     totalAllocations={totalPaycheckAllocations}
                   />
                 </div>
-            </div> */}
+            </div>
             <div className="bills-info row">
                 <Bills 
                   billsTotal={setBillsTotal} 
@@ -130,7 +128,7 @@ function Dashboard() {
                 <PaycheckAllocations 
                   paycheckItems={paycheckItems}
                   billsTotal={billsTotal} 
-                  savings='0' //{userInfo.savings_per_paycheck} 
+                  savings={userInfo.savings_per_paycheck} 
                   totalAllocations={setTotalPaycheckAllocations}
                 />
             </div>
