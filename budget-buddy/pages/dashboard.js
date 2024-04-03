@@ -148,7 +148,7 @@ function Dashboard() {
                 <PaycheckAllocations 
                   paycheckItems={paycheckItems}
                   billsTotal={billsTotal} 
-                  savings={userInfo.savings_per_paycheck} 
+                  savings='0' //{userInfo.savings_per_paycheck} 
                   totalAllocations={setTotalPaycheckAllocations}
                 />
             </div>
