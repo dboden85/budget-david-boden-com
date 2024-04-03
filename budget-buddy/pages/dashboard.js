@@ -36,9 +36,7 @@ function Dashboard() {
           })
           .then(data =>{
             if(data.results){
-              // setInfo({...data.results});
-              console.log('message: ' + data.message);
-              console.log('results: ' + data.results.fname);
+              setInfo(...data.results);
             }else{
               throw(data.message)
               return;
@@ -102,6 +100,10 @@ function Dashboard() {
         }
       }
     },[userId])
+
+    useEffect(()=>{
+      console.log('email: ' + userInfo.email)
+    },[userInfo]);
 
 
     
