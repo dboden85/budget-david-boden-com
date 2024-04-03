@@ -36,10 +36,11 @@ function Dashboard() {
         .then(data =>{
           if(data.results){
             setInfo([...data.results]);
-            console.log(data.message);
-            console.log(data.results);
+            console.log('message: ' + data.message);
+            console.log('results: ' + data.results);
           }else{
             throw(data.message)
+            return;
           }
         })
         .catch(err => {
@@ -47,7 +48,7 @@ function Dashboard() {
         })
       }
       catch(err){
-        console.log(err)
+        console.error(err)
       }
 
       // Fetch bills data from the database
@@ -64,11 +65,11 @@ function Dashboard() {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         })
       }
       catch(err){
-        console.log(err)
+        console.error(err)
       }
 
       // Fetch paycheck items data from the database
@@ -86,7 +87,7 @@ function Dashboard() {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         })
       }
       catch(err){
