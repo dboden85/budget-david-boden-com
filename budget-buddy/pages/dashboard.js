@@ -57,7 +57,7 @@ function Dashboard() {
     }, [])
 
     useEffect(()=>{
-      if(userid){
+      if(userId){
         // Fetch bills data from the database
         try{
           fetch('api/managebills?uid=' + userId)
