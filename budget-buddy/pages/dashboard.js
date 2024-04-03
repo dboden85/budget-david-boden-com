@@ -21,15 +21,10 @@ function Dashboard() {
 
       if(userData){
         setUserId(userData);
-      }
 
-    }, [])
-
-    useEffect(()=>{
-
-      //fetch user information
+        //fetch user information
       try{
-        fetch('api/getuser?uid=' + userId)
+        fetch('api/getuser?uid=' + userData)
         .then(res => {
           return res.json();
         })
@@ -50,6 +45,35 @@ function Dashboard() {
       catch(err){
         console.error(err)
       }
+      }
+
+    }, [])
+
+    useEffect(()=>{
+
+      //fetch user information
+      // try{
+      //   fetch('api/getuser?uid=' + userId)
+      //   .then(res => {
+      //     return res.json();
+      //   })
+      //   .then(data =>{
+      //     if(data.results){
+      //       setInfo([...data.results]);
+      //       console.log('message: ' + data.message);
+      //       console.log('results: ' + data.results);
+      //     }else{
+      //       throw(data.message)
+      //       return;
+      //     }
+      //   })
+      //   .catch(err => {
+      //     console.error(err);
+      //   })
+      // }
+      // catch(err){
+      //   console.error(err)
+      // }
 
       // Fetch bills data from the database
       try{
