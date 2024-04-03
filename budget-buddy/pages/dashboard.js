@@ -36,6 +36,8 @@ function Dashboard() {
         .then(data =>{
           if(data.results){
             setInfo([...data.results]);
+            console.log(data.message);
+            console.log(data.results);
           }else{
             throw(data.message)
           }
@@ -91,8 +93,10 @@ function Dashboard() {
         console.log(err);
       }
 
-
     },[userId])
+
+
+    
 
     return (
       <>
