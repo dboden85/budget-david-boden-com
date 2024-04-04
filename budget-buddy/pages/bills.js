@@ -1,4 +1,4 @@
-"use client";
+
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useEffect, useState, useRef } from "react";
@@ -22,6 +22,7 @@ export default function Bills() {
       .then(data =>{
         if(data.results){
           setBills([...data.results]);
+          
         }else{
           throw(data.message)
         }
@@ -49,7 +50,7 @@ export default function Bills() {
     setIsMathing(true)
     let total = 0;
     bills.map(bill => {
-      total += bill.bill_amount;
+      total += bill.amount;
     })
     setBillsTotal(total);
     setIsMathing(false);
@@ -193,7 +194,7 @@ export default function Bills() {
           <Loading />
           :
           <div className="row total-row">
-            <p>Total: <span>${billsTotal.toFixed(2)}</span></p>
+            <p>Total: <span>${billsTotal}</span></p>
           </div>
         }
         
