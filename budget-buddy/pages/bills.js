@@ -1,4 +1,3 @@
-
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useEffect, useState, useRef } from "react";
@@ -14,8 +13,14 @@ export default function Bills() {
   const [isMathing, setIsMathing] = useState(true);
   const [bills, setBills] = useState([]);
 
-  const fetchBills = (uid)=>{
-    fetch('/api/managebills?uid=' + uid)
+  // Pull user info from session var
+  useEffect(()=>{
+    const userData = sessionStorage.getItem('userInfo');
+
+    if(userData){
+      setUserid(userData);
+
+      fetch('/api/managebills?uid=' + userData)
       .then(res => {
         return res.json();
       })
@@ -30,32 +35,28 @@ export default function Bills() {
       .catch(err => {
         console.error(err);
       })
-  }
-
-  // Pull user info from session var
-  useEffect(()=>{
-    const userData = sessionStorage.getItem('userInfo');
-
-    if(userData){
-      setUserid(userData);
-
-      fetchBills(userData);
     }
 
   },[])
 
 
-  // Total up the bill amounts
+  // Total up the bill amounts and google chart
   useEffect(() => {
+
     setIsMathing(true)
     let total = 0;
     bills.map(bill => {
       total += bill.amount;
     })
+
     setBillsTotal(total);
     setIsMathing(false);
+
     billTitle.current.value = '';
-    billAmount.current.value = '';if(bills.length > 0){
+    billAmount.current.value = '';
+    
+    //add info for the google chart
+    if(bills.length > 0){
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -92,6 +93,7 @@ export default function Bills() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
+    //capitalize first letter of bill title function
     const capitalizeFirstLetter = (words)=>{
       const wArray = words.split(' ');
       wArray.map((word, i) =>{
@@ -123,7 +125,7 @@ export default function Bills() {
     .then(data => {
       if(data.status){
         console.log(data.status);
-        fetchBills(userid);
+        setBills(prev => [...prev, {title: title, amount: amount, due: due}])
       }
     })
 
