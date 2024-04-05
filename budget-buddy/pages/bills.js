@@ -13,7 +13,7 @@ export default function Bills() {
   const [isMathing, setIsMathing] = useState(true);
   const [bills, setBills] = useState([]);
 
-  // Pull user info from session var
+  // Pull user id from session var and get user info from db
   useEffect(()=>{
     const userData = sessionStorage.getItem('userInfo');
 
@@ -39,10 +39,10 @@ export default function Bills() {
 
   },[])
 
-
   // Total up the bill amounts and google chart
   useEffect(() => {
 
+    //total of bills
     setIsMathing(true)
     let total = 0;
     bills.map(bill => {
@@ -52,6 +52,7 @@ export default function Bills() {
     setBillsTotal(total);
     setIsMathing(false);
 
+    //remove the values from the refs
     billTitle.current.value = '';
     billAmount.current.value = '';
     
@@ -185,7 +186,6 @@ export default function Bills() {
     )
   }
 
-
   return (
     <>
       <Header title="Bills" />
@@ -225,7 +225,7 @@ export default function Bills() {
             }
             </ul>
           </Card>
-          <Card>
+          {/* <Card>
             <h2>Graph will go here</h2>
             {bills.length > 0 ? 
               <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
@@ -234,7 +234,7 @@ export default function Bills() {
             }
 
             
-          </Card>
+          </Card> */}
         </div>
       </main>
 

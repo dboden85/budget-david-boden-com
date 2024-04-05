@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 
 const Header = (props)=>{
     const [menuOpen, setMenuOpen] = useState(false);
-    const [isOnline, setIsOnline] = useState(true);
+    const [isOnline, setIsOnline] = useState(false);
     const router = useRouter();
 
     useEffect(()=>{
