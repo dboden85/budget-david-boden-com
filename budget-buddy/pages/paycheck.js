@@ -228,7 +228,7 @@ export default function Paycheck() {
       <main>
         <div>
             <div className="row total-row">
-              <p>Paycheck Amount: <span>${parseFloat(userInfo.paycheck_amount).toFixed(2)}</span></p>
+              <p>Paycheck Amount:<br/><span>${parseFloat(userInfo.paycheck_amount).toFixed(2)}</span></p>
             </div>
         </div>
           

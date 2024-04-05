@@ -195,7 +195,7 @@ export default function Bills() {
           <Loading />
           :
           <div className="row total-row">
-            <p>Total: <span>${billsTotal}</span></p>
+            <p>Total:<br/><span>${billsTotal}</span></p>
           </div>
         }
         
