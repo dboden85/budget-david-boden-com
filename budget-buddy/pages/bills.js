@@ -190,17 +190,14 @@ export default function Bills() {
     <>
       <Header title="Bills" />
       <main>
-        <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
-        <div className="overlay"></div>
-          {isMathing ?
+
+        {isMathing ?
           <Loading />
           :
           <div className="row total-row">
             <p>Total: <span>${billsTotal}</span></p>
           </div>
         }
-        
-        </div>
         
         <div className="row">
           <Card>

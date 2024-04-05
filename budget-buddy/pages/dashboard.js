@@ -107,7 +107,7 @@ function Dashboard() {
       <>
         <Header title="Dashboard"/>
         <main>
-            <div className="row hero-image">
+            <div className="row">
                 <div className="overlay"></div>
                 <div className="budget-info">
                   <BudgetInfo 
