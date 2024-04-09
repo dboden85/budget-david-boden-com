@@ -72,16 +72,18 @@ const handler = (req, res)=>{
 
         case 'PUT':
 
-            q = 'UPDATE users SET paycheck_amount = ? WHERE uid = ?;'
+            q = 'UPDATE user_info SET paycheck_amount = ? WHERE userid = ?;'
 
             DB.query(q, [body.amount, body.uid], (err)=>{
                 if(err){
-                    console.log(err);
+                    res.status(500).json({'message': err})
                     return;
                 }
 
                 res.status(200).json({'message': 'Paycheck Amount is updated!', 'success': 1});
             })
+
+            break;
 
         default:
             //do nothing

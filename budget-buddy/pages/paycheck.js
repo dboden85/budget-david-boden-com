@@ -40,6 +40,7 @@ export default function Paycheck() {
         .then(data =>{
           if(data.results){
             setInfo(data.results);
+            setPaycheckAmount(data.results.paycheck_amount)
           }else{
             throw(data.message)
           }
@@ -149,6 +150,7 @@ export default function Paycheck() {
     })
     .then(res => res.json())
     .then(data =>{
+      console.log(data.message)
       if(data.success){
         console.log(data.message);
         setPaycheckAmount(amount)
@@ -228,7 +230,7 @@ export default function Paycheck() {
       <main>
         <div>
             <div className="row total-row">
-              <p>Paycheck Amount:<br/><span>${parseFloat(userInfo.paycheck_amount).toFixed(2)}</span></p>
+              <p>Paycheck Amount:<br/><span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
             </div>
         </div>
           

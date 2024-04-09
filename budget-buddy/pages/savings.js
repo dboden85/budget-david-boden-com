@@ -1,6 +1,6 @@
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 export default function Savings() {
   const [userId, setUserId] = useState();
@@ -12,6 +12,10 @@ export default function Savings() {
     savings_goal: 0,
     savings_per_paycheck: 0
   });
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [whichForm, setWhichForm] = useState('none');
+  const formAmount = useRef(0);
 
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
@@ -43,18 +47,80 @@ export default function Savings() {
 
   },[userId])
 
+  // toggle update savings menu
+  const openUpdateMenuHandler = () => {
+    isFormOpen && setWhichForm('none'); 
+    setIsFormOpen(prev => (!prev));
+  }
+
+  const chooseSavingsGoalForm = ()=>{
+    setWhichForm('goal')
+  }
+
+  const chooseSavingsAmountForm = ()=>{
+    setWhichForm('amount')
+  }
+
+  const updateSavings = (e)=>{
+    e.preventDefault();
+
+    fetch('/api/managesavings', {
+      method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+      body: JSON.stringify({
+        uid: userId,
+        form: whichForm,
+        amount: formAmount.current.value
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status){
+        console.log(data.message)
+      }else{
+        throw(data.message);
+      }
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  }
+
+  const WhichFormButtons = ()=>{
+    return (
+      <div className="formButtons">
+          <button onClick={chooseSavingsGoalForm}>Set Savings Goal</button>
+          <button onClick={chooseSavingsAmountForm}>Set Savings Amount</button>
+      </div>
+    )
+  }
+
+  const ChangeGoalForm = ()=>{
+    return (
+      <form className="form" onSubmit={updateSavings}>
+        <label>Set Savings Goal</label>
+        <input ref={formAmount} type="text" step="0.1"/>
+        <button type="submit">Update Goal</button>
+      </form>
+    )
+  }
+
+  const ChangeAmountForm = ()=>{
+    return (
+      <form className="form" onSubmit={updateSavings}>
+        <label>Set Savings Amount Per Month</label>
+        <input ref={formAmount} type="text" step="0.1"/>
+        <button type="submit">Update Amount</button>
+      </form>
+    )
+  }
 
   return (
     <>
       <Header title="Savings"/>
-      <main>
-      {/* <div className="hero-image" style={{backgroundImage: 'url("/bills-bg.jpg")'}}>
-        <div className="overlay"></div>
-          <div className="row total-row">
-            <p>Paycheck Amount: <span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
-          </div>
-      </div> */}
-        
+      <main>        
       <div className="row">
         <Card>
           <h2>Savings Goal</h2>
@@ -67,6 +133,20 @@ export default function Savings() {
         </Card>
       </div>
       </main>
+      <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
+        <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px" />
+      </div>
+
+      <div className={isFormOpen ? 'open update-form' : 'update-form'}>
+        <h2>Update Savings</h2>
+
+        {whichForm === 'none' &&  <WhichFormButtons />}
+
+        {whichForm === 'goal' &&  <ChangeGoalForm />}
+
+        {whichForm === 'amount' &&  <ChangeAmountForm />}
+        
+      </div>
     </>
   );
 }
