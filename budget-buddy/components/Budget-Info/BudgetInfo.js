@@ -33,6 +33,12 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
             icon: '../money.svg'
         },
     ]
+
+    //add class if amount is less than 0
+    
+    const overdrawn = (amount)=>{
+        return amount < 0 && 'overdrawn';
+    }
     
     return(
         <>
@@ -45,7 +51,7 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
                         </div>
                         <div className="info">
                             <p className="infoTitle">{item.title}</p>
-                            <p className="amnt">{`$${item.amount}`}</p>
+                            <p className={`amnt ${overdrawn(item.amount)}`}>{`$${item.amount}`}</p>
                         </div>
                     </Card>
                 )

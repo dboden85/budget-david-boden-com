@@ -1,5 +1,6 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import { useRouter } from 'next/navigation'
+import Loading from '../UI/Loading';
 
 
 const Login = (props)=>{
@@ -71,6 +72,8 @@ const Login = (props)=>{
     }
 
 
+
+
     return(
         <div className="login-form-container">
             <form className="loginForm" onSubmit={onSubmitHandler}>
@@ -82,8 +85,8 @@ const Login = (props)=>{
                 <button>Submit</button>
 
                 {isLoading && (
-                    <div className='form-notification'>
-                        {isLoading && <p>Loading...</p>}
+                    <div className='loader-container'>
+                        {isLoading && <Loading/>}
                     </div>
                     )
                 }

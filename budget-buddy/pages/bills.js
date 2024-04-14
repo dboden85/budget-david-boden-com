@@ -13,14 +13,8 @@ export default function Bills() {
   const [isMathing, setIsMathing] = useState(true);
   const [bills, setBills] = useState([]);
 
-  // Pull user id from session var and get user info from db
-  useEffect(()=>{
-    const userData = sessionStorage.getItem('userInfo');
-
-    if(userData){
-      setUserid(userData);
-
-      fetch('/api/managebills?uid=' + userData)
+  const fetchBills = (id)=>{
+    fetch('/api/managebills?uid=' + id)
       .then(res => {
         return res.json();
       })
@@ -35,9 +29,23 @@ export default function Bills() {
       .catch(err => {
         console.error(err);
       })
+  }
+
+  // Pull user id from session var and get user info from db
+  useEffect(()=>{
+    const userData = sessionStorage.getItem('userInfo');
+
+    if(userData){
+      setUserid(userData);
     }
 
   },[])
+
+  useEffect(()=>{
+    if(userid){
+      fetchBills(userid);
+    }
+  }, [userid])
 
   // Total up the bill amounts and google chart
   useEffect(() => {
@@ -126,8 +134,8 @@ export default function Bills() {
     .then(data => {
       if(data.status){
         console.log(data.status);
-        setBills(prev => [...prev, {title: title, amount: amount, due: due}])
-      }
+        fetchBills(userid);
+        }
     })
 
     setIsFormOpen(false);
@@ -140,26 +148,27 @@ export default function Bills() {
     let {index, id, title } = JSON.parse(e.target.dataset.info);
 
     if(confirm(`Remove ${title} from your bills?`)){
-      bills.splice(index, 1);
-      setBills([...bills]);
-    }
 
-    fetch('/api/managebills?bid=' + id, {
-      method: 'DELETE'
-    })
-    .then(res => {
-      return res.json();
-    })
-    .then(data =>{
-      if(data.success){
-        console.log(data.message);
-      }else{
-        throw(data.message);
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      fetch('/api/managebills?bid=' + id, {
+        method: 'DELETE'
+      })
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.success){
+          console.log(data.message);
+          fetchBills(userid);
+
+        }else{
+          throw(data.message);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      
+    }
   }
 
   // adding ordinal suffix to the due date.
