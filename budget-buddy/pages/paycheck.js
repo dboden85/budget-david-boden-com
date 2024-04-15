@@ -166,7 +166,7 @@ export default function Paycheck() {
     .catch(err =>{
       console.error(err);
     })
-
+    setIsFormOpen(false);
   }
 
   // Delete paycheck item handler
