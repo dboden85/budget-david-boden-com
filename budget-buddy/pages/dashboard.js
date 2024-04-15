@@ -100,6 +100,9 @@ function Dashboard() {
       }
     },[userId])
 
+    useEffect(()=>{
+      setMonthlySavings(userInfo.savings_per_paycheck  * 4);
+    },[userInfo]);
 
     
 

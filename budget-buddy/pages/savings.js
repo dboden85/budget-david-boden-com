@@ -17,6 +17,10 @@ export default function Savings() {
   const [whichForm, setWhichForm] = useState('none');
   const formAmount = useRef(0);
 
+  console.log(userInfo)
+
+  
+
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
@@ -79,6 +83,13 @@ export default function Savings() {
     .then(data => {
       if(data.status){
         console.log(data.message)
+        if(whichForm === 'goal'){
+          setInfo(prev => ({...prev, savings_goal: formAmount.current.value}));
+        }else if(whichForm === 'amount'){
+          setInfo(prev => ({...prev, savings_per_paycheck: formAmount.current.value}))
+        }
+        setWhichForm('none');
+        setIsFormOpen(false);
       }else{
         throw(data.message);
       }

@@ -41,6 +41,7 @@ export default function Bills() {
 
   },[])
 
+  //load bills when userid is updated.
   useEffect(()=>{
     if(userid){
       fetchBills(userid);
@@ -54,10 +55,13 @@ export default function Bills() {
     setIsMathing(true)
     let total = 0;
     bills.map(bill => {
+      console.log(bill.amount)
       total += bill.amount;
     })
 
-    setBillsTotal(total);
+    console.log(total.toFixed(2))
+
+    setBillsTotal(total.toFixed(2));
     setIsMathing(false);
 
     //remove the values from the refs

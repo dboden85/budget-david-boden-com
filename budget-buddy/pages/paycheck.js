@@ -24,43 +24,26 @@ export default function Paycheck() {
   const paycheckItemTitle = useRef();
   const paycheckItemAmount = useRef();
 
-  // pull user session variable
-  useEffect(()=>{
-    const userData = sessionStorage.getItem('userInfo');
+  const fetchUserInfo = (id)=>{
+    fetch('api/getuser?uid=' + id)
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.results){
+          setInfo(data.results);
+          setPaycheckAmount(data.results.paycheck_amount)
+        }else{
+          throw(data.message)
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
 
-    if(userData){
-      setUserId(userData);
-      // fetchPaycheck(userData);
-
-      try{
-        fetch('api/getuser?uid=' + userData)
-        .then(res => {
-          return res.json();
-        })
-        .then(data =>{
-          if(data.results){
-            setInfo(data.results);
-            setPaycheckAmount(data.results.paycheck_amount)
-          }else{
-            throw(data.message)
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        })
-      }
-      catch(err){
-        console.error(err)
-      }
-    }
-
-  },[])
-
-  useEffect(()=>{
-
-    if(userId){
-      // function to retrieve paycheck items.
-      fetch('/api/managepaycheckitems?uid=' + userId)
+  const fetchPaycheckItems = (id)=>{
+    fetch('/api/managepaycheckitems?uid=' + id)
       .then(res => {
         return res.json();
       })
@@ -74,6 +57,28 @@ export default function Paycheck() {
       .catch(err => {
         console.log(err);
       })
+  }
+
+
+  // pull user session variable
+  useEffect(()=>{
+    const userData = sessionStorage.getItem('userInfo');
+
+    if(userData){
+      setUserId(userData);
+    }
+
+  },[])
+
+  useEffect(()=>{
+
+    if(userId){
+      //fetch User Info
+      fetchUserInfo(userId);
+
+      // function to retrieve paycheck items.
+      fetchPaycheckItems(userId);
+      
     }
 
   },[userId])
@@ -126,8 +131,8 @@ export default function Paycheck() {
       .then(data => {
         if(data.message){
           console.log(data.message);
-          setPaycheckItems(prev => [...prev, {pid: title, title: title, amount: amount}])
-        }
+          fetchPaycheckItems(userId)
+          }
       })
 
     setIsFormOpen(false);
@@ -169,26 +174,25 @@ export default function Paycheck() {
     let {index, id, title } = JSON.parse(e.target.dataset.info);
 
     if(confirm(`Remove ${title} from your bills?`)){
-      paycheckItems.splice(index, 1);
-      setPaycheckItems([...paycheckItems]);
+      fetch('/api/managepaycheckitems?pid=' + id, {
+        method: 'DELETE'
+      })
+      .then(res => {
+        return res.json();
+      })
+      .then(data =>{
+        if(data.success){
+          console.log(data.message);
+          fetchPaycheckItems(userId)
+        }else{
+          throw(data.message);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
 
-    fetch('/api/managepaycheckitems?pid=' + id, {
-      method: 'DELETE'
-    })
-    .then(res => {
-      return res.json();
-    })
-    .then(data =>{
-      if(data.success){
-        console.log(data.message);
-      }else{
-        throw(data.message);
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
   }
 
   // Forms
