@@ -5,7 +5,7 @@ import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAlloc
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
-import Auth from '../components/UX/Auth';
+import Auth from "@/components/UX/Auth";
 
 function Dashboard() {
     const router = useRouter();
