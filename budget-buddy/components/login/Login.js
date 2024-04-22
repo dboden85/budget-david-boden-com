@@ -79,9 +79,9 @@ const Login = (props)=>{
             <form className="loginForm" onSubmit={onSubmitHandler}>
                 <h2>Login</h2>
                 <label>Username</label>
-                <input ref={user} type="text" defaultValue="example"/>
+                <input ref={user} type="text"/>
                 <label>Password</label>
-                <input ref={password} type="password" defaultValue="example"/>
+                <input ref={password} type="password"/>
                 <button>Submit</button>
 
                 {isLoading && (

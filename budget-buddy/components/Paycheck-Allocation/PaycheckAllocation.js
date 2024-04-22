@@ -20,15 +20,28 @@ const PaycheckAllocations = ( {paycheckItems, billsTotal, savings, totalAllocati
     return(
         <Card>
             <h2>Paycheck Allocations</h2>
-            <ul>
-                <li key="savings"><p className="title">Savings</p><p className="amount">{`$${savings.toFixed(2)}`}</p></li>
-                <li key="bills"><p className="title">Bills</p><p className="amount">{`$${allocatedBills.toFixed(2)}`}</p></li>
+            {savings || allocatedBills || paycheckItems.length !== 0 ? (
+                <ul>
+                {savings !== 0 && (
+                    <li key="savings"><p className="title">Savings</p><p className="amount">{`$${savings.toFixed(2)}`}</p></li>
+                )}
+
+                {allocatedBills !== 0 && (
+                    <li key="bills"><p className="title">Bills</p><p className="amount">{`$${allocatedBills.toFixed(2)}`}</p></li>
+                )}
+
                 {paycheckItems.map(item => {
                     return(
                         <li key={item.pid}><p className="title">{item.title}</p><p className="amount">{'$' + parseFloat(item.amount).toFixed(2)}</p></li>
                     )
                 })}
+                
             </ul>
+            )
+            :
+                <p>There are no paycheck items to list</p>
+            }
+            
         </Card>
     )
 }

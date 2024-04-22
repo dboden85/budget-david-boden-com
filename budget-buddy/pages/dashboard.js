@@ -3,11 +3,12 @@ import BudgetInfo from "../components/Budget-Info/BudgetInfo";
 import Bills from "../components/Bills/Bills";
 import PaycheckAllocations from "../components/Paycheck-Allocation/PaycheckAllocation";
 import MonthlyAllocations from "../components/Monthly-Allocations/MonthlyAllocations";
-import Auth from '../components/UX/Auth';
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
+import Auth from '../components/UX/Auth';
 
 function Dashboard() {
-
+    const router = useRouter();
     const [userId, setUserId] = useState(0);
     const [userInfo, setInfo] = useState({
       fname: '',
@@ -22,10 +23,21 @@ function Dashboard() {
     const [billsTotal, setBillsTotal] = useState(0);
     const [monthlySavings, setMonthlySavings] = useState(0);
     const [totalPaycheckAllocations, setTotalPaycheckAllocations] = useState(0);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+    //useEffect(() => {
+      //const loggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+      
+      //if (!loggedIn && router.pathname !== '/') {
+        //router.push('/');
+      //}
+    //}, [isLoggedIn, router]);
+
 
     useEffect(()=>{
       const userData = JSON.parse(sessionStorage.getItem('userInfo'));
-
+       
       if(userData){
         setUserId(userData);
         //fetch user information
@@ -144,4 +156,9 @@ function Dashboard() {
       </>
     );
   }
-export default Dashboard;
+
+export default ()=>(
+	<Auth>
+		<Dashboard/>
+	</Auth>
+);

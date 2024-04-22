@@ -16,7 +16,7 @@ export default function Paycheck() {
   const [paycheckItems, setPaycheckItems] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   
-  const [paycheckAmount, setPaycheckAmount] = useState(0);
+  const [paycheckAmount, setPaycheckAmount] = useState();
   const checkAmount = useRef();
   const [whichForm, setWhichForm] = useState('none');
 
@@ -232,11 +232,14 @@ export default function Paycheck() {
     <>
       <Header title="Paycheck" />
       <main>
+      {paycheckAmount && (
         <div>
-            <div className="row total-row">
-              <p>Paycheck Amount:<br/><span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
-            </div>
+          <div className="row total-row">
+            <p>Paycheck Amount:<br/><span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
+          </div>
         </div>
+      )}
+        
           
         <div className="row">
           <Card>
