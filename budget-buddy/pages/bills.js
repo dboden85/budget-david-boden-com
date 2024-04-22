@@ -2,8 +2,9 @@ import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useEffect, useState, useRef } from "react";
 import Loading from "../components/UI/Loading";
+import Auth from "@/components/UX/Auth";
 
-export default function Bills() {
+function Bills() {
   const billTitle = useRef('');
   const billAmount = useRef('');
   const dueDate = useRef('');
@@ -258,3 +259,9 @@ export default function Bills() {
     </>
   );
 }
+
+export default ()=>(
+  <Auth>
+    <Bills/>
+  </Auth>
+)

@@ -2,8 +2,9 @@
 import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useState, useEffect, useRef } from 'react';
+import Auth from "@/components/UX/Auth";
 
-export default function Paycheck() {
+function Paycheck() {
   const [userId, setUserId] = useState();
   const [userInfo, setInfo] = useState({
     fname: '',
@@ -296,3 +297,9 @@ export default function Paycheck() {
     </>
   );
 }
+
+export default ()=>(
+  <Auth>
+    <Paycheck/>
+  </Auth>
+)
