@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 const Auth = ({children})=>{
     const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const path = usePathname();
 
     useEffect(()=>{
         const loggedIn = sessionStorage.getItem('isLoggedIn');
-        const path = usePathname();
+        
 
         const isLoginPage = path === '/';
 
