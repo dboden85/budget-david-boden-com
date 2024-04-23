@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react';
 
 const Auth = ({children})=>{
@@ -7,11 +7,15 @@ const Auth = ({children})=>{
 
     useEffect(()=>{
         const loggedIn = sessionStorage.getItem('isLoggedIn');
+        const path = usePathname();
 
-        if(!loggedIn){
+        const isLoginPage = path === '/';
+
+        if(!loggedIn && !isLoginPage){
 		    router.replace('/');
-        }else{
+        }else if(loggedIn && isLoginPage){
             setIsLoggedIn(true);
+            router.replace('/dashboard');
         }
     })
 
