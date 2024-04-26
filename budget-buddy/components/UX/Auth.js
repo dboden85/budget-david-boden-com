@@ -8,22 +8,19 @@ const Auth = ({children})=>{
 
     useEffect(()=>{
         const loggedIn = sessionStorage.getItem('isLoggedIn');
+        setIsLoggedIn(loggedIn);
         
 
         const isLoginPage = path === '/';
-
-        console.log(isLoginPage)
 
         if(!loggedIn && !isLoginPage){
 		    router.replace('/');
         }else if(loggedIn && isLoginPage){
             router.replace('/dashboard');
         }
-    }, [isLoggedIn])
+    }, [])
 
-    if(isLoggedIn){
-        return children;
-    }
+    return children;
 }
 
 export default Auth;

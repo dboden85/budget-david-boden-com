@@ -18,8 +18,6 @@ function Savings() {
   const [whichForm, setWhichForm] = useState('none');
   const formAmount = useRef(0);
 
-  console.log(userInfo)
-
   
 
   useEffect(()=>{
