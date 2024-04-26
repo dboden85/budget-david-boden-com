@@ -177,7 +177,6 @@ function Paycheck() {
     let {index, id, title } = JSON.parse(e.target.dataset.info);
 
     if(confirm(`Remove ${title} from your bills?`)){
-      console.log('item set for deletion');
 
       fetch('/api/managepaycheckitems?pid=' + id, {
         method: 'DELETE'
@@ -190,7 +189,9 @@ function Paycheck() {
           console.log(data.message);
           //remove item from paycheck item list
           let items = paycheckItems;
+          console.log('before delete: ' + items);
           items.slice(index, 1);
+          console.log('after: ' + items);
           setPaycheckItems(items);
         }else{
           throw(data.message);
