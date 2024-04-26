@@ -19,7 +19,7 @@ function Savings() {
   const formAmount = useRef(0);
 
   
-
+  //pull user info from session storage
   useEffect(()=>{
     const userData = JSON.parse(sessionStorage.getItem('userInfo'));
 
@@ -29,6 +29,7 @@ function Savings() {
 
   },[])
 
+  //fetch data from the database
   useEffect(()=>{
 
     if(userId){

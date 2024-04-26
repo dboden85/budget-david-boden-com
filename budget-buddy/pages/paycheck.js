@@ -44,6 +44,8 @@ function Paycheck() {
   }
 
   const fetchPaycheckItems = (id)=>{
+    console.log('fetched paycheck items');
+
     fetch('/api/managepaycheckitems?uid=' + id)
       .then(res => {
         return res.json();
@@ -175,6 +177,8 @@ function Paycheck() {
     let {index, id, title } = JSON.parse(e.target.dataset.info);
 
     if(confirm(`Remove ${title} from your bills?`)){
+      console.log('item set for deletion');
+      
       fetch('/api/managepaycheckitems?pid=' + id, {
         method: 'DELETE'
       })
