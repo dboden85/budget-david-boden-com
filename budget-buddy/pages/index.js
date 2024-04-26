@@ -5,8 +5,9 @@ import Login from '../components/login/Login';
 import React, { useEffect, useState, useContext } from "react";
 import Signup from "../components/login/Signup";
 import Header from "../components/UI/Header";
+import Auth from '../components/UX/Auth'
 
-export default function Home() {
+function Home() {
   const [toSignUp, setToSignUp] = useState(false);
 
 
@@ -19,3 +20,9 @@ export default function Home() {
     </>
   );
 }
+
+export default ()=>(
+	<Auth>
+		<Home/>
+	</Auth>
+);
