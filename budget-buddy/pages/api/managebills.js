@@ -15,10 +15,10 @@ const handler = (req, res) => {
                 
                 if (results.length > 0) {
                     console.log('matched');
-                    return res.status(200).json({ 'message': 'Found Bills for user', 'results': results });
+                    return res.status(200).json({ 'message': 'Found Bills for user', 'results': results, 'success': 1 });
                 } else {
                     console.log('no matches');
-                    return res.status(200).json({ 'message': 'No bills were found for user' });
+                    return res.status(200).json({ 'message': 'No bills were found for user', 'success': 1 });
                 }
             });
             break;

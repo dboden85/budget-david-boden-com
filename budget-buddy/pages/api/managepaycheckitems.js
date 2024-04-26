@@ -21,10 +21,10 @@ const handler = (req, res)=>{
 
                 if(results.length > 0){
                     console.log('matched');
-                    res.status(200).json({'message': 'Found Paycheck Items for user', 'results': results});
+                    res.status(200).json({'message': 'Found Paycheck Items for user', 'results': results, 'success': 1});
                 }else{
                     console.log('no matches');
-                    res.status(200).json({'message': 'No Paycheck Items were found for user'});
+                    res.status(200).json({'message': 'No Paycheck Items were found for user', 'success': 1});
                 }
             })
 

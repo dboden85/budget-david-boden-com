@@ -20,9 +20,12 @@ function Bills() {
         return res.json();
       })
       .then(data =>{
-        if(data.results){
-          setBills([...data.results]);
-          
+        if(data.success){
+          if(data.results){
+            setBills([...data.results]);
+          }else{
+            setBills([])
+          }
         }else{
           throw(data.message)
         }

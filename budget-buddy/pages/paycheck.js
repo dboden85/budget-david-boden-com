@@ -51,8 +51,14 @@ function Paycheck() {
         return res.json();
       })
       .then(data =>{
-        if(data.results){
-          setPaycheckItems(data.results);
+        if(data.success){
+
+          if(data.results){
+            setPaycheckItems(data.results);
+          }else{
+            setPaycheckItems([]);
+          }
+          
         }else{
           throw(data.message)
         }
