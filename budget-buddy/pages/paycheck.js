@@ -187,12 +187,7 @@ function Paycheck() {
       .then(data =>{
         if(data.success){
           console.log(data.message);
-          //remove item from paycheck item list
-          let items = paycheckItems;
-          console.log('before delete: ' + items);
-          items.slice(index, 1);
-          console.log('after: ' + items);
-          setPaycheckItems(items);
+          fetchPaycheckItems(userId);
         }else{
           throw(data.message);
         }
