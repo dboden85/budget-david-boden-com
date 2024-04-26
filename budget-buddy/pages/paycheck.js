@@ -52,7 +52,7 @@ function Paycheck() {
       })
       .then(data =>{
         if(data.results){
-          setPaycheckItems([...data.results]);
+          setPaycheckItems(data.results);
         }else{
           throw(data.message)
         }
@@ -178,7 +178,7 @@ function Paycheck() {
 
     if(confirm(`Remove ${title} from your bills?`)){
       console.log('item set for deletion');
-      
+
       fetch('/api/managepaycheckitems?pid=' + id, {
         method: 'DELETE'
       })
