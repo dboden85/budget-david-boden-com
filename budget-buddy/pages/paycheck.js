@@ -3,6 +3,7 @@ import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import { useState, useEffect, useRef } from 'react';
 import Auth from "@/components/UX/Auth";
+import Image from 'next/image';
 
 function Paycheck() {
   const [userId, setUserId] = useState();
@@ -239,76 +240,74 @@ function Paycheck() {
 
 
   return (
-    <>
-      <Header title="Paycheck" />
-      <main>
-      {paycheckAmount && (
-        <div>
-          <div className="row total-row">
-            <p>Paycheck Amount:<br/><span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
+    <Auth>
+      <>
+        <Header title="Paycheck" />
+        <main>
+        {paycheckAmount && (
+          <div>
+            <div className="row total-row">
+              <p>Paycheck Amount:<br/><span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
+            </div>
           </div>
-        </div>
-      )}
-        
+        )}
           
-        <div className="row">
-          <Card>
-            <h2>Paycheck Items</h2>
-            <ul className="list-items">
-              {paycheckItems.length > 0 ?
-              paycheckItems.map((item, i) => {
-
-
-                const data = JSON.stringify({index: i, id: item.pid, title: item.title});
-
-                return (
-
-                <li key={item.pid}>
-                  <p className="title">{item.title}</p>
-                  <p className="amount">{'$' + parseFloat(item.amount).toFixed(2)}</p>
-                  <div className="delete-container">
-                    <img data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
-                  </div>
-                </li>)
-              })
-              :
-              <p>There are no paycheck items to show</p>
-            }
-            </ul>
-          </Card>
-          {/* <Card>
-            <h2>Graph will go here</h2>
-            {bills.length > 0 ? 
-              <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
-              :
-              <p>No data to show</p>
-            }
-
             
-          </Card> */}
+          <div className="row">
+            <Card>
+              <h2>Paycheck Items</h2>
+              <ul className="list-items">
+                {paycheckItems.length > 0 ?
+                paycheckItems.map((item, i) => {
+
+
+                  const data = JSON.stringify({index: i, id: item.pid, title: item.title});
+
+                  return (
+
+                  <li key={item.pid}>
+                    <p className="title">{item.title}</p>
+                    <p className="amount">{'$' + parseFloat(item.amount).toFixed(2)}</p>
+                    <div className="delete-container">
+                      <Image alt="trash icon" data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25" height="25"/>
+                    </div>
+                  </li>)
+                })
+                :
+                <p>There are no paycheck items to show</p>
+              }
+              </ul>
+            </Card>
+            {/* <Card>
+              <h2>Graph will go here</h2>
+              {bills.length > 0 ? 
+                <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
+                :
+                <p>No data to show</p>
+              }
+
+              
+            </Card> */}
+          </div>
+        </main>
+
+        <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
+          <Image alt='plus icon' onClick={openUpdateMenuHandler} src="../plus.svg" width="35" height="35" />
         </div>
-      </main>
 
-      <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
-        <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px" />
-      </div>
+        <div className={isFormOpen ? 'open update-form' : 'update-form'}>
+          <h2>Update Paycheck</h2>
 
-      <div className={isFormOpen ? 'open update-form' : 'update-form'}>
-        <h2>Update Paycheck</h2>
+          {whichForm === 'items' &&  <ChangeItemsForm />}
 
-        {whichForm === 'items' &&  <ChangeItemsForm />}
+          {whichForm === 'amount' &&  <ChangeAmountForm />}
 
-        {whichForm === 'amount' &&  <ChangeAmountForm />}
-
-        {whichForm === 'none' &&  <WhichFormButtons />}
-        
-      </div>
-    </>
+          {whichForm === 'none' &&  <WhichFormButtons />}
+          
+        </div>
+      </>
+    </Auth>
   );
 }
 
-export default ()=>(
-  <Auth>
-    <Paycheck/>
-  </Auth>
-)
+export default Paycheck;

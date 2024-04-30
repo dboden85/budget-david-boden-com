@@ -2,6 +2,7 @@ import Header from "../components/UI/Header";
 import Card from "../components/UI/Card";
 import {useState, useEffect, useRef} from 'react';
 import Auth from "@/components/UX/Auth";
+import Image from 'next/image';
 
 function Savings() {
   const [userId, setUserId] = useState();
@@ -129,41 +130,39 @@ function Savings() {
   }
 
   return (
-    <>
-      <Header title="Savings"/>
-      <main>        
-      <div className="row">
-        <Card>
-          <h2>Savings Goal</h2>
-          <p className="amount">${parseFloat(userInfo.savings_goal).toFixed(2)}</p>
-        </Card>
-        <Card>
-          <h2>Amount Per Paycheck</h2>
-          <p className="amount">${parseFloat(userInfo.savings_per_paycheck).toFixed(2)}</p>
+    <Auth>
+      <>
+        <Header title="Savings"/>
+        <main>        
+        <div className="row">
+          <Card>
+            <h2>Savings Goal</h2>
+            <p className="amount">${parseFloat(userInfo.savings_goal).toFixed(2)}</p>
+          </Card>
+          <Card>
+            <h2>Amount Per Paycheck</h2>
+            <p className="amount">${parseFloat(userInfo.savings_per_paycheck).toFixed(2)}</p>
+            
+          </Card>
+        </div>
+        </main>
+        <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
+          <Image alt="plus icon" onClick={openUpdateMenuHandler} src="../plus.svg" width="35" height="35" />
+        </div>
+
+        <div className={isFormOpen ? 'open update-form' : 'update-form'}>
+          <h2>Update Savings</h2>
+
+          {whichForm === 'none' &&  <WhichFormButtons />}
+
+          {whichForm === 'goal' &&  <ChangeGoalForm />}
+
+          {whichForm === 'amount' &&  <ChangeAmountForm />}
           
-        </Card>
-      </div>
-      </main>
-      <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
-        <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px" />
-      </div>
-
-      <div className={isFormOpen ? 'open update-form' : 'update-form'}>
-        <h2>Update Savings</h2>
-
-        {whichForm === 'none' &&  <WhichFormButtons />}
-
-        {whichForm === 'goal' &&  <ChangeGoalForm />}
-
-        {whichForm === 'amount' &&  <ChangeAmountForm />}
-        
-      </div>
-    </>
+        </div>
+      </>
+    </Auth>
   );
 }
 
-export default ()=>(
-  <Auth>
-    <Savings/>
-  </Auth>
-)
+export default Savings;

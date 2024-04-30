@@ -11,7 +11,7 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
         <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet"></link>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        {/* <script async type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> */}
       </Head>
       <body>
         <Main />

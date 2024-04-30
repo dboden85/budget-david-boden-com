@@ -3,6 +3,7 @@ import Card from "../components/UI/Card";
 import { useEffect, useState, useRef } from "react";
 import Loading from "../components/UI/Loading";
 import Auth from "@/components/UX/Auth";
+import Image from 'next/image';
 
 function Bills() {
   const billTitle = useRef('');
@@ -73,30 +74,30 @@ function Bills() {
     billAmount.current.value = '';
     
     //add info for the google chart
-    if(bills.length > 0){
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        let billsArr = [];
-        bills.map(bill => {
-          billsArr.push([bill.bill_title, bill.bill_amount])
-        })
-        var data = google.visualization.arrayToDataTable([
-          ['Bills', 'Amount'],
-          ...billsArr
-        ]);
+    // if(bills.length > 0){
+    //   google.charts.load("current", {packages:["corechart"]});
+    //   google.charts.setOnLoadCallback(drawChart);
+    //   function drawChart() {
+    //     let billsArr = [];
+    //     bills.map(bill => {
+    //       billsArr.push([bill.bill_title, bill.bill_amount])
+    //     })
+    //     var data = google.visualization.arrayToDataTable([
+    //       ['Bills', 'Amount'],
+    //       ...billsArr
+    //     ]);
 
-        var options = {
-          title: 'My Bills',
-          is3D: true,
-          backgroundColor: '#183e44',
-          fontSize: 14
-        };
+    //     var options = {
+    //       title: 'My Bills',
+    //       is3D: true,
+    //       backgroundColor: '#183e44',
+    //       fontSize: 14
+    //     };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
-    }
+    //     var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    //     chart.draw(data, options);
+    //   }
+    // }
 
 
   }, [bills])
@@ -203,68 +204,66 @@ function Bills() {
     )
   }
 
-  return (
-    <>
-      <Header title="Bills" />
-      <main>
+    return (
+      <Auth>
+        <>
+          <Header title="Bills" />
+          <main>
 
-        {isMathing ?
-          <Loading />
-          :
-          <div className="row total-row">
-            <p>Total:<br/><span>${billsTotal}</span></p>
-          </div>
-        }
-        
-        <div className="row">
-          <Card>
-            <h2>Bills</h2>
-            <ul className="list-items">
-              {bills.length > 0 ?
-              bills.map((bill, i) => {
-
-                const data = JSON.stringify({index: i, id: bill.bid, title: bill.title});
-
-                return (
-                <li key={bill.bid}>
-                  <p className="title">{bill.title}<br /><small>{`Due on the ${bill.due}${ordSuffix(bill.due)}.`}</small></p>
-                  <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
-                  <div className="delete-container">
-                    <img data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25px" height="25px"/>
-                  </div>
-                </li>)
-              })
+            {isMathing ?
+              <Loading />
               :
-              <p>There are no bills to show</p>
+              <div className="row total-row">
+                <p>Total:<br/><span>${billsTotal}</span></p>
+              </div>
             }
-            </ul>
-          </Card>
-          {/* <Card>
-            <h2>Graph will go here</h2>
-            {bills.length > 0 ? 
-              <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
-              :
-              <p>No data to show</p>
-            }
-
             
-          </Card> */}
-        </div>
-      </main>
+            <div className="row">
+              <Card>
+                <h2>Bills</h2>
+                <ul className="list-items">
+                  {bills.length > 0 ?
+                  bills.map((bill, i) => {
 
-      <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
-        <img onClick={openUpdateMenuHandler} src="../plus.svg" width="35px" height="35px" />
-      </div>
+                    const data = JSON.stringify({index: i, id: bill.bid, title: bill.title});
 
-      <div className={isFormOpen ? 'open update-form' : 'update-form'}>
-        <AddBillItemsForm/>
-      </div>
-    </>
-  );
+                    return (
+                    <li key={bill.bid}>
+                      <p className="title">{bill.title}<br /><small>{`Due on the ${bill.due}${ordSuffix(bill.due)}.`}</small></p>
+                      <p className="amount">{'$' + bill.amount.toFixed(2)}</p>
+                      <div className="delete-container">
+                        <Image alt="trash icon" data-info={data} onClick={onDeleteHandler} className="delete" src="../trash.svg" width="25" height="25"/>
+                      </div>
+                    </li>)
+                  })
+                  :
+                  <p>There are no bills to show</p>
+                }
+                </ul>
+              </Card>
+              {/* <Card>
+                <h2>Graph will go here</h2>
+                {bills.length > 0 ? 
+                  <div id="piechart_3d" style={{width: '100%', minHeight: 'calc(100% - 67px)'}}></div>
+                  :
+                  <p>No data to show</p>
+                }
+
+                
+              </Card> */}
+            </div>
+          </main>
+
+          <div className={isFormOpen ? 'open update-form-icon' : 'update-form-icon'}>
+            <Image alt="plus icon" onClick={openUpdateMenuHandler} src="../plus.svg" width="35" height="35" />
+          </div>
+
+          <div className={isFormOpen ? 'open update-form' : 'update-form'}>
+            <AddBillItemsForm/>
+          </div>
+        </>
+      </Auth>
+    );
 }
 
-export default ()=>(
-  <Auth>
-    <Bills/>
-  </Auth>
-)
+export default Bills;

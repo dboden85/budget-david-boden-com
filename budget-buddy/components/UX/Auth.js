@@ -18,7 +18,7 @@ const Auth = ({children})=>{
         }else if(loggedIn && isLoginPage){
             router.replace('/dashboard');
         }
-    }, [])
+    })
 
     return children;
 }

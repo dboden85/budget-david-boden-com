@@ -1,6 +1,8 @@
 "use client"; // This is a client component
 import { useState, useEffect } from "react";
 import {useRouter} from "next/navigation";
+import Link from 'next/link';
+import Image from "next/image";
 
 
 const Header = (props)=>{
@@ -14,7 +16,7 @@ const Header = (props)=>{
       if(oData){
         setIsOnline(oData);
       }
-    })
+    }, [])
 
     const onMenuOpen = ()=>{
         setMenuOpen(true);
@@ -37,16 +39,16 @@ const Header = (props)=>{
     return(
         <header className={`header ${props.cls}`}>
             <h1>{props.title}</h1>
-            {isOnline && <img onClick={onMenuOpen} className="menu-icon" src="../../menu.svg"/>}
+            {isOnline && <Image width="35" height="35" onClick={onMenuOpen} className="menu-icon" src="../../menu.svg"/>}
             <nav className={openMenuClass}>
                 <h2>Menu</h2>
-                <img onClick={onMenuClose} className="close-menu-icon" src="../../close-menu.svg"/>
+                <Image width="35" height="35" onClick={onMenuClose} className="close-menu-icon" src="../../close-menu.svg"/>
                 <ul className="nav-menu">
-                    <li className="nav-item"><a href="/dashboard">Dashboard</a></li>
-                    <li className="nav-item"><a href="/paycheck">Paycheck</a></li>
-                    <li className="nav-item"><a href="/bills">Bills</a></li>
-                    <li className="nav-item"><a href="/savings">Savings</a></li>
-                    <li className="nav-item"><a href="#" onClick={logoutHandler}>Logout</a></li>
+                    <li className="nav-item"><Link href="/dashboard">Dashboard</Link></li>
+                    <li className="nav-item"><Link href="/paycheck">Paycheck</Link></li>
+                    <li className="nav-item"><Link href="/bills">Bills</Link></li>
+                    <li className="nav-item"><Link href="/savings">Savings</Link></li>
+                    <li className="nav-item"><Link href="#" onClick={logoutHandler}>Logout</Link></li>
                 </ul>
             </nav>
         </header>

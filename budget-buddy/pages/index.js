@@ -12,17 +12,15 @@ function Home() {
 
 
   return (
-    <>
-      <Header title="Budget" cls="login-header"/>
-      <main>
-          {!toSignUp ? <Login signUp={setToSignUp} /> : <Signup signUp={setToSignUp}/>}
-      </main>
-    </>
+    <Auth>
+      <>
+        <Header title="Budget" cls="login-header"/>
+        <main>
+            {!toSignUp ? <Login signUp={setToSignUp} /> : <Signup signUp={setToSignUp}/>}
+        </main>
+      </>
+    </Auth>
   );
 }
 
-export default ()=>(
-	<Auth>
-		<Home/>
-	</Auth>
-);
+export default Home;

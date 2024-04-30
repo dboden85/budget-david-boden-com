@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Card from "../UI/Card"
 
 const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocations})=>{
@@ -47,7 +48,7 @@ const BudgetInfo = ({paycheckAmount, billsTotal, monthlySavings, totalAllocation
                 return(
                     <Card key={item.id}>
                         <div className="icon-container">
-                            <img src={item.icon} />
+                            <Image width="35" height="35" src={item.icon} />
                         </div>
                         <div className="info">
                             <p className="infoTitle">{item.title}</p>

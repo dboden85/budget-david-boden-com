@@ -118,47 +118,45 @@ function Dashboard() {
 
     
 
-    return (
-      <>
-        <Header title="Dashboard"/>
-        <main>
-            <div className="row">
-                <div className="overlay"></div>
-                <div className="budget-info">
-                  <BudgetInfo 
-                    paycheckAmount={userInfo.paycheck_amount} 
-                    billsTotal={billsTotal} 
-                    monthlySavings={monthlySavings} 
-                    totalAllocations={totalPaycheckAllocations}
-                  />
+      return (
+        <Auth>
+          <>
+            <Header title="Dashboard"/>
+            <main>
+                <div className="row">
+                    <div className="overlay"></div>
+                    <div className="budget-info">
+                      <BudgetInfo 
+                        paycheckAmount={userInfo.paycheck_amount} 
+                        billsTotal={billsTotal} 
+                        monthlySavings={monthlySavings} 
+                        totalAllocations={totalPaycheckAllocations}
+                      />
+                    </div>
                 </div>
-            </div>
-            <div className="bills-info row">
-                <Bills 
-                  billsTotal={setBillsTotal} 
-                  billsList={bills} 
-                />
-                <PaycheckAllocations 
-                  paycheckItems={paycheckItems}
-                  billsTotal={billsTotal} 
-                  savings={userInfo.savings_per_paycheck} 
-                  totalAllocations={setTotalPaycheckAllocations}
-                />
-            </div>
-            <div className="row">
-                <MonthlyAllocations 
-                  paycheckItems={paycheckItems}
-                  billsTotal={billsTotal}
-                  monthlySavings={monthlySavings}
-                />
-            </div>
-        </main>
-      </>
-    );
+                <div className="bills-info row">
+                    <Bills 
+                      billsTotal={setBillsTotal} 
+                      billsList={bills} 
+                    />
+                    <PaycheckAllocations 
+                      paycheckItems={paycheckItems}
+                      billsTotal={billsTotal} 
+                      savings={userInfo.savings_per_paycheck} 
+                      totalAllocations={setTotalPaycheckAllocations}
+                    />
+                </div>
+                <div className="row">
+                    <MonthlyAllocations 
+                      paycheckItems={paycheckItems}
+                      billsTotal={billsTotal}
+                      monthlySavings={monthlySavings}
+                    />
+                </div>
+            </main>
+          </>
+        </Auth>
+      );
   }
 
-export default ()=>(
-	<Auth>
-		<Dashboard/>
-	</Auth>
-);
+export default Dashboard;
