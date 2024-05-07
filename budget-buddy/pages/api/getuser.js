@@ -1,4 +1,6 @@
 import DB from "@/database";
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const handler = (req, res)=>{
     let q = ''; //query based on request method
@@ -28,24 +30,36 @@ const handler = (req, res)=>{
         case 'POST':
 
             const {uname, pass} =  body;
-            const q = 'SELECT * FROM users WHERE uname = ? AND password = ?;';
-            
-            DB.query(q,[uname, pass], (err, results) => {
+            const q = 'SELECT * FROM users WHERE uname = ?;';
+	    
 
-                if(err){
-                    res.status(404).json({'message': 'Could not connect to the server!'});
-                    return;
-                }
-                
-                if(results.length > 0){
-                    console.log('matched');
-                    res.status(200).json({'message': 'Matched', 'results': results[0].uid});
-                }else{
-                    console.log('no matches');
-                    res.status(200).json({'message': 'Username or password is incorrect'});
-                }
-                
-            })
+	    	DB.query(q,[uname], (err, results) => {
+			
+	        	if(err){
+	            		res.status(404).json({'message': 'Could not connect to the server!'});
+	            		return;
+	        	}
+	        
+	        	if(results.length > 0){
+	            		console.log('matched username');
+				bcrypt.compare(pass, results[0].password, (cErr, isMatch)=>{
+					if(cErr){
+						res.status(401).json({'message': cErr});
+						return;
+					}
+	
+					if(isMatch){
+						res.status(200).json({'message': 'Matched', 'results': results[0].uid});
+	        			}else{
+						res.status(200).json({'message': 'Username or password is incorrect'});
+					}
+				})
+			}else{
+	            		console.log('no matches');
+	            		res.status(200).json({'message': 'Username or password is incorrect'});
+	        	}
+	        
+	    	})
 
             break;
 

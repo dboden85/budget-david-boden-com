@@ -1,6 +1,8 @@
 import {useState, useRef} from 'react';
+import {useRouter} from 'next/navigation';
 
 const Signup = (props) => {
+    const router = useRouter();
     let fname = useRef('');
     let lname = useRef('');
     let email = useRef('');
@@ -22,8 +24,6 @@ const Signup = (props) => {
         uname = uname.current.value;
         pass = pass.current.value;
 
-        console.log(`${fname}\n${lname}\n${email}\n${uname}\n${pass}`)
-
 
         fetch('/api/users', {
         method: 'POST',
@@ -42,7 +42,17 @@ const Signup = (props) => {
             return res.json();
         })
         .then(data => {
-            alert(data.message);
+            console.log('submit finished');
+
+            if(data.success){
+                console.log(data.message);
+                console.log(data.uid);
+		sessionStorage.setItem('isLoggedIn', true);
+		sessionStorage.setItem('userInfo', data.uid);
+		router.push('/dashboard');
+            }else{
+                throw(data.message);
+            }
         })
         .catch(err => {
             console.error(err);
