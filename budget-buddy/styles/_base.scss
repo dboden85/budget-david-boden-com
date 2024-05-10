@@ -1,6 +1,5 @@
 body {
     min-height: 100vh;
-    // background-image: linear-gradient(to bottom, #000, 82%, #79a471);
     background-color: #e7ebd4;
     // background-color: #000;
 
@@ -155,10 +154,12 @@ body {
             flex-direction: column;
             align-items: center;
             width: 100vw;
-            height: 100Vh;
+            height: calc(100vh - 84.8px);
             padding: 20px;
-            background-color: #e7ebd4;
-
+            // background-color: #e7ebd4;
+            background-image: url('../public/login-bd.jpg');
+            background-position: 91% 16%;
+	    background-size: auto;
             p{
                 text-decoration: underline;
                 color: #183e44;
