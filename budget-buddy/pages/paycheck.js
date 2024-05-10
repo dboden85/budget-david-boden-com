@@ -244,13 +244,11 @@ function Paycheck() {
       <>
         <Header title="Paycheck" />
         <main>
-        {paycheckAmount && (
           <div>
             <div className="row total-row">
               <p>Paycheck Amount:<br/><span>${parseFloat(paycheckAmount).toFixed(2)}</span></p>
             </div>
           </div>
-        )}
           
             
           <div className="row">
