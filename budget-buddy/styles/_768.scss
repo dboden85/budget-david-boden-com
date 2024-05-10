@@ -1,18 +1,37 @@
 body{
 
     .header{
+        padding: 10px 20px;
 
-        .site-nav{
-            width: 350px;
-            height: max-content;
-            top: 100px;
-            right: -100%;
-            left: unset;
-            border-radius: 10px 0 0 10px;
-            box-shadow: 1px 1px 10px #000;
+        .menu-icon{
+            display: none;
+        }
 
-            &.open{
-                right: 0;
+        .site-nav {
+            width: 100%;
+            height: auto;
+            position: unset;
+
+            .close-menu-icon{
+                display: none;
+            }
+
+            h2{
+                display: none;
+            }
+
+            .nav-menu{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 0;
+
+                .nav-item{
+                    font-size: 25px;
+                    margin-left: 20px;
+                    margin-bottom: 0;
+                }
             }
         }
     }

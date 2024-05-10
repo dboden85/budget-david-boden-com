@@ -38,18 +38,23 @@ const Header = (props)=>{
     return(
         <header className={`header ${props.cls}`}>
             <h1>{props.title}</h1>
-            {isOnline && <Image width="35" height="35" onClick={onMenuOpen} className="menu-icon" src="../../menu.svg"/>}
-            <nav className={openMenuClass}>
-                <h2>Menu</h2>
-                <Image width="35" height="35" onClick={onMenuClose} className="close-menu-icon" src="../../close-menu.svg"/>
-                <ul className="nav-menu">
-                    <li className="nav-item"><Link href="/dashboard">Dashboard</Link></li>
-                    <li className="nav-item"><Link href="/paycheck">Paycheck</Link></li>
-                    <li className="nav-item"><Link href="/bills">Bills</Link></li>
-                    <li className="nav-item"><Link href="/savings">Savings</Link></li>
-                    <li className="nav-item"><Link href="#" onClick={logoutHandler}>Logout</Link></li>
-                </ul>
-            </nav>
+            {isOnline && 
+            (
+                <>
+                <Image width="35" height="35" onClick={onMenuOpen} className="menu-icon" src="../../menu.svg"/>
+                <nav className={openMenuClass}>
+                    <h2>Menu</h2>
+                    <Image width="35" height="35" onClick={onMenuClose} className="close-menu-icon" src="../../close-menu.svg"/>
+                    <ul className="nav-menu">
+                        <li className="nav-item"><Link href="/dashboard">Dashboard</Link></li>
+                        <li className="nav-item"><Link href="/paycheck">Paycheck</Link></li>
+                        <li className="nav-item"><Link href="/bills">Bills</Link></li>
+                        <li className="nav-item"><Link href="/savings">Savings</Link></li>
+                        <li className="nav-item"><Link href="#" onClick={logoutHandler}>Logout</Link></li>
+                    </ul>
+                </nav>
+                </>
+            )}
         </header>
     )
 }
